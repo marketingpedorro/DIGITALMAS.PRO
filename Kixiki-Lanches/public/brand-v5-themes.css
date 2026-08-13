@@ -1,0 +1,352 @@
+/* KIXIKI — Sistema de marca DIA / NOITE
+   Un solo layout; dos esquemas con contraste verificado. */
+
+html[data-kx-theme="day"] {
+  color-scheme: light;
+  background: #fff8e7 !important;
+}
+
+html[data-kx-theme="night"] {
+  color-scheme: dark;
+  background: #001e10 !important;
+}
+
+.kx-home-link {
+  display: block;
+  flex: 0 0 auto;
+  border-radius: 50%;
+}
+
+.kx-theme-control {
+  display: none;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+}
+
+.kx-theme-enabled .kx-theme-control {
+  display: flex;
+}
+
+.kx-theme-toggle {
+  min-width: 150px;
+  min-height: 46px;
+  display: inline-grid;
+  grid-template-columns: auto 42px auto;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border: 1px solid rgba(224, 180, 56, 0.48);
+  border-radius: 999px;
+  color: #fff8e7;
+  background: rgba(255, 255, 255, 0.07);
+  font: 800 0.68rem/1 "Montserrat", system-ui, sans-serif;
+  letter-spacing: 0.07em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.kx-theme-toggle:hover {
+  border-color: #e0b438;
+  background: rgba(224, 180, 56, 0.11);
+}
+
+.kx-theme-toggle:focus-visible {
+  outline: 3px solid #f8b62f !important;
+  outline-offset: 3px;
+}
+
+.kx-theme-track {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.24);
+}
+
+.kx-theme-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #f8b62f;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html[data-kx-theme="night"] .kx-theme-thumb {
+  transform: translateX(18px);
+}
+
+.kx-theme-option {
+  opacity: 0.56;
+  transition: opacity 160ms ease;
+}
+
+/* Firma editorial: el sello cruza el borde sin convertirse en otro encabezado. */
+.kx-hero-brand-mark {
+  position: absolute;
+  top: clamp(-108px, -7vw, -82px);
+  right: clamp(-62px, -3vw, -34px);
+  z-index: 0;
+  width: clamp(300px, 27vw, 420px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 2vw, 28px);
+  border: 1px solid rgba(224, 180, 56, 0.26);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(224, 180, 56, 0.09), transparent 68%);
+  opacity: 0.28;
+  transform: rotate(8deg);
+  pointer-events: none;
+}
+
+.kx-hero-brand-mark::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(243, 229, 166, 0.18);
+  border-radius: inherit;
+}
+
+.kx-hero-brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: saturate(0.82) sepia(0.08);
+}
+
+body.kx-option-b .kx-hero-copy,
+body.kx-option-b .kx-hero-visual {
+  position: relative;
+  z-index: 1;
+}
+
+html[data-kx-theme="day"] .kx-theme-day,
+html[data-kx-theme="night"] .kx-theme-night {
+  opacity: 1;
+  color: #f8b62f;
+}
+
+/* DIA: mismo diseño editorial, superficies luminosas y marca verde como ancla. */
+html[data-kx-theme="day"] body.kx-option-b,
+html[data-kx-theme="day"] body.kx-option-b.mode-standalone {
+  background:
+    radial-gradient(circle at 86% 9%, rgba(224, 180, 56, 0.19), transparent 28rem),
+    linear-gradient(180deg, #fff8e7 0, #f8edbe 42rem, #fffdf5 100%) !important;
+  color: #11241a !important;
+}
+
+html[data-kx-theme="day"] body.kx-option-b .wf-header {
+  background: rgba(255, 248, 231, 0.94) !important;
+  border-color: rgba(1, 43, 23, 0.18) !important;
+  box-shadow: 0 10px 30px rgba(1, 43, 23, 0.09) !important;
+}
+
+html[data-kx-theme="day"] body.kx-option-b .wf-header [style*="color: var(--text-main)"],
+html[data-kx-theme="day"] body.kx-option-b .wf-header [style*="color: #34D399"] {
+  color: #012b17 !important;
+}
+
+html[data-kx-theme="day"] body.kx-option-b .wf-insta-badge {
+  color: #012b17 !important;
+  background: rgba(1, 43, 23, 0.07) !important;
+  border-color: rgba(1, 43, 23, 0.18) !important;
+}
+
+html[data-kx-theme="day"] .kx-theme-toggle {
+  color: #012b17;
+  border-color: rgba(1, 43, 23, 0.28);
+  background: rgba(1, 43, 23, 0.06);
+}
+
+html[data-kx-theme="day"] .kx-theme-toggle:hover {
+  border-color: #9b7010;
+  background: rgba(224, 180, 56, 0.16);
+}
+
+html[data-kx-theme="day"] .kx-theme-track {
+  border-color: rgba(1, 43, 23, 0.3);
+  background: rgba(1, 43, 23, 0.11);
+}
+
+html[data-kx-theme="day"] body.kx-option-b main > section:not(#sec-hero) {
+  background: #fff8e7 !important;
+  border-color: rgba(1, 43, 23, 0.18) !important;
+  box-shadow: 0 26px 70px rgba(1, 43, 23, 0.14) !important;
+}
+
+html[data-kx-theme="day"] body.kx-option-b .wf-footer {
+  color: #526158 !important;
+  border-color: rgba(1, 43, 23, 0.18) !important;
+}
+
+html[data-kx-theme="day"] body.kx-option-b .wf-footer a {
+  color: #00512a !important;
+}
+
+html[data-kx-theme="day"] .kx-hero-brand-mark {
+  border-color: rgba(1, 43, 23, 0.2);
+  background: radial-gradient(circle, rgba(224, 180, 56, 0.17), transparent 68%);
+  opacity: 0.22;
+}
+
+html[data-kx-theme="day"] .kx-hero-brand-mark::after {
+  border-color: rgba(1, 43, 23, 0.13);
+}
+
+/* NOITE: las capas completas pasan al verde profundo; CTA amarillo intacto. */
+html[data-kx-theme="night"] body.kx-option-b main > section:not(#sec-hero) {
+  background: #063a22 !important;
+  border-color: rgba(224, 180, 56, 0.35) !important;
+  box-shadow: 0 30px 78px rgba(0, 12, 6, 0.42) !important;
+}
+
+html[data-kx-theme="night"] body.kx-option-b main > section:not(#sec-hero)::before {
+  background: #f8b62f;
+}
+
+html[data-kx-theme="night"] body.kx-option-b main > section:not(#sec-hero) h2,
+html[data-kx-theme="night"] body.kx-option-b main > section:not(#sec-hero) h3,
+html[data-kx-theme="night"] body.kx-option-b main > section:not(#sec-hero) summary,
+html[data-kx-theme="night"] body.kx-option-b main > section:not(#sec-hero) [style*="color: var(--text-main)"] {
+  color: #fff8e7 !important;
+}
+
+html[data-kx-theme="night"] body.kx-option-b main > section:not(#sec-hero) p,
+html[data-kx-theme="night"] body.kx-option-b main > section:not(#sec-hero) li,
+html[data-kx-theme="night"] body.kx-option-b main > section:not(#sec-hero) [style*="color: var(--text-muted)"] {
+  color: rgba(255, 248, 231, 0.76) !important;
+}
+
+html[data-kx-theme="night"] body.kx-option-b main > section:not(#sec-hero) .kx-badge,
+html[data-kx-theme="night"] body.kx-option-b main > section:not(#sec-hero) .wf-tag {
+  color: #f3e5a6 !important;
+  background: rgba(224, 180, 56, 0.1) !important;
+  border-color: rgba(224, 180, 56, 0.4) !important;
+}
+
+html[data-kx-theme="night"] body.kx-option-b .kx-food-card,
+html[data-kx-theme="night"] body.kx-option-b #sec-cardapio [style*="background: rgba(255,255,255,0.03)"],
+html[data-kx-theme="night"] body.kx-option-b #sec-cardapio [style*="background: rgba(255, 255, 255, 0.03)"],
+html[data-kx-theme="night"] body.kx-option-b #sec-avaliacoes [style*="background: rgba(255,255,255,0.03)"],
+html[data-kx-theme="night"] body.kx-option-b details {
+  background: #0a4a2b !important;
+  border-color: rgba(255, 248, 231, 0.17) !important;
+}
+
+html[data-kx-theme="night"] body.kx-option-b .kx-food-card:hover {
+  border-color: rgba(248, 182, 47, 0.8) !important;
+  box-shadow: 0 20px 42px rgba(0, 14, 7, 0.3) !important;
+}
+
+html[data-kx-theme="night"] body.kx-option-b .wf-btn-secondary {
+  color: #fff8e7 !important;
+  border-color: rgba(255, 248, 231, 0.38) !important;
+}
+
+html[data-kx-theme="night"] body.kx-option-b .wf-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-kx-theme="night"] body.kx-option-b .kx-price,
+html[data-kx-theme="night"] body.kx-option-b [id^="val-"] {
+  color: #012b17 !important;
+  background: #f3e5a6 !important;
+}
+
+html[data-kx-theme="night"] body.kx-option-b #sec-localizacao iframe {
+  filter: saturate(0.55) sepia(0.14) brightness(0.82) contrast(1.08);
+}
+
+@media (max-width: 820px) {
+  .kx-hero-brand-mark {
+    top: -68px;
+    right: -48px;
+    width: 224px;
+    opacity: 0.18;
+  }
+}
+
+@media (max-width: 700px) {
+  body.kx-option-b .wf-header-inner {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px !important;
+  }
+
+  body.kx-option-b .wf-brand-logo {
+    min-width: 0;
+  }
+
+  body.kx-option-b .wf-brand-logo > div:last-child {
+    min-width: 0;
+  }
+
+  body.kx-option-b .wf-brand-logo > div:last-child > div > span:first-child {
+    font-size: 0.9rem !important;
+  }
+
+  .kx-theme-toggle {
+    min-width: 126px;
+    min-height: 46px;
+    grid-template-columns: auto 36px auto;
+    gap: 5px;
+    padding-inline: 9px;
+    font-size: 0.61rem;
+  }
+
+  .kx-theme-track {
+    width: 36px;
+  }
+
+  html[data-kx-theme="night"] .kx-theme-thumb {
+    transform: translateX(12px);
+  }
+}
+
+@media (max-width: 620px) {
+  .kx-hero-brand-mark {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  body.kx-option-b .wf-header-inner {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  body.kx-option-b .wf-brand-logo {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .kx-theme-control {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kx-theme-thumb,
+  .kx-theme-option {
+    transition: none !important;
+  }
+}
+
+@media print {
+  html[data-kx-theme] {
+    color-scheme: light;
+  }
+
+  .kx-theme-control {
+    display: none !important;
+  }
+}
