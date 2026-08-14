@@ -6,15 +6,38 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="theme-color" content="#071a12">
   <title>DigitalMas.PRO · Control de Sitios</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=0.2.0">
 </head>
 <body>
+  <section id="authGate" class="auth-gate" aria-live="polite">
+    <div class="auth-card">
+      <span class="brand-mark auth-mark">DM</span>
+      <span class="eyebrow">DIRECTOR MASTER</span>
+      <h1>Tu torre de control,<br><em>siempre sincronizada.</em></h1>
+      <p>Ingresá para ver y actualizar tus proyectos de DigitalMas.PRO desde cualquier dispositivo.</p>
+      <form id="loginForm" class="login-form">
+        <label for="loginEmail">Correo</label>
+        <input id="loginEmail" name="email" type="email" autocomplete="username" required>
+        <label for="loginPassword">Contraseña</label>
+        <input id="loginPassword" name="password" type="password" autocomplete="current-password" required minlength="12">
+        <button id="loginButton" type="submit">Ingresar al Control Maestro</button>
+        <button id="recoveryButton" class="recovery-button" type="button">Olvidé mi contraseña</button>
+        <div id="loginMessage" class="auth-message" role="alert"></div>
+      </form>
+      <small>Sesión protegida por Netlify Identity. La contraseña nunca se guarda en esta página.</small>
+    </div>
+  </section>
+
   <header class="topbar">
     <a class="brand" href="./" aria-label="DigitalMas.PRO Control">
       <span class="brand-mark">DM</span>
       <span><b>DigitalMas.PRO</b><small>Agency OS · Delivery</small></span>
     </a>
-    <button id="themeButton" class="icon-button" type="button" aria-label="Cambiar tema" title="Cambiar tema">◐</button>
+    <div class="account-actions">
+      <span id="accountName"></span>
+      <button id="logoutButton" class="text-button" type="button">Salir</button>
+      <button id="themeButton" class="icon-button" type="button" aria-label="Cambiar tema" title="Cambiar tema">◐</button>
+    </div>
   </header>
 
   <main class="shell">
@@ -25,12 +48,13 @@
         <p>Agency OS decide · Pipeline organiza · Build Engine ejecuta · Datos validan.</p>
       </div>
       <div class="project-card">
-        <label for="projectName">Proyecto activo</label>
+        <label for="projectSelect">Proyecto activo</label>
+        <select id="projectSelect" aria-label="Cambiar proyecto"></select>
         <div class="project-row">
           <input id="projectName" value="C001 · Kixiki" maxlength="80" autocomplete="off">
           <button id="newProject" type="button">Nuevo</button>
         </div>
-        <div id="saveState" class="save-state" aria-live="polite">Guardado en este dispositivo</div>
+        <div id="saveState" class="save-state" aria-live="polite">Conectando con la base central…</div>
       </div>
     </section>
 
@@ -82,7 +106,7 @@
     </div>
 
     <section class="tools">
-      <div><b>Respaldo del control</b><span>Exportá el estado al cerrar un hito. Importalo para continuar en otro dispositivo.</span></div>
+      <div><b>Base central + respaldo</b><span>Los cambios se sincronizan automáticamente. Exportá JSON al cerrar un hito importante.</span></div>
       <div class="tool-buttons">
         <button id="exportButton" type="button">Exportar JSON</button>
         <label class="button-label">Importar JSON<input id="importFile" type="file" accept="application/json"></label>
@@ -91,7 +115,7 @@
     </section>
   </main>
 
-  <footer>DigitalMas.PRO · Sistema de adquisición y conversión · v0.1</footer>
-  <script src="app.js"></script>
+  <footer>DigitalMas.PRO · Director Master · v0.2 sincronizada</footer>
+  <script src="app.js?v=0.2.0"></script>
 </body>
 </html>

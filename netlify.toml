@@ -1,6 +1,11 @@
 [build]
-  publish = "Kixiki-Lanches/public"
-  command = "echo 'Kixiki static site: no build required'"
+  base = "Kixiki-Lanches"
+  publish = "public"
+  command = "npm run netlify:build"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
 
 [[redirects]]
   from = "/"
@@ -24,3 +29,24 @@
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/control/*"
+  [headers.values]
+    Cache-Control = "private, no-store"
+    Content-Security-Policy = "default-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "private, no-store"
+
+[[redirects]]
+  from = "/api/auth"
+  to = "/.netlify/functions/auth"
+  status = 200
+
+[[redirects]]
+  from = "/api/workspace"
+  to = "/.netlify/functions/workspace"
+  status = 200
