@@ -27,11 +27,14 @@ export default async (request: Request) => {
 
   if (request.method !== "POST") return json({ error: "Método no permitido" }, 405);
 
+  let attemptedAction = "";
+
   try {
     verifyRequestOrigin(request);
     const body = await request.json() as { action?: string; email?: string; password?: string; token?: string };
+    attemptedAction = String(body.action || "");
 
-    if (body.action === "login") {
+    if (attemptedAction === "login") {
       const email = String(body.email || "").trim().toLowerCase();
       const password = String(body.password || "");
       if (!email || !password || password.length > 256) return json({ error: "Credenciales inválidas" }, 401);
@@ -39,22 +42,22 @@ export default async (request: Request) => {
       return json({ user: { id: user.id, email: user.email, roles: user.roles } });
     }
 
-    if (body.action === "logout") {
+    if (attemptedAction === "logout") {
       await logout();
       return json({ ok: true });
     }
 
-    if (body.action === "request-recovery") {
+    if (attemptedAction === "request-recovery") {
       const email = String(body.email || "").trim().toLowerCase();
       if (email) await requestPasswordRecovery(email);
       return json({ ok: true });
     }
 
-    if (body.action === "accept-invite" || body.action === "recover") {
+    if (attemptedAction === "accept-invite" || attemptedAction === "recover") {
       const token = String(body.token || "");
       const password = String(body.password || "");
       if (!token || password.length < 12 || password.length > 256) return json({ error: "Solicitud inválida" }, 400);
-      const user = body.action === "accept-invite"
+      const user = attemptedAction === "accept-invite"
         ? await acceptInvite(token, password)
         : await recoverPassword(token, password);
       return json({ user: { id: user.id, email: user.email, roles: user.roles } });
@@ -62,6 +65,9 @@ export default async (request: Request) => {
 
     return json({ error: "Acción inválida" }, 400);
   } catch {
+    if (attemptedAction === "accept-invite" || attemptedAction === "recover") {
+      return json({ error: "LINK_INVALID" }, 400);
+    }
     return json({ error: "Credenciales inválidas" }, 401);
   }
 };

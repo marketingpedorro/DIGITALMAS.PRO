@@ -6,25 +6,36 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="theme-color" content="#071a12">
   <title>DigitalMas.PRO · Control de Sitios</title>
-  <link rel="stylesheet" href="styles.css?v=0.2.0">
+  <link rel="stylesheet" href="styles.css?v=0.2.1">
 </head>
 <body>
   <section id="authGate" class="auth-gate" aria-live="polite">
     <div class="auth-card">
       <span class="brand-mark auth-mark">DM</span>
       <span class="eyebrow">DIRECTOR MASTER</span>
-      <h1>Tu torre de control,<br><em>siempre sincronizada.</em></h1>
-      <p>Ingresá para ver y actualizar tus proyectos de DigitalMas.PRO desde cualquier dispositivo.</p>
+      <h1 id="authTitle">Tu torre de control,<br><em>siempre sincronizada.</em></h1>
+      <p id="authDescription">Ingresá para ver y actualizar tus proyectos de DigitalMas.PRO desde cualquier dispositivo.</p>
       <form id="loginForm" class="login-form">
         <label for="loginEmail">Correo</label>
         <input id="loginEmail" name="email" type="email" autocomplete="username" required>
-        <label for="loginPassword">Contraseña</label>
-        <input id="loginPassword" name="password" type="password" autocomplete="current-password" required minlength="12">
+        <label id="loginPasswordLabel" for="loginPassword">Contraseña</label>
+        <input id="loginPassword" name="password" type="password" autocomplete="current-password" required maxlength="256">
+        <div id="confirmPasswordField" class="confirm-password-field" hidden>
+          <label for="confirmPassword">Repetir contraseña</label>
+          <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" maxlength="256">
+        </div>
+        <div id="passwordHelp" class="password-help" hidden>Usá al menos 12 caracteres. Ambos campos deben coincidir.</div>
         <button id="loginButton" type="submit">Ingresar al Control Maestro</button>
         <button id="recoveryButton" class="recovery-button" type="button">Olvidé mi contraseña</button>
         <div id="loginMessage" class="auth-message" role="alert"></div>
       </form>
-      <small>Sesión protegida por Netlify Identity. La contraseña nunca se guarda en esta página.</small>
+      <section id="authSuccess" class="auth-success" aria-live="polite" hidden>
+        <span class="success-check" aria-hidden="true">✓</span>
+        <h2 id="authSuccessTitle">Acceso creado correctamente</h2>
+        <p id="authSuccessText"></p>
+        <button id="continueButton" type="button">Entrar al Control Maestro</button>
+      </section>
+      <small id="authSecurityNote">Sesión protegida por Netlify Identity. La contraseña nunca se guarda en esta página.</small>
     </div>
   </section>
 
@@ -115,7 +126,7 @@
     </section>
   </main>
 
-  <footer>DigitalMas.PRO · Director Master · v0.2 sincronizada</footer>
-  <script src="app.js?v=0.2.0"></script>
+  <footer>DigitalMas.PRO · Director Master · v0.2.1 sincronizada</footer>
+  <script src="app.js?v=0.2.1"></script>
 </body>
 </html>
