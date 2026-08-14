@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#071a12">
+  <title>DigitalMas.PRO · Control de Sitios</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="DigitalMas.PRO Control">
+      <span class="brand-mark">DM</span>
+      <span><b>DigitalMas.PRO</b><small>Agency OS · Delivery</small></span>
+    </a>
+    <button id="themeButton" class="icon-button" type="button" aria-label="Cambiar tema" title="Cambiar tema">◐</button>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">CONTROL MAESTRO · MOBILE FIRST</span>
+        <h1>Una sola etapa visible.<br><em>La próxima acción clara.</em></h1>
+        <p>Agency OS decide · Pipeline organiza · Build Engine ejecuta · Datos validan.</p>
+      </div>
+      <div class="project-card">
+        <label for="projectName">Proyecto activo</label>
+        <div class="project-row">
+          <input id="projectName" value="C001 · Kixiki" maxlength="80" autocomplete="off">
+          <button id="newProject" type="button">Nuevo</button>
+        </div>
+        <div id="saveState" class="save-state" aria-live="polite">Guardado en este dispositivo</div>
+      </div>
+    </section>
+
+    <section class="overview" aria-label="Resumen del proyecto">
+      <article><span>AVANCE</span><strong id="progressValue">0%</strong></article>
+      <article><span>ETAPA ACTUAL</span><strong id="currentStage">0 · Encargo</strong></article>
+      <article><span>PRÓXIMO GATE</span><strong id="nextGate">Gate 00</strong></article>
+      <article><span>BLOQUEOS</span><strong id="blockedCount">0</strong></article>
+    </section>
+
+    <section class="progress-panel">
+      <div class="progress-copy"><span id="completedCount">0 de 0 controles aprobados</span><span id="maturityLabel">DEFINIDO → IMPLEMENTADO → VALIDADO</span></div>
+      <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progressBar"></span></div>
+    </section>
+
+    <div class="workspace">
+      <nav class="stage-nav" aria-label="Etapas del proyecto">
+        <div class="nav-head"><span>Ruta completa</span><button id="collapseAll" type="button">Cerrar</button></div>
+        <div id="stageList"></div>
+      </nav>
+
+      <section class="stage-detail" aria-live="polite">
+        <div id="stageHeader" class="stage-header"></div>
+        <div class="detail-grid">
+          <div>
+            <h2>Controles de salida</h2>
+            <p class="hint">Marcá evidencia real. “Hecho” no equivale a “validado”.</p>
+            <div id="checklist" class="checklist"></div>
+          </div>
+          <aside>
+            <div class="gate-card">
+              <span class="eyebrow">DECISIÓN DE GATE</span>
+              <div class="gate-buttons" role="group" aria-label="Estado del gate">
+                <button data-gate="go" type="button">GO</button>
+                <button data-gate="fix" type="button">CORREGIR</button>
+                <button data-gate="nogo" type="button">NO-GO</button>
+              </div>
+              <label for="evidence">Evidencia / decisión</label>
+              <textarea id="evidence" rows="6" placeholder="Link, captura, resultado del test o decisión tomada…"></textarea>
+            </div>
+            <div class="next-card">
+              <span>AHORA</span>
+              <strong id="nextAction">Completar el primer control pendiente</strong>
+              <button id="advanceButton" type="button">Terminar etapa y seguir →</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </div>
+
+    <section class="tools">
+      <div><b>Respaldo del control</b><span>Exportá el estado al cerrar un hito. Importalo para continuar en otro dispositivo.</span></div>
+      <div class="tool-buttons">
+        <button id="exportButton" type="button">Exportar JSON</button>
+        <label class="button-label">Importar JSON<input id="importFile" type="file" accept="application/json"></label>
+        <button id="resetButton" class="danger" type="button">Reiniciar</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>DigitalMas.PRO · Sistema de adquisición y conversión · v0.1</footer>
+  <script src="app.js"></script>
+</body>
+</html>

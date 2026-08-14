@@ -3,8 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🍺 Kixiki Lanches & Marmitas — O Verdadeiro Xis Gaúcho em Santo Antônio de Lisboa | Florianópolis - SC</title>
-  <meta name="description" content="O verdadeiro sabor do Xis Gaúcho e o melhor almoço caseiro em Santo Antônio de Lisboa! Marmitas quentinhas ao meio-dia (11h às 14h) e lanches prensados gigantes à noite (18h às 22h). WhatsApp (48) 98804-8681.">
+  <title>Kixiki Lanches | Xis Gaúcho e Marmitas em Florianópolis</title>
+  <meta name="description" content="Marmitas caseiras no almoço e Xis Gaúcho à noite em Santo Antônio de Lisboa, Florianópolis. Veja o cardápio e peça pelo WhatsApp.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://kixiki.digitalmas.pro/">
+  <meta property="og:type" content="restaurant">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Kixiki Lanches">
+  <meta property="og:title" content="Kixiki Lanches | Xis Gaúcho e Marmitas em Florianópolis">
+  <meta property="og:description" content="Marmitas caseiras no almoço e Xis Gaúcho à noite. Veja o cardápio e peça pelo WhatsApp.">
+  <meta property="og:url" content="https://kixiki.digitalmas.pro/">
+  <meta property="og:image" content="https://kixiki.digitalmas.pro/assets/xis-gaucho-960.webp">
+  <meta property="og:image:width" content="960">
+  <meta property="og:image:height" content="717">
+  <meta property="og:image:alt" content="Xis Gaúcho prensado do Kixiki Lanches">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#001e10" id="kx-theme-color">
   <script>
@@ -19,13 +32,27 @@
       document.getElementById('kx-theme-color').setAttribute('content', theme === 'night' ? '#001e10' : '#fff8e7');
     })();
   </script>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="brand-v5.css">
-  <link rel="stylesheet" href="brand-v5-option-b.css">
-  <link rel="stylesheet" href="brand-v5-themes.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/montserrat-latin-400-900.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" href="assets/xis-gaucho-480.webp" imagesrcset="assets/xis-gaucho-480.webp 480w, assets/xis-gaucho-768.webp 768w, assets/xis-gaucho-960.webp 960w" imagesizes="(max-width: 820px) calc(100vw - 48px), 44vw" fetchpriority="high">
+  <link rel="stylesheet" href="kixiki.min.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "Kixiki Lanches",
+      "url": "https://kixiki.digitalmas.pro/",
+      "telephone": "+55 48 98804-8681",
+      "servesCuisine": ["Xis Gaúcho", "Marmitas", "Lanches"],
+      "priceRange": "R$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Florianópolis",
+        "addressRegion": "SC",
+        "addressCountry": "BR"
+      },
+      "sameAs": ["https://www.instagram.com/kixiki_lanches"]
+    }
+  </script>
 </head>
 <body class="mode-standalone kx-option-b">
 
@@ -61,7 +88,7 @@
           <div>
             <div style="display: flex; align-items: center; gap: 8px;">
               <span style="font-weight: 800; font-size: 1.1rem; line-height: 1; color: var(--text-main); letter-spacing: -0.01em;">KIXIKI LANCHES</span>
-              <a href="https://www.instagram.com/kixiki_lanches" target="_blank" class="wf-insta-badge" title="Instagram Oficial (@kixiki_lanches)" aria-label="Instagram Oficial">
+              <a href="https://www.instagram.com/kixiki_lanches" target="_blank" class="wf-insta-badge" title="Instagram Oficial (@kixiki_lanches)">
                 <span class="wf-insta-icon">📸</span>
                 <span>@kixiki_lanches</span>
               </a>
@@ -72,7 +99,8 @@
       
       <!-- Selector de marca: respeta el sistema en la primera visita y recuerda la elección manual. -->
       <div class="kx-theme-control">
-        <button type="button" id="kx-theme-toggle" class="kx-theme-toggle" role="switch" aria-label="Modo noite" aria-checked="true">
+        <button type="button" id="kx-theme-toggle" class="kx-theme-toggle" role="switch" aria-labelledby="kx-theme-switch-label" aria-checked="true">
+          <span id="kx-theme-switch-label" class="kx-sr-only">DIA NOITE — alternar tema</span>
           <span class="kx-theme-option kx-theme-day" aria-hidden="true">DIA</span>
           <span class="kx-theme-track" aria-hidden="true"><span class="kx-theme-thumb"></span></span>
           <span class="kx-theme-option kx-theme-night" aria-hidden="true">NOITE</span>
@@ -145,7 +173,15 @@
 
       <div class="kx-hero-visual" aria-label="Xis Gaúcho do Kixiki">
         <div class="kx-hero-photo-wrap">
-          <img src="assets/xis_gaucho_kixiki.jpg" alt="Xis Gaúcho prensado do Kixiki" fetchpriority="high">
+          <img
+            src="assets/xis-gaucho-768.webp"
+            srcset="assets/xis-gaucho-480.webp 480w, assets/xis-gaucho-768.webp 768w, assets/xis-gaucho-960.webp 960w"
+            sizes="(max-width: 820px) calc(100vw - 48px), 44vw"
+            width="960"
+            height="717"
+            alt="Xis Gaúcho prensado do Kixiki"
+            fetchpriority="high"
+            decoding="async">
         </div>
         <div class="kx-hero-seal" aria-hidden="true">
           <strong>Feito na hora</strong>
@@ -166,7 +202,15 @@
         <!-- CARD ALMOÇO COM FOTO -->
         <div class="kx-food-card">
           <div class="kx-food-img-wrapper">
-            <img src="assets/marmita_caseira_kixiki.jpg" alt="Marmita Caseira Executiva Kixiki" loading="lazy">
+            <img
+              src="assets/marmita-caseira-768.webp"
+              srcset="assets/marmita-caseira-480.webp 480w, assets/marmita-caseira-768.webp 768w, assets/marmita-caseira-960.webp 960w"
+              sizes="(max-width: 820px) calc(100vw - 48px), 42vw"
+              width="960"
+              height="717"
+              alt="Marmita Caseira Executiva Kixiki"
+              loading="lazy"
+              decoding="async">
           </div>
           <div class="kx-food-content">
             <span id="prop-horario-almoco" class="kx-badge" style="width: fit-content;">11H ÀS 14H • SEG A SÁB</span>
@@ -182,7 +226,15 @@
         <!-- CARD NOITE COM FOTO -->
         <div class="kx-food-card">
           <div class="kx-food-img-wrapper">
-            <img src="assets/xis_gaucho_kixiki.jpg" alt="Xis Gaúcho Tradicional Prensado Kixiki" loading="lazy">
+            <img
+              src="assets/xis-gaucho-768.webp"
+              srcset="assets/xis-gaucho-480.webp 480w, assets/xis-gaucho-768.webp 768w, assets/xis-gaucho-960.webp 960w"
+              sizes="(max-width: 820px) calc(100vw - 48px), 42vw"
+              width="960"
+              height="717"
+              alt="Xis Gaúcho Tradicional Prensado Kixiki"
+              loading="lazy"
+              decoding="async">
           </div>
           <div class="kx-food-content">
             <span id="prop-horario-lanches" class="kx-badge" style="width: fit-content; background: rgba(234,179,8,0.15); color: #FACC15;">18H ÀS 22H • QUA A SEG</span>
@@ -602,26 +654,22 @@
       </div>
     </section>
 
-    <!-- SECCIÓN 9: PIE DE PÁGINA LEGAL COMPLETO -->
+    <!-- SECCIÓN 9: PIE DE PÁGINA -->
     <footer class="wf-footer" style="text-align: center; border-top: 1px solid var(--border-subtle); padding-top: 2rem; font-size: 0.78rem; color: var(--text-muted);">
-      <p>© 2026 Kixiki Lanches [MATRIZ] • <strong>CNPJ: 18.337.817/0001-15</strong> • Razão Social: Carlos A. da Silva Dullius ME • Fundado em 2013</p>
+      <p>© 2026 Kixiki Lanches • Santo Antônio de Lisboa, Florianópolis - SC</p>
       <p style="margin-top: 4px; font-size: 0.74rem;">
-        📍 Caminho dos Açores, 2214 - Santo Antônio de Lisboa, Florianópolis - SC, 88050-300 • CNAE I-5611-2/03 • <a href="https://www.instagram.com/kixiki_lanches" target="_blank" style="color: #F472B6; text-decoration: none; font-weight: 700;">Instagram: @kixiki_lanches</a>
+        <a href="https://www.instagram.com/kixiki_lanches" target="_blank" style="color: #F472B6; text-decoration: none; font-weight: 700;">Instagram: @kixiki_lanches</a>
+        •
+        <a href="https://wa.me/48988048681" target="_blank" style="color: #34D399; text-decoration: none; font-weight: 700;">WhatsApp: (48) 98804-8681</a>
       </p>
-      <div style="margin-top: 10px; display: flex; justify-content: center; gap: 12px; font-size: 0.75rem;">
-        <a href="https://wa.me/48988048681" target="_blank" style="color: #34D399; text-decoration: none; font-weight: 700;">📱 WhatsApp (48) 98804-8681</a>
-      </div>
       <p style="margin-top: 12px; color: var(--text-muted);">
-        ⚡ Landing Page de Alta Conversão desenvolvida de presente por <a href="https://www.digitalmas.pro" target="_blank" style="color: #34D399; font-weight: 800; text-decoration: none;">DIGITALMAS.PRO</a> (Caso de Sucesso).
+        Landing Page desenvolvida por <a href="https://www.digitalmas.pro" target="_blank" style="color: #34D399; font-weight: 800; text-decoration: none;">DIGITALMAS.PRO</a>
       </p>
     </footer>
 
   </main>
 
-  <script src="kixiki-runtime-v5.js"></script>
-  <script src="theme-v5.js"></script>
-  <script src="scroll-v5.js"></script>
-  <script src="scroll-option-b.js"></script>
+  <script src="kixiki.min.js"></script>
   <script>
     // 🎲 MOTOR DE TITULARES CAMBIANTES (RANDOM DYNAMIC HEADLINES / A-B TESTING)
     const KIXIKI_HEADLINE_VARIANTS = [
@@ -656,8 +704,6 @@
         variant: "Variante 5: Promessa Curta (Maïder Tomasena / Ícaro de Carvalho)"
       }
     ];
-
-    let currentHeadlineIdx = Math.floor(Math.random() * KIXIKI_HEADLINE_VARIANTS.length);
 
     function aplicarTitular(idx) {
       const data = KIXIKI_HEADLINE_VARIANTS[idx];
@@ -765,18 +811,8 @@
         console.warn("Erro ao ler cache local:", e);
       }
 
-      // 2. SWR: Carregamento do Servidor Central (Micro-API REST)
-      fetch('/api/kixiki/precos')
-        .then(res => res.ok ? res.json() : null)
-        .then(serverData => {
-          if (serverData) {
-            aplicarPrecosNoDOM(serverData);
-            localStorage.setItem('kixiki_custom_prices', JSON.stringify(serverData));
-          }
-        })
-        .catch(err => {
-          console.warn("Servidor API offline, mantendo dados do cache local:", err);
-        });
+      // Os preços publicados no HTML são a fonte segura. O cache local continua
+      // disponível para personalizações, sem solicitar uma API inexistente.
     }
 
     function mostrarTooltipHeader(texto, color) {
@@ -795,7 +831,6 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      aplicarTitular(currentHeadlineIdx);
       sincronizarPrecosCustomizados();
     });
   </script>
