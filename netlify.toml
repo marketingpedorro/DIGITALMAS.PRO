@@ -1,0 +1,9 @@
+[build]
+  publish = "Kixiki-Lanches/public"
+  command = "echo 'Kixiki static site: no build required'"
+
+[[redirects]]
+  from = "/"
+  to = "/kixiki.html"
+  status = 200
+  force = true
