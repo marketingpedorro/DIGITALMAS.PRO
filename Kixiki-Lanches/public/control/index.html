@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="theme-color" content="#071a12">
   <title>DigitalMas.PRO · Control de Sitios</title>
-  <link rel="stylesheet" href="styles.css?v=0.2.1">
+  <link rel="stylesheet" href="styles.css?v=0.3.0">
 </head>
 <body>
   <section id="authGate" class="auth-gate" aria-live="polite">
@@ -81,6 +81,32 @@
       <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progressBar"></span></div>
     </section>
 
+    <section class="publish-route" aria-labelledby="publishRouteTitle">
+      <div class="publish-route-copy">
+        <div>
+          <span class="eyebrow">GATE 08 · PUBLICACIÓN SEGURA</span>
+          <h2 id="publishRouteTitle">Una función por pieza.</h2>
+        </div>
+        <p><b>Regla:</b> un proyecto = un repositorio = un sitio.</p>
+      </div>
+
+      <div class="publish-map" aria-label="Ruta técnica de publicación">
+        <div class="flow-step"><span>1 · CREAR</span><strong>ChatGPT / Sites</strong><small>Diseño y pruebas</small></div>
+        <span class="flow-arrow" aria-hidden="true">→</span>
+        <div class="flow-step"><span>2 · GUARDAR</span><strong>GitHub</strong><small>Código + versiones</small></div>
+        <span class="flow-arrow" aria-hidden="true">→</span>
+        <div class="flow-step flow-live"><span>3 · PUBLICAR</span><strong>Netlify</strong><small>Web online</small></div>
+        <div class="dns-step"><span>DOMINIO</span><strong>Hostinger</strong><small>DNS + email</small></div>
+        <span class="dns-arrow" aria-hidden="true">apunta a Netlify ↗</span>
+      </div>
+
+      <div class="role-answer"><b>Netlify ≠ Hostinger.</b><span>Netlify aloja la web. Hostinger conserva dominio, DNS y email.</span></div>
+      <div class="launch-strip" aria-label="Orden obligatorio antes de publicar">
+        <span>IDENTIDAD</span><i>→</i><span>REPO</span><i>→</i><span>SITIO</span><i>→</i><span>DNS</span><i>→</i><span>SSL</span><i>→</i><span>PRUEBA</span>
+      </div>
+      <p class="stop-rule"><b>ALTO:</b> exportar DNS y preservar MX, TXT y subdominios. Si algo no coincide, CORREGIR.</p>
+    </section>
+
     <div class="workspace">
       <nav class="stage-nav" aria-label="Etapas del proyecto">
         <div class="nav-head"><span>Ruta completa</span><button id="collapseAll" type="button">Cerrar</button></div>
@@ -126,7 +152,7 @@
     </section>
   </main>
 
-  <footer>DigitalMas.PRO · Director Master · v0.2.1 sincronizada</footer>
-  <script src="app.js?v=0.2.1"></script>
+  <footer>DigitalMas.PRO · contacto@digitalmas.pro · Director Master · v0.3.0</footer>
+  <script src="app.js?v=0.3.0"></script>
 </body>
 </html>
