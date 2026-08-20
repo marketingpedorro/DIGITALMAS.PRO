@@ -38,6 +38,19 @@ test("owner catalog is grouped and exposes compact editable product summaries", 
   assert.match(app, /<details class="product-card">/);
 });
 
+test("save status and manual save action remain visible outside the overview", async () => {
+  const html = await read("../public/dono/index.html");
+  const app = await read("../public/dono/app.js");
+
+  assert.match(html, /class="global-save-bar"/);
+  assert.match(html, /id="saveStripButton"/);
+  assert.equal((html.match(/data-save-state/g) || []).length, 2);
+  assert.equal((html.match(/data-last-update/g) || []).length, 2);
+  assert.match(app, /\$\$\('\[data-save-state\]'\)/);
+  assert.match(app, /\$\$\('\[data-last-update\]'\)/);
+  assert.match(app, /\$\("#saveStripButton"\)\.addEventListener\("click", syncRemote\)/);
+});
+
 test("client code exposes exactly the three approved SEO priorities", async () => {
   const app = await read("../public/dono/app.js");
   const taskCopy = app.slice(app.indexOf("const TASK_COPY"), app.indexOf("const DAY_LABELS"));

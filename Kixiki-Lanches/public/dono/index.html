@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#001e10">
   <title>Painel do Dono · Kixiki Lanches</title>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=1.1.0">
+  <link rel="stylesheet" href="styles.css?v=1.2.0">
 </head>
 <body>
   <section id="authGate" class="auth-gate" aria-live="polite">
@@ -60,6 +60,14 @@
       <button class="nav-button" data-view="seo" type="button">SEO Local</button>
     </nav>
 
+    <aside class="global-save-bar" aria-label="Estado do salvamento" aria-live="polite">
+      <div>
+        <strong class="save-state" data-save-state>Conectando…</strong>
+        <small data-last-update>Nenhuma atualização registrada</small>
+      </div>
+      <button id="saveStripButton" class="primary-button" type="button">Salvar alterações</button>
+    </aside>
+
     <main id="inicio" class="shell">
       <section class="hero">
         <div>
@@ -69,8 +77,8 @@
         </div>
         <aside class="sync-card">
           <span>ESTADO DOS DADOS</span>
-          <strong id="saveState" class="save-state">Conectando…</strong>
-          <small id="lastUpdate">Nenhuma atualização registrada</small>
+          <strong id="saveState" class="save-state" data-save-state>Conectando…</strong>
+          <small id="lastUpdate" data-last-update>Nenhuma atualização registrada</small>
           <button id="saveNowButton" class="secondary-button" type="button">Salvar agora</button>
         </aside>
       </section>
@@ -210,6 +218,6 @@
     </footer>
   </div>
 
-  <script src="app.js?v=1.1.0"></script>
+  <script src="app.js?v=1.2.0"></script>
 </body>
 </html>

@@ -169,9 +169,10 @@ const showApp = () => {
 };
 
 const setSaveState = (message, tone = "") => {
-  const element = $("#saveState");
-  element.textContent = message;
-  element.className = `save-state ${tone}`.trim();
+  $$('[data-save-state]').forEach((element) => {
+    element.textContent = message;
+    element.className = `save-state ${tone}`.trim();
+  });
 };
 
 const formatDateTime = (value) => {
@@ -182,6 +183,12 @@ const formatDateTime = (value) => {
     dateStyle: "short",
     timeStyle: "short",
   }).format(date)}`;
+};
+
+const setLastUpdate = (value) => {
+  $$('[data-last-update]').forEach((element) => {
+    element.textContent = formatDateTime(value);
+  });
 };
 
 const today = () => {
@@ -305,7 +312,7 @@ async function syncRemote() {
     remoteUpdatedAt = result.updatedAt || remoteUpdatedAt;
     dirty = false;
     saveCache();
-    $("#lastUpdate").textContent = formatDateTime(remoteUpdatedAt);
+    setLastUpdate(remoteUpdatedAt);
     setSaveState("Sincronizado entre dispositivos", "synced");
   } catch (error) {
     setSaveState(
@@ -905,7 +912,7 @@ const renderCheckpoints = () => {
 };
 
 const renderAll = () => {
-  $("#lastUpdate").textContent = formatDateTime(remoteUpdatedAt);
+  setLastUpdate(remoteUpdatedAt);
   renderTasks();
   renderService();
   renderHours();
@@ -916,6 +923,7 @@ const renderAll = () => {
 };
 
 $("#saveNowButton").addEventListener("click", syncRemote);
+$("#saveStripButton").addEventListener("click", syncRemote);
 $("#reloadRemoteButton").addEventListener("click", () => loadPanel({ allowCache: false }));
 $("#logoutButton").addEventListener("click", logout);
 $("#deniedLogoutButton").addEventListener("click", logout);
