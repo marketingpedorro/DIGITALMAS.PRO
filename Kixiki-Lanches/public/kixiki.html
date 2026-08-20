@@ -594,8 +594,8 @@
       </div>
       
       <div style="margin-top: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
-        <div>🛵 <strong>Raio de Entrega:</strong> Santo Antônio de Lisboa, Sambaqui, Cacupé e redondezas.</div>
-        <div>⏰ <strong>Horários:</strong> Almoço <span id="info-horario-almoco" style="color: #34D399; font-weight: 700;">11h às 14h</span> • Noite <span id="info-horario-lanches" style="color: #FACC15; font-weight: 700;">18h às 22h</span> • Terça: <span id="info-aviso-folga" style="color: #F87171; font-weight: 700;">Fechado à noite</span></div>
+        <div id="kixiki-public-operation-summary">🛵 <strong>Raio de Entrega:</strong> Santo Antônio de Lisboa, Sambaqui, Cacupé e redondezas.</div>
+        <div>⏰ <strong>Horários:</strong> <span id="kixiki-public-hours-summary">Almoço <span id="info-horario-almoco" style="color: #34D399; font-weight: 700;">11h às 14h</span> • Noite <span id="info-horario-lanches" style="color: #FACC15; font-weight: 700;">18h às 22h</span> • Terça: <span id="info-aviso-folga" style="color: #F87171; font-weight: 700;">Fechado à noite</span></span></div>
       </div>
     </section>
 
@@ -612,12 +612,12 @@
 
         <details style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1rem; cursor: pointer;">
           <summary style="font-weight: 800; font-size: 0.9rem; color: var(--text-main);">Vocês entregam na minha região?</summary>
-          <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.4;">Entregamos em Santo Antônio de Lisboa, Cacupé, Sambaqui e bairros próximos (consulte taxa de entrega no WhatsApp).</p>
+          <p id="kixiki-public-delivery-faq" style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.4;">Entregamos em Santo Antônio de Lisboa, Cacupé, Sambaqui e bairros próximos (consulte taxa de entrega no WhatsApp).</p>
         </details>
 
         <details style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1rem; cursor: pointer;">
           <summary style="font-weight: 800; font-size: 0.9rem; color: var(--text-main);">Qual o horário das marmitas e dos lanches?</summary>
-          <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.4;">Almoço: 11h às 14h (Segunda a Sábado). Noite (Xis e Porções): 18h às 22h (Quarta a Segunda • Terça à noite: Fechado).</p>
+          <p id="kixiki-public-hours-faq" style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.4;">Almoço: 11h às 14h (Segunda a Sábado). Noite (Xis e Porções): 18h às 22h (Quarta a Segunda • Terça à noite: Fechado).</p>
         </details>
       </div>
     </section>
@@ -842,5 +842,6 @@
       sincronizarPrecosCustomizados();
     });
   </script>
+  <script type="module" src="/kixiki-public.js"></script>
 </body>
 </html>

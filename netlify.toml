@@ -61,3 +61,8 @@
   from = "/api/kixiki-owner"
   to = "/.netlify/functions/kixiki-owner"
   status = 200
+
+[[redirects]]
+  from = "/api/kixiki-public"
+  to = "/.netlify/functions/kixiki-public"
+  status = 200

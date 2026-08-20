@@ -50,6 +50,20 @@ test("Netlify config protects and routes the owner panel", async () => {
   assert.match(config, /Cache-Control = "private, no-store"/);
 });
 
+test("public bridge is isolated from owner auth, writes and storage internals", async () => {
+  const html = await read("../public/kixiki.html");
+  const client = await read("../public/kixiki-public.js");
+  const handler = await read("../netlify/functions/kixiki-public-handler.mjs");
+  const config = await read("../../netlify.toml");
+
+  assert.match(html, /src="\/kixiki-public\.js"/);
+  assert.match(client, /\/api\/kixiki-public/);
+  assert.doesNotMatch(client, /\/api\/kixiki-owner|Netlify|Blob|kixiki-owner|localStorage/);
+  assert.doesNotMatch(handler, /getUser|\.set\(|PUT|POST|PATCH|DELETE/);
+  assert.match(config, /from = "\/api\/kixiki-public"/);
+  assert.match(config, /to = "\/\.netlify\/functions\/kixiki-public"/);
+});
+
 test("generated review QR is valid SVG without invalid dimensions", async () => {
   const qr = await read("../public/dono/review-qr.svg");
   assert.match(qr, /<svg/);
