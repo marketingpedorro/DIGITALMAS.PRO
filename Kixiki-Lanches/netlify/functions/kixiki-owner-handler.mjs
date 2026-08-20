@@ -3,6 +3,7 @@ import {
   OWNER_REFERENCE,
   OWNER_SCHEMA,
   createDefaultOwnerData,
+  upgradeLegacyOwnerData,
   validateOwnerData,
 } from "./kixiki-owner-model.mjs";
 
@@ -38,7 +39,8 @@ const authorizedOwner = (user) => rolesFor(user).includes(OWNER_ROLE);
 const parseStoredData = (entry) => {
   try {
     const parsed = JSON.parse(String(entry.data));
-    return validateOwnerData(parsed);
+    const upgraded = upgradeLegacyOwnerData(parsed);
+    return { ...validateOwnerData(upgraded.data), migrated: upgraded.migrated };
   } catch {
     return { ok: false, error: "O estado salvo do painel está corrompido." };
   }
@@ -87,6 +89,7 @@ export const createKixikiOwnerHandler = ({ getUser, getStore, now = () => new Da
         etag: entry.etag || null,
         updatedAt: entry.metadata?.updatedAt || null,
         reference: OWNER_REFERENCE,
+        catalogMigrated: validated.migrated,
       });
     }
 

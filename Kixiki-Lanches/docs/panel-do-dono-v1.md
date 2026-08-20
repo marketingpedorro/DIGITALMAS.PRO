@@ -6,7 +6,7 @@ O painel em `/dono/` permite editar somente dados operacionais da Kixiki:
 
 - delivery, área de atendimento, horários e retirada;
 - horários semanais;
-- produtos, preço, descrição, ingredientes, URL HTTPS de foto real e ativo/inativo;
+- os 18 produtos que já existem na landing, organizados por categoria, com nome, preço, descrição, ingredientes, URL HTTPS de foto real e ativo/inativo;
 - estado, data e evidência das três prioridades SEO aprovadas;
 - checkpoints Dia 0, 14, 30, 60 e 90.
 
@@ -28,6 +28,8 @@ Para ativar Carlos, um administrador do site deve convidar/criar o usuário no N
 - Schema: `digitalmas-c001-kixiki-owner-v1`
 
 O registro é compartilhado entre sessões autorizadas da Kixiki e usa ETag para impedir que um aparelho antigo sobrescreva uma versão mais nova. O `localStorage` é apenas cache por ID de usuário; a fonte canônica é Netlify Blobs.
+
+Registros antigos que ainda contenham somente os placeholders `Xis Gaúcho` e `Marmita caseira` são preparados, na leitura, com os 18 slots reais da landing. A migração não grava durante o `GET`: o painel avisa que o cardápio está pronto e o dono confirma a persistência com **Salvar agora**. Se um placeholder antigo tiver sido editado, ele é preservado como item adicional.
 
 ## Projeção pública segura
 

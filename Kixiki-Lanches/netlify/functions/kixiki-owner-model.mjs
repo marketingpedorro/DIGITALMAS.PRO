@@ -98,6 +98,166 @@ const defaultTasks = () =>
 const defaultCheckpoints = () =>
   CHECKPOINT_DAYS.map((day) => ({ day, status: "pending", date: null, evidence: "" }));
 
+const product = (id, name, priceCents, description) =>
+  Object.freeze({
+    id,
+    name,
+    priceCents,
+    description,
+    ingredients: "",
+    photoUrl: "",
+    active: true,
+  });
+
+export const KIXIKI_BASE_CATALOG = Object.freeze([
+  product(
+    "marmita-p",
+    "Marmita P (Executiva)",
+    2_500,
+    "Arroz, feijão caseiro, salada fresca, farofa e opção de proteína do dia (carne/frango).",
+  ),
+  product(
+    "marmita-m",
+    "Marmita M (Tradicional)",
+    2_500,
+    "Marmita completa reforçada com porção generosa e acompanhamentos caseiros.",
+  ),
+  product(
+    "marmita-gg",
+    "Marmita G / Especial Kixiki",
+    3_000,
+    "Marmita gigante fartíssima com dupla opção de proteína e acompanhamentos completos.",
+  ),
+  product(
+    "xis-salada",
+    "X-Salada",
+    2_800,
+    "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer artesanal e ovo.",
+  ),
+  product(
+    "xis-bacon",
+    "X-Bacon",
+    3_200,
+    "Maionese, ketchup, mostarda, milho, ervilha, mussarela, bacon crocante em dobro e hambúrguer.",
+  ),
+  product(
+    "xis-calabresa",
+    "X-Calabresa",
+    3_000,
+    "Maionese, ketchup, mostarda, milho, ervilha, mussarela, calabresa fatiada e hambúrguer.",
+  ),
+  product(
+    "xis-frango",
+    "X-Frango",
+    3_000,
+    "Maionese, ketchup, mostarda, milho, ervilha, mussarela e frango desfiado suculento bem temperado.",
+  ),
+  product(
+    "xis-strogonoff",
+    "X-Strogonoff",
+    3_000,
+    "Maionese, ketchup, mostarda, milho, ervilha, batata palha e strogonoff caseiro (carne ou frango).",
+  ),
+  product(
+    "xis-coracao",
+    "X-Coração",
+    3_600,
+    "Maionese, ketchup, mostarda, milho, ervilha, tomate, hambúrguer e coração de frango grelhado.",
+  ),
+  product(
+    "xis-egg",
+    "X-Egg",
+    2_800,
+    "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer e ovo duplo na chapa.",
+  ),
+  product(
+    "xis-tudo",
+    "Kixiki Especial (X-Tudo)",
+    3_800,
+    "O mais completo! Hambúrguer, bacon, calabresa, frango desfiado, ovo, mussarela, milho e ervilha.",
+  ),
+  product(
+    "pas-carne",
+    "Pastel Frango / Carne",
+    1_200,
+    "Massa de pastel caseira crocante recheada com frango desfiado ou carne moída temperada.",
+  ),
+  product(
+    "pas-queijo",
+    "Pastel de Queijo",
+    1_500,
+    "Massa caseira bem recheada com mussarela derretida e douradinha.",
+  ),
+  product(
+    "pas-pizza",
+    "Pastel Pizza",
+    1_500,
+    "Presunto fatiado, queijo mussarela derretido, tomate fresco e toque de orégano.",
+  ),
+  product(
+    "pas-calabresa",
+    "Pastel Calabresa com Queijo",
+    1_600,
+    "Calabresa moída temperada acompanhada de muita mussarela derretida.",
+  ),
+  product(
+    "por-batata",
+    "Batata Frita Porção",
+    2_500,
+    "Batata frita crocante e dourada servida bem quentinha com sal na medida certa.",
+  ),
+  product(
+    "por-bacon",
+    "Batata Frita c/ Queijo e Bacon",
+    3_500,
+    "Porção de batata frita coberta com molho de queijo cremoso e bacon crocante.",
+  ),
+  product(
+    "por-morro",
+    "Morro de Batata",
+    5_400,
+    "Porção gigante de batata frita, mussarela derretida, calabresa fatiada e bacon crocante!",
+  ),
+]);
+
+const defaultCatalog = () => KIXIKI_BASE_CATALOG.map((item) => ({ ...item }));
+
+const LEGACY_CATALOG = Object.freeze({
+  "xis-gaucho": "Xis Gaúcho",
+  "marmita-caseira": "Marmita caseira",
+});
+
+const legacyItemWasEdited = (item) =>
+  item.name !== LEGACY_CATALOG[item.id] ||
+  item.priceCents !== null ||
+  Boolean(item.description?.trim()) ||
+  Boolean(item.ingredients?.trim()) ||
+  Boolean(item.photoUrl?.trim()) ||
+  item.active === false;
+
+export const upgradeLegacyOwnerData = (input) => {
+  const catalog = input?.catalog;
+  const isLegacyStarter =
+    Array.isArray(catalog) &&
+    catalog.length > 0 &&
+    catalog.length <= Object.keys(LEGACY_CATALOG).length &&
+    catalog.every((item) => item && Object.hasOwn(LEGACY_CATALOG, item.id));
+
+  if (!isLegacyStarter) return { data: input, migrated: false };
+
+  const editedLegacyItems = catalog
+    .filter(legacyItemWasEdited)
+    .map((item) => ({ ...item }));
+
+  return {
+    data: {
+      ...input,
+      catalog: [...defaultCatalog(), ...editedLegacyItems],
+    },
+    migrated: true,
+  };
+};
+
 export const createDefaultOwnerData = () => ({
   schema: OWNER_SCHEMA,
   projectId: OWNER_PROJECT_ID,
@@ -112,26 +272,7 @@ export const createDefaultOwnerData = () => ({
     evidence: "",
   },
   hours: defaultHours(),
-  catalog: [
-    {
-      id: "xis-gaucho",
-      name: "Xis Gaúcho",
-      priceCents: null,
-      description: "",
-      ingredients: "",
-      photoUrl: "",
-      active: true,
-    },
-    {
-      id: "marmita-caseira",
-      name: "Marmita caseira",
-      priceCents: null,
-      description: "",
-      ingredients: "",
-      photoUrl: "",
-      active: true,
-    },
-  ],
+  catalog: defaultCatalog(),
   seo: {
     tasks: defaultTasks(),
     checkpoints: defaultCheckpoints(),

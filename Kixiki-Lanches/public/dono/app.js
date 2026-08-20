@@ -8,7 +8,7 @@ const TASK_COPY = [
     id: "service-truth",
     letter: "A",
     title: "Entrega e área de atendimento",
-    tip: "Confirme delivery, cobertura, horários e retirada. A página pública não muda automaticamente.",
+    tip: "Confirme delivery, cobertura, horários e retirada. Só dados confirmados podem chegar à página pública.",
     view: "operation",
     action: "Confirmar operação",
   },
@@ -39,6 +39,42 @@ const DAY_LABELS = {
   sabado: "Sábado",
   domingo: "Domingo",
 };
+
+const CATALOG_GROUPS = [
+  {
+    id: "marmitas",
+    title: "Marmitas caseiras",
+    icon: "🍲",
+    productIds: ["marmita-p", "marmita-m", "marmita-gg"],
+  },
+  {
+    id: "lanches",
+    title: "Hambúrgueres e Xis Gaúcho",
+    icon: "🍔",
+    productIds: [
+      "xis-salada",
+      "xis-bacon",
+      "xis-calabresa",
+      "xis-frango",
+      "xis-strogonoff",
+      "xis-coracao",
+      "xis-egg",
+      "xis-tudo",
+    ],
+  },
+  {
+    id: "pasteis",
+    title: "Pastéis caseiros",
+    icon: "🥟",
+    productIds: ["pas-carne", "pas-queijo", "pas-pizza", "pas-calabresa"],
+  },
+  {
+    id: "porcoes",
+    title: "Porções e petiscos",
+    icon: "🍟",
+    productIds: ["por-batata", "por-bacon", "por-morro"],
+  },
+];
 
 const STATUS_LABELS = {
   pending: "Pendente",
@@ -307,11 +343,16 @@ const loadPanel = async ({ allowCache = true } = {}) => {
     reference = result.reference || FALLBACK_REFERENCE;
     remoteETag = result.etag || null;
     remoteUpdatedAt = result.updatedAt || null;
-    dirty = false;
+    dirty = result.catalogMigrated === true;
     saveCache();
     showApp();
     renderAll();
-    setSaveState("Sincronizado entre dispositivos", "synced");
+    setSaveState(
+      dirty
+        ? "Cardápio completo preparado · clique em Salvar agora"
+        : "Sincronizado entre dispositivos",
+      dirty ? "" : "synced",
+    );
     return true;
   } catch (error) {
     const cached = allowCache ? readCache() : null;
@@ -649,11 +690,25 @@ const parsePrice = (value) => {
 const createProductId = () =>
   `item-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 
-const renderCatalog = () => {
-  $("#emptyCatalog").hidden = ownerData.catalog.length !== 0;
-  $("#catalogList").innerHTML = ownerData.catalog.map((item, index) => `<article class="product-card">
-    <div class="product-head">
+const catalogGroupFor = (item) =>
+  CATALOG_GROUPS.find((group) => group.productIds.includes(item.id)) || {
+    id: "outros",
+    title: "Outros itens",
+    icon: "➕",
+    productIds: [],
+  };
+
+const renderProductCard = (item, index) => `<details class="product-card">
+  <summary class="product-summary">
+    <span class="product-summary-copy">
       <strong>${escapeHtml(item.name || `Item ${index + 1}`)}</strong>
+      <small>${item.priceCents === null ? "Preço pendente" : `R$ ${escapeHtml(formatPrice(item.priceCents))}`}</small>
+    </span>
+    <span class="product-status ${item.active ? "active" : "inactive"}">${item.active ? "Ativo" : "Inativo"}</span>
+  </summary>
+  <div class="product-body">
+    <div class="product-head">
+      <span>Dados exibidos no cardápio</span>
       <label class="active-toggle"><input data-product-active="${index}" type="checkbox" ${item.active ? "checked" : ""}> Ativo no cardápio</label>
     </div>
     <div class="product-grid">
@@ -674,11 +729,36 @@ const renderCatalog = () => {
       </label>
     </div>
     <div class="product-actions"><button class="remove-button" data-product-remove="${index}" type="button">Remover item</button></div>
-  </article>`).join("");
+  </div>
+</details>`;
+
+const renderCatalog = () => {
+  $("#emptyCatalog").hidden = ownerData.catalog.length !== 0;
+  const indexedCatalog = ownerData.catalog.map((item, index) => ({ item, index }));
+  const orderedGroups = [...CATALOG_GROUPS, { id: "outros", title: "Outros itens", icon: "➕" }];
+  $("#catalogList").innerHTML = orderedGroups
+    .map((group) => {
+      const entries = indexedCatalog.filter(({ item }) => catalogGroupFor(item).id === group.id);
+      if (!entries.length) return "";
+      return `<section class="catalog-group" aria-labelledby="catalog-group-${group.id}">
+        <header class="catalog-group-heading">
+          <h3 id="catalog-group-${group.id}"><span aria-hidden="true">${group.icon}</span> ${group.title}</h3>
+          <span>${entries.length} ${entries.length === 1 ? "item" : "itens"}</span>
+        </header>
+        <div class="catalog-group-items">
+          ${entries.map(({ item, index }) => renderProductCard(item, index)).join("")}
+        </div>
+      </section>`;
+    })
+    .join("");
 
   $$('[data-product-name]').forEach((input) =>
     input.addEventListener("input", () => {
       ownerData.catalog[Number(input.dataset.productName)].name = input.value;
+      const summaryName = input
+        .closest(".product-card")
+        ?.querySelector(".product-summary-copy strong");
+      if (summaryName) summaryName.textContent = input.value || "Item sem nome";
       markChanged({ rerenderSummary: false });
     }),
   );
@@ -693,6 +773,12 @@ const renderCatalog = () => {
       input.setCustomValidity("");
       ownerData.catalog[Number(input.dataset.productPrice)].priceCents = parsed;
       input.value = formatPrice(parsed);
+      const summaryPrice = input
+        .closest(".product-card")
+        ?.querySelector(".product-summary-copy small");
+      if (summaryPrice) {
+        summaryPrice.textContent = parsed === null ? "Preço pendente" : `R$ ${formatPrice(parsed)}`;
+      }
       markChanged({ rerenderSummary: false });
     }),
   );
@@ -717,6 +803,11 @@ const renderCatalog = () => {
   $$('[data-product-active]').forEach((input) =>
     input.addEventListener("change", () => {
       ownerData.catalog[Number(input.dataset.productActive)].active = input.checked;
+      const status = input.closest(".product-card")?.querySelector(".product-status");
+      if (status) {
+        status.textContent = input.checked ? "Ativo" : "Inativo";
+        status.className = `product-status ${input.checked ? "active" : "inactive"}`;
+      }
       markChanged({ rerenderSummary: false });
     }),
   );

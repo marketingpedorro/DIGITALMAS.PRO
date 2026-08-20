@@ -2,8 +2,10 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
+  KIXIKI_BASE_CATALOG,
   OWNER_REFERENCE,
   createDefaultOwnerData,
+  upgradeLegacyOwnerData,
   validateOwnerData,
 } from "../netlify/functions/kixiki-owner-model.mjs";
 
@@ -26,6 +28,67 @@ test("creates an isolated C001 model with exactly three priorities and five chec
   assert.equal(OWNER_REFERENCE.reviewBaseline.rating, 4.7);
   assert.equal(OWNER_REFERENCE.reviewBaseline.reviewCount, 19);
   assert.equal(OWNER_REFERENCE.reviewBaseline.observedResponseCount, 0);
+});
+
+test("seeds the 18 public menu slots with their real names and prices", () => {
+  const data = createDefaultOwnerData();
+
+  assert.equal(KIXIKI_BASE_CATALOG.length, 18);
+  assert.equal(data.catalog.length, 18);
+  assert.deepEqual(
+    data.catalog.map(({ id, priceCents }) => [id, priceCents]),
+    [
+      ["marmita-p", 2500],
+      ["marmita-m", 2500],
+      ["marmita-gg", 3000],
+      ["xis-salada", 2800],
+      ["xis-bacon", 3200],
+      ["xis-calabresa", 3000],
+      ["xis-frango", 3000],
+      ["xis-strogonoff", 3000],
+      ["xis-coracao", 3600],
+      ["xis-egg", 2800],
+      ["xis-tudo", 3800],
+      ["pas-carne", 1200],
+      ["pas-queijo", 1500],
+      ["pas-pizza", 1500],
+      ["pas-calabresa", 1600],
+      ["por-batata", 2500],
+      ["por-bacon", 3500],
+      ["por-morro", 5400],
+    ],
+  );
+  assert.equal(validateOwnerData(data).ok, true);
+});
+
+test("upgrades only the legacy starter catalog and preserves edited legacy data", () => {
+  const data = createDefaultOwnerData();
+  data.catalog = [
+    {
+      id: "xis-gaucho",
+      name: "Xis Gaúcho especial do Carlos",
+      priceCents: 3300,
+      description: "Receita antiga preservada.",
+      ingredients: "",
+      photoUrl: "",
+      active: true,
+    },
+    {
+      id: "marmita-caseira",
+      name: "Marmita caseira",
+      priceCents: null,
+      description: "",
+      ingredients: "",
+      photoUrl: "",
+      active: true,
+    },
+  ];
+
+  const upgraded = upgradeLegacyOwnerData(data);
+  assert.equal(upgraded.migrated, true);
+  assert.equal(upgraded.data.catalog.length, 19);
+  assert.equal(upgraded.data.catalog.at(-1).name, "Xis Gaúcho especial do Carlos");
+  assert.equal(upgradeLegacyOwnerData(createDefaultOwnerData()).migrated, false);
 });
 
 test("rejects fields outside the owner allowlist", () => {

@@ -14,6 +14,30 @@ test("owner panel is pt-BR, private to search engines and contains the approved 
   assert.match(html, /review-qr\.svg/);
 });
 
+test("owner panel follows the Kixiki forest, cream and mustard palette", async () => {
+  const html = await read("../public/dono/index.html");
+  const css = await read("../public/dono/styles.css");
+
+  assert.match(html, /theme-color" content="#001e10"/);
+  assert.match(css, /--bg-deep:\s*#001e10/);
+  assert.match(css, /--cream:\s*#fff8e7/);
+  assert.match(css, /--accent:\s*#f8b62f/);
+  assert.doesNotMatch(css, /#9df52f|#b7ff58|157,\s*245,\s*47/i);
+});
+
+test("owner catalog is grouped and exposes compact editable product summaries", async () => {
+  const html = await read("../public/dono/index.html");
+  const app = await read("../public/dono/app.js");
+
+  assert.match(html, /Os 18 itens atuais estão organizados por categoria/);
+  assert.match(app, /const CATALOG_GROUPS =/);
+  assert.match(app, /Marmitas caseiras/);
+  assert.match(app, /Hambúrgueres e Xis Gaúcho/);
+  assert.match(app, /Pastéis caseiros/);
+  assert.match(app, /Porções e petiscos/);
+  assert.match(app, /<details class="product-card">/);
+});
+
 test("client code exposes exactly the three approved SEO priorities", async () => {
   const app = await read("../public/dono/app.js");
   const taskCopy = app.slice(app.indexOf("const TASK_COPY"), app.indexOf("const DAY_LABELS"));

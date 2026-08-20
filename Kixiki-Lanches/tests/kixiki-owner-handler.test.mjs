@@ -82,8 +82,44 @@ test("returns a clean default without writing when no canonical record exists", 
   assert.equal(body.etag, null);
   assert.equal(body.updatedAt, null);
   assert.equal(body.data.projectId, "C001");
+  assert.equal(body.data.catalog.length, 18);
   assert.equal(body.data.seo.tasks.length, 3);
   assert.equal(body.reference.reviewBaseline.reviewCount, 19);
+});
+
+test("upgrades the two legacy placeholders on read without overwriting the stored record", async () => {
+  const { handler } = handlerFor();
+  const legacy = createDefaultOwnerData();
+  legacy.catalog = [
+    {
+      id: "xis-gaucho",
+      name: "Xis Gaúcho",
+      priceCents: null,
+      description: "",
+      ingredients: "",
+      photoUrl: "",
+      active: true,
+    },
+    {
+      id: "marmita-caseira",
+      name: "Marmita caseira",
+      priceCents: null,
+      description: "",
+      ingredients: "",
+      photoUrl: "",
+      active: true,
+    },
+  ];
+
+  const saved = await handler(request("PUT", { data: legacy, etag: null }));
+  assert.equal(saved.status, 200);
+
+  const response = await handler(request());
+  const body = await response.json();
+  assert.equal(body.catalogMigrated, true);
+  assert.equal(body.data.catalog.length, 18);
+  assert.equal(body.data.catalog[0].name, "Marmita P (Executiva)");
+  assert.equal(body.etag, "etag-1");
 });
 
 test("rejects cross-origin writes", async () => {
