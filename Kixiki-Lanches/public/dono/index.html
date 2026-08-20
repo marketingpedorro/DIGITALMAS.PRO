@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#06291c">
+  <title>Painel do Dono · Kixiki Lanches</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=1.0.0">
+</head>
+<body>
+  <section id="authGate" class="auth-gate" aria-live="polite">
+    <div class="auth-card">
+      <img src="../assets/kixiki-logo-v0.1.svg" alt="Kixiki Lanches" width="84" height="84">
+      <span class="eyebrow">C001 · ACESSO OPERACIONAL</span>
+      <h1 id="authTitle">Painel do Dono</h1>
+      <p id="authDescription">Entre para cuidar dos dados reais da Kixiki. A estrutura e a estratégia do site continuam protegidas pela DigitalMas.PRO.</p>
+
+      <form id="loginForm" class="login-form">
+        <label id="emailLabel" for="loginEmail">E-mail</label>
+        <input id="loginEmail" name="email" type="email" autocomplete="username" required>
+        <label id="passwordLabel" for="loginPassword">Senha</label>
+        <input id="loginPassword" name="password" type="password" autocomplete="current-password" maxlength="256" required>
+        <div id="confirmPasswordField" hidden>
+          <label for="confirmPassword">Repita a nova senha</label>
+          <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" maxlength="256">
+        </div>
+        <button id="loginButton" class="primary-button" type="submit">Entrar com segurança</button>
+        <button id="recoveryButton" class="text-button" type="button">Esqueci minha senha</button>
+        <p id="loginMessage" class="form-message" role="alert"></p>
+      </form>
+
+      <section id="accessDenied" class="access-denied" hidden>
+        <strong>Acesso sem permissão para a Kixiki</strong>
+        <p>Esta conta existe, mas ainda não possui o perfil <code>kixiki-owner</code>. Peça a liberação à DigitalMas.PRO.</p>
+        <button id="deniedLogoutButton" class="secondary-button" type="button">Sair desta conta</button>
+      </section>
+
+      <small>A senha é processada pelo Netlify Identity e nunca fica gravada nesta página.</small>
+    </div>
+  </section>
+
+  <div id="ownerApp" hidden>
+    <header class="topbar">
+      <a class="brand" href="#inicio" aria-label="Início do Painel do Dono">
+        <img src="../assets/kixiki-logo-v0.1.svg" alt="" width="54" height="54">
+        <span><b>Kixiki Lanches</b><small>Painel do Dono</small></span>
+      </a>
+      <div class="account">
+        <span id="accountEmail"></span>
+        <button id="logoutButton" class="text-button" type="button">Sair</button>
+      </div>
+    </header>
+
+    <nav class="mobile-nav" aria-label="Áreas do painel">
+      <button class="nav-button active" data-view="overview" type="button">Início</button>
+      <button class="nav-button" data-view="operation" type="button">Operação</button>
+      <button class="nav-button" data-view="catalog" type="button">Cardápio</button>
+      <button class="nav-button" data-view="seo" type="button">SEO Local</button>
+    </nav>
+
+    <main id="inicio" class="shell">
+      <section class="hero">
+        <div>
+          <span class="eyebrow">C001 · KIXIKI LANCHES</span>
+          <h1>Dados verdadeiros.<br><em>Próxima ação clara.</em></h1>
+          <p>Você atualiza a operação. A DigitalMas protege conversão, texto estratégico, identidade e estrutura.</p>
+        </div>
+        <aside class="sync-card">
+          <span>ESTADO DOS DADOS</span>
+          <strong id="saveState" class="save-state">Conectando…</strong>
+          <small id="lastUpdate">Nenhuma atualização registrada</small>
+          <button id="saveNowButton" class="secondary-button" type="button">Salvar agora</button>
+        </aside>
+      </section>
+
+      <div id="conflictBanner" class="conflict-banner" role="alert" hidden>
+        <div><strong>Existe uma versão mais nova em outro aparelho.</strong><span>Recarregue os dados antes de continuar para não apagar o trabalho anterior.</span></div>
+        <button id="reloadRemoteButton" class="secondary-button" type="button">Carregar versão mais nova</button>
+      </div>
+
+      <section class="view active" data-view-panel="overview" aria-labelledby="prioritiesTitle">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">DIA 0 · FOCO INICIAL</span>
+            <h2 id="prioritiesTitle">Só três prioridades</h2>
+            <p>Sem playbook técnico. Marque como concluída apenas com data e evidência real.</p>
+          </div>
+          <div class="progress-ring" aria-label="Prioridades concluídas"><strong id="doneCount">0/3</strong><span>concluídas</span></div>
+        </div>
+        <div id="taskCards" class="task-grid"></div>
+      </section>
+
+      <section class="view" data-view-panel="operation" aria-labelledby="operationTitle" hidden>
+        <div class="section-heading compact">
+          <div>
+            <span class="eyebrow">PRIORIDADE A</span>
+            <h2 id="operationTitle">Entrega, retirada e horários</h2>
+            <p>Confirme a verdade operacional. Estes dados não alteram a promessa pública automaticamente.</p>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <div class="form-grid two-columns">
+            <label>Faz delivery?
+              <select id="deliveryStatus">
+                <option value="unknown">Ainda não confirmado</option>
+                <option value="yes">Sim</option>
+                <option value="no">Não</option>
+              </select>
+            </label>
+            <label>Faz retirada no local?
+              <select id="pickupStatus">
+                <option value="unknown">Ainda não confirmado</option>
+                <option value="yes">Sim</option>
+                <option value="no">Não</option>
+              </select>
+            </label>
+            <label>Área ou cobertura do delivery
+              <textarea id="serviceArea" rows="3" maxlength="300" placeholder="Bairros, raio ou limite real de atendimento"></textarea>
+            </label>
+            <label>Horário do delivery
+              <textarea id="deliveryHours" rows="3" maxlength="200" placeholder="Ex.: terça a sábado, das 19h às 23h"></textarea>
+            </label>
+            <label>Horário de retirada
+              <textarea id="pickupHours" rows="3" maxlength="200" placeholder="Informe somente se houver retirada"></textarea>
+            </label>
+            <label>Observações operacionais
+              <textarea id="serviceNotes" rows="3" maxlength="800" placeholder="Taxa, pedido mínimo ou exceções que precisam ser validadas"></textarea>
+            </label>
+          </div>
+          <label>Evidência da confirmação
+            <textarea id="serviceEvidence" rows="3" maxlength="1000" placeholder="Ex.: confirmado por Carlos em conversa de 20/08; captura do WhatsApp operacional"></textarea>
+          </label>
+          <div class="confirmation-row">
+            <span id="serviceConfirmedAt">Ainda não confirmado</span>
+            <button id="confirmServiceButton" class="primary-button" type="button">Confirmar estes dados</button>
+          </div>
+        </div>
+
+        <div class="section-heading compact subsection">
+          <div>
+            <span class="eyebrow">HORÁRIOS DO NEGÓCIO</span>
+            <h2>Semana operacional</h2>
+            <p>Preencha os sete dias. Use “Fechado” quando não houver atendimento.</p>
+          </div>
+        </div>
+        <div id="hoursGrid" class="hours-grid"></div>
+      </section>
+
+      <section class="view" data-view-panel="catalog" aria-labelledby="catalogTitle" hidden>
+        <div class="section-heading compact">
+          <div>
+            <span class="eyebrow">PRIORIDADE B</span>
+            <h2 id="catalogTitle">Produtos e evidências reais</h2>
+            <p>Nome, preço, descrição, ingredientes, foto real e disponibilidade. Nada daqui libera edição do site.</p>
+          </div>
+          <button id="addProductButton" class="primary-button" type="button">+ Adicionar item</button>
+        </div>
+        <div id="catalogList" class="catalog-list"></div>
+        <p id="emptyCatalog" class="empty-state" hidden>Nenhum item cadastrado. Adicione o primeiro produto real.</p>
+      </section>
+
+      <section class="view" data-view-panel="seo" aria-labelledby="seoTitle" hidden>
+        <div class="section-heading compact">
+          <div>
+            <span class="eyebrow">PRIORIDADE C</span>
+            <h2 id="seoTitle">Reputação Google</h2>
+            <p>Uma rotina simples, neutra e baseada em evidência. Sem incentivo e sem escolher quem pode avaliar.</p>
+          </div>
+        </div>
+
+        <div class="reputation-grid">
+          <article class="baseline-card">
+            <span>LINHA DE BASE · DIA 0</span>
+            <strong><b id="baselineRating">4,70</b> ★</strong>
+            <p><b id="baselineReviews">19</b> avaliações no levantamento inicial.</p>
+            <small><b id="baselineResponses">0</b> respostas observadas na auditoria. Isso não significa 100% respondidas.</small>
+          </article>
+          <article class="review-card">
+            <img src="review-qr.svg" alt="QR code para abrir a avaliação da Kixiki no Google" width="180" height="180">
+            <div>
+              <span>SOLICITAÇÃO NEUTRA</span>
+              <h3>Link e QR para clientes reais</h3>
+              <p>Peça uma avaliação honesta sobre a experiência, sem sugerir nota.</p>
+              <div class="button-row">
+                <a id="reviewLink" class="primary-button" href="#" target="_blank" rel="noopener noreferrer">Abrir link de avaliação</a>
+                <button id="copyReviewButton" class="secondary-button" type="button">Copiar link</button>
+              </div>
+              <small id="copyReviewMessage" aria-live="polite"></small>
+            </div>
+          </article>
+        </div>
+
+        <div class="section-heading compact subsection">
+          <div>
+            <span class="eyebrow">ACOMPANHAMENTO</span>
+            <h2>Checkpoints 0 · 14 · 30 · 60 · 90</h2>
+            <p>Registre apenas o que foi observado. Nenhuma métrica futura vem preenchida.</p>
+          </div>
+        </div>
+        <div id="checkpoints" class="checkpoint-grid"></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Kixiki Lanches · Painel operacional C001</span>
+      <span>Estratégia, design e desenvolvimento por Andrés Sebastián · DigitalMas.PRO</span>
+    </footer>
+  </div>
+
+  <script src="app.js?v=1.0.0"></script>
+</body>
+</html>
