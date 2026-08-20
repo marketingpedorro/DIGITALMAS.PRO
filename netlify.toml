@@ -37,6 +37,12 @@
     Content-Security-Policy = "default-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'"
 
 [[headers]]
+  for = "/dono/*"
+  [headers.values]
+    Cache-Control = "private, no-store"
+    Content-Security-Policy = "default-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'"
+
+[[headers]]
   for = "/api/*"
   [headers.values]
     Cache-Control = "private, no-store"
@@ -49,4 +55,14 @@
 [[redirects]]
   from = "/api/workspace"
   to = "/.netlify/functions/workspace"
+  status = 200
+
+[[redirects]]
+  from = "/api/kixiki-owner"
+  to = "/.netlify/functions/kixiki-owner"
+  status = 200
+
+[[redirects]]
+  from = "/api/kixiki-public"
+  to = "/.netlify/functions/kixiki-public"
   status = 200
