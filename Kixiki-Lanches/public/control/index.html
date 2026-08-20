@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="theme-color" content="#071a12">
   <title>DigitalMas.PRO · Control de Sitios</title>
-  <link rel="stylesheet" href="styles.css?v=0.4.0">
+  <link rel="stylesheet" href="styles.css?v=0.5.0">
 </head>
 <body>
   <section id="authGate" class="auth-gate" aria-live="polite">
@@ -44,6 +44,14 @@
       <span class="brand-mark">DM</span>
       <span><b>DigitalMas.PRO</b><small>Agency OS · Delivery</small></span>
     </a>
+    <nav class="view-switcher" aria-label="Secciones del sistema">
+      <button class="active" data-view-target="control" type="button" aria-pressed="true">
+        <span aria-hidden="true">●</span> Control
+      </button>
+      <button data-view-target="engineering" type="button" aria-pressed="false">
+        <span aria-hidden="true">◇</span> Ingeniería
+      </button>
+    </nav>
     <div class="account-actions">
       <span id="accountName"></span>
       <button id="logoutButton" class="text-button" type="button">Salir</button>
@@ -52,7 +60,7 @@
   </header>
 
   <main class="shell">
-    <section class="hero">
+    <section class="hero" data-app-view="control">
       <div>
         <span class="eyebrow">CONTROL MAESTRO · MOBILE FIRST</span>
         <h1>Una sola etapa visible.<br><em>La próxima acción clara.</em></h1>
@@ -69,19 +77,19 @@
       </div>
     </section>
 
-    <section class="overview" aria-label="Resumen del proyecto">
+    <section class="overview" data-app-view="control" aria-label="Resumen del proyecto">
       <article><span>AVANCE</span><strong id="progressValue">0%</strong></article>
       <article><span>ETAPA ACTUAL</span><strong id="currentStage">0 · Encargo</strong></article>
       <article><span>PRÓXIMO GATE</span><strong id="nextGate">Gate 00</strong></article>
       <article><span>BLOQUEOS</span><strong id="blockedCount">0</strong></article>
     </section>
 
-    <section class="progress-panel">
+    <section class="progress-panel" data-app-view="control">
       <div class="progress-copy"><span id="completedCount">0 de 0 controles aprobados</span><span id="maturityLabel">DEFINIDO → IMPLEMENTADO → VALIDADO</span></div>
       <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progressBar"></span></div>
     </section>
 
-    <section class="publish-route" aria-labelledby="publishRouteTitle">
+    <section class="publish-route" data-app-view="control" aria-labelledby="publishRouteTitle">
       <div class="publish-route-copy">
         <div>
           <span class="eyebrow">GATE 08 · PUBLICACIÓN SEGURA</span>
@@ -107,45 +115,133 @@
       <p class="stop-rule"><b>ALTO:</b> exportar DNS y preservar MX, TXT y subdominios. Si algo no coincide, CORREGIR.</p>
     </section>
 
-    <section id="architecture" class="architecture-panel" aria-labelledby="architectureTitle">
+    <section id="architecture" class="architecture-panel" data-app-view="engineering" aria-labelledby="architectureTitle" hidden>
       <div class="architecture-head">
         <div>
-          <span class="eyebrow">INGENIERÍA · SISTEMA KIXIKI</span>
-          <h2 id="architectureTitle">Arquitectura del sitio y su ABM.</h2>
-          <p>Describe actores, componentes, clases, datos y comportamiento del sistema. La metodología interna de DigitalMAS queda fuera de esta documentación.</p>
+          <span class="eyebrow">INGENIERÍA · KIXIKI C001</span>
+          <h2 id="architectureTitle">Entender el sistema<br><em>de un solo vistazo.</em></h2>
+          <p>Primero el mapa. Después, solamente si hace falta, el detalle técnico.</p>
         </div>
         <div class="architecture-snapshot" aria-label="Estado de esta vista">
-          <span>VISTA</span>
-          <strong>PREVIEW</strong>
+          <span>LECTURA RÁPIDA</span>
+          <strong>MAPA VIVO</strong>
           <small id="architectureSummary">Calculando estado…</small>
         </div>
       </div>
 
+      <div class="engineering-facts" aria-label="Resumen visual de la arquitectura">
+        <article><span>03</span><div><b>ACTORES</b><small>Visitante · Dueño · Admin</small></div></article>
+        <article><span>06</span><div><b>PIEZAS</b><small>Web · Portal · APIs · Datos</small></div></article>
+        <article><span>05</span><div><b>CASOS</b><small>El uso completo del sistema</small></div></article>
+      </div>
+
       <div class="system-doc-grid">
-        <article class="system-map-card">
-          <div class="diagram-title"><span>01 · MAPA DEL SISTEMA</span><strong>Componentes y límites</strong><small>ACTUAL + OBJETIVO</small></div>
-          <div class="system-lanes" aria-label="Mapa de componentes de Kixiki">
-            <div class="system-lane"><span class="actor-node">Visitante</span><i>→</i><span class="component-node live">Landing Kixiki</span><i>→</i><span class="external-node">WhatsApp / Analítica</span></div>
-            <div class="system-lane"><span class="actor-node">Dueño</span><i>→</i><span class="component-node planned">Portal del Dueño</span><i>→</i><span class="service-node planned">API de catálogo</span></div>
-            <div class="system-lane"><span class="actor-node">Andy · Admin</span><i>→</i><span class="component-node live">Control Maestro</span><i>→</i><span class="service-node live">Auth / Workspace API</span></div>
-            <div class="data-lane"><span class="data-node live">Netlify Identity</span><span class="data-node live">Netlify Blobs</span><span class="data-node planned">Datos ABM versionados</span></div>
+        <article class="visual-diagram system-map-card">
+          <header class="diagram-title">
+            <span>01 · MAPA DEL SISTEMA</span>
+            <strong>Quién entra, qué usa y dónde termina.</strong>
+            <small>VERDE = ACTUAL · PUNTEADO = OBJETIVO</small>
+          </header>
+          <div class="diagram-canvas diagram-canvas-wide">
+            <svg class="system-svg" viewBox="0 0 1120 470" role="img" aria-labelledby="systemMapTitle systemMapDescription">
+              <title id="systemMapTitle">Mapa visual del sistema Kixiki</title>
+              <desc id="systemMapDescription">Tres actores se conectan con la landing, el portal del dueño y el control maestro. Las piezas actuales usan líneas verdes y las planificadas líneas punteadas.</desc>
+              <defs>
+                <marker id="arrowLive" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" class="arrow-live"/></marker>
+                <marker id="arrowPlan" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" class="arrow-plan"/></marker>
+              </defs>
+
+              <rect class="system-boundary" x="270" y="34" width="804" height="386" rx="28"/>
+              <text class="boundary-label" x="302" y="70">SISTEMA KIXIKI</text>
+
+              <g class="diagram-node actor" transform="translate(28 82)"><rect width="178" height="72" rx="18"/><circle cx="34" cy="36" r="16"/><text x="61" y="31">VISITANTE</text><text class="node-note" x="61" y="50">consulta y pide</text></g>
+              <g class="diagram-node actor" transform="translate(28 200)"><rect width="178" height="72" rx="18"/><circle cx="34" cy="36" r="16"/><text x="61" y="31">DUEÑO</text><text class="node-note" x="61" y="50">opera catálogo</text></g>
+              <g class="diagram-node actor" transform="translate(28 318)"><rect width="178" height="72" rx="18"/><circle cx="34" cy="36" r="16"/><text x="61" y="31">ADMIN</text><text class="node-note" x="61" y="50">gobierna sistema</text></g>
+
+              <path class="connector live" d="M206 118 H322" marker-end="url(#arrowLive)"/>
+              <path class="connector planned" d="M206 236 H322" marker-end="url(#arrowPlan)"/>
+              <path class="connector live" d="M206 354 H322" marker-end="url(#arrowLive)"/>
+
+              <g class="diagram-node component live" transform="translate(330 82)"><rect width="220" height="72" rx="18"/><text x="24" y="31">LANDING KIXIKI</text><text class="node-note" x="24" y="51">oferta pública</text></g>
+              <g class="diagram-node component planned" transform="translate(330 200)"><rect width="220" height="72" rx="18"/><text x="24" y="31">PORTAL DEL DUEÑO</text><text class="node-note" x="24" y="51">ABM restringido</text></g>
+              <g class="diagram-node component live" transform="translate(330 318)"><rect width="220" height="72" rx="18"/><text x="24" y="31">CONTROL MAESTRO</text><text class="node-note" x="24" y="51">dirección y evidencia</text></g>
+
+              <path class="connector live" d="M550 118 H642" marker-end="url(#arrowLive)"/>
+              <path class="connector planned" d="M550 236 H642" marker-end="url(#arrowPlan)"/>
+              <path class="connector live" d="M550 354 H642" marker-end="url(#arrowLive)"/>
+
+              <g class="diagram-node service live" transform="translate(650 82)"><rect width="176" height="72" rx="18"/><text x="22" y="31">WHATSAPP</text><text class="node-note" x="22" y="51">conversión</text></g>
+              <g class="diagram-node service planned" transform="translate(650 200)"><rect width="176" height="72" rx="18"/><text x="22" y="31">CATALOG API</text><text class="node-note" x="22" y="51">validación ABM</text></g>
+              <g class="diagram-node service live" transform="translate(650 318)"><rect width="176" height="72" rx="18"/><text x="22" y="31">AUTH + WORKSPACE</text><text class="node-note" x="22" y="51">sesión y estado</text></g>
+
+              <path class="connector live" d="M826 118 H888" marker-end="url(#arrowLive)"/>
+              <path class="connector planned" d="M826 236 H888" marker-end="url(#arrowPlan)"/>
+              <path class="connector live" d="M826 354 H888" marker-end="url(#arrowLive)"/>
+
+              <g class="diagram-node data live" transform="translate(896 82)"><rect width="146" height="72" rx="18"/><text x="20" y="31">ANALÍTICA</text><text class="node-note" x="20" y="51">eventos</text></g>
+              <g class="diagram-node data planned" transform="translate(896 200)"><rect width="146" height="72" rx="18"/><text x="20" y="31">DATOS ABM</text><text class="node-note" x="20" y="51">versionados</text></g>
+              <g class="diagram-node data live" transform="translate(896 318)"><rect width="146" height="72" rx="18"/><text x="20" y="31">IDENTITY / BLOBS</text><text class="node-note" x="20" y="51">actual</text></g>
+            </svg>
           </div>
-          <p><b>Runtime actual:</b> la landing es pública; Identity autentica; Control Maestro guarda un workspace JSON por usuario en Netlify Blobs. El Portal del Dueño y la API de catálogo todavía son objetivo.</p>
+          <details class="diagram-notes">
+            <summary>Leer el diagnóstico técnico</summary>
+            <p><b>Hoy:</b> landing pública, autenticación mediante Identity y workspace JSON en Blobs. <b>Objetivo:</b> Portal del Dueño, Catalog API y datos ABM versionados.</p>
+          </details>
         </article>
 
-        <article class="domain-card">
-          <div class="diagram-title"><span>02 · MODELO DE DOMINIO</span><strong>Clases y persistencia</strong><small>UML SIMPLIFICADO</small></div>
-          <div class="class-model" aria-label="Modelo de clases de Kixiki">
-            <div class="class-box live"><b>User</b><span>id · email · roles</span><small>Identity · actual</small></div>
-            <div class="class-box live"><b>Workspace</b><span>projects · activeProjectId</span><small>Blob JSON · actual</small></div>
-            <div class="class-box planned"><b>Product</b><span>id · name · price · visible</span><small>ABM · objetivo</small></div>
-            <div class="class-box planned"><b>OperatingSettings</b><span>hours · availability · notice</span><small>ABM · objetivo</small></div>
-            <div class="class-box planned"><b>ChangeVersion</b><span>before · after · author · date</span><small>Rollback · objetivo</small></div>
-            <div class="class-box planned"><b>AuditEvent</b><span>action · entity · actor · result</span><small>Trazabilidad · objetivo</small></div>
+        <article class="visual-diagram access-card">
+          <header class="diagram-title">
+            <span>02 · ACCESOS</span>
+            <strong>Dos puertas. Dos permisos.</strong>
+            <small>SEGURIDAD</small>
+          </header>
+          <div class="diagram-canvas">
+            <svg class="access-svg" viewBox="0 0 540 330" role="img" aria-labelledby="accessMapTitle">
+              <title id="accessMapTitle">Mapa de acceso de administrador y dueño</title>
+              <defs><marker id="arrowAccess" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" class="arrow-live"/></marker></defs>
+              <circle class="access-core" cx="270" cy="76" r="48"/><text class="access-core-label" x="270" y="72">IDENTITY</text><text class="access-core-note" x="270" y="91">login</text>
+              <path class="connector live" d="M236 111 L149 178" marker-end="url(#arrowAccess)"/>
+              <path class="connector planned" d="M304 111 L391 178" marker-end="url(#arrowPlan)"/>
+              <g class="diagram-node component live" transform="translate(48 188)"><rect width="188" height="82" rx="18"/><text x="24" y="34">ADMIN</text><text class="node-note" x="24" y="56">Control Maestro</text></g>
+              <g class="diagram-node component planned" transform="translate(304 188)"><rect width="188" height="82" rx="18"/><text x="24" y="34">OWNER_KIXIKI</text><text class="node-note" x="24" y="56">Portal del Dueño</text></g>
+              <text class="diagram-footnote" x="48" y="306">✓ administra y audita</text>
+              <text class="diagram-footnote planned-text" x="304" y="306">◇ edita solo su operación</text>
+            </svg>
           </div>
-          <p><b>Relaciones objetivo:</b> User administra Project; Project contiene Product y OperatingSettings; cada cambio genera ChangeVersion y AuditEvent.</p>
-          <p class="model-warning"><b>Importante:</b> hoy no existen tablas SQL de productos. Antes de programar el ABM se debe aprobar este modelo y elegir persistencia.</p>
+          <details class="diagram-notes"><summary>Ver regla de permisos</summary><p>El dueño no accede a estrategia, SEO ni arquitectura. El rol <b>owner_kixiki</b> todavía es objetivo y requiere autorización server-side.</p></details>
         </article>
+
+        <article class="visual-diagram domain-card">
+          <header class="diagram-title">
+            <span>03 · DATOS Y ABM</span>
+            <strong>Cada cambio deja huella.</strong>
+            <small>MODELO OBJETIVO</small>
+          </header>
+          <div class="diagram-canvas">
+            <svg class="data-svg" viewBox="0 0 540 330" role="img" aria-labelledby="dataMapTitle">
+              <title id="dataMapTitle">Ciclo visual de los datos del catálogo</title>
+              <defs><marker id="arrowData" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" class="arrow-plan"/></marker></defs>
+              <g class="mini-node planned" transform="translate(30 54)"><rect width="142" height="62" rx="16"/><text x="71" y="28">PRODUCT</text><text class="node-note" x="71" y="46">precio · visible</text></g>
+              <g class="mini-node planned" transform="translate(198 54)"><rect width="142" height="62" rx="16"/><text x="71" y="28">SETTINGS</text><text class="node-note" x="71" y="46">horario · aviso</text></g>
+              <g class="mini-node planned" transform="translate(366 54)"><rect width="142" height="62" rx="16"/><text x="71" y="28">VALIDAR</text><text class="node-note" x="71" y="46">reglas · permisos</text></g>
+              <path class="connector planned" d="M101 126 V174" marker-end="url(#arrowData)"/>
+              <path class="connector planned" d="M269 126 V174" marker-end="url(#arrowData)"/>
+              <path class="connector planned" d="M437 126 V174" marker-end="url(#arrowData)"/>
+              <g class="mini-node planned audit" transform="translate(30 186)"><rect width="142" height="62" rx="16"/><text x="71" y="28">VERSION</text><text class="node-note" x="71" y="46">antes / después</text></g>
+              <g class="mini-node planned audit" transform="translate(198 186)"><rect width="142" height="62" rx="16"/><text x="71" y="28">AUDITORÍA</text><text class="node-note" x="71" y="46">actor · fecha</text></g>
+              <g class="mini-node planned publish" transform="translate(366 186)"><rect width="142" height="62" rx="16"/><text x="71" y="28">PUBLICAR</text><text class="node-note" x="71" y="46">landing segura</text></g>
+              <path class="connector planned" d="M172 217 H190" marker-end="url(#arrowData)"/>
+              <path class="connector planned" d="M340 217 H358" marker-end="url(#arrowData)"/>
+              <text class="diagram-footnote planned-text" x="30" y="292">Objetivo aprobado · persistencia todavía pendiente</text>
+            </svg>
+          </div>
+          <details class="diagram-notes"><summary>Ver clases del modelo</summary><p><b>User</b> administra un proyecto. El proyecto contiene <b>Product</b> y <b>OperatingSettings</b>. Cada cambio genera <b>ChangeVersion</b> y <b>AuditEvent</b>. Todavía no existen tablas SQL.</p></details>
+        </article>
+      </div>
+
+      <div class="use-case-section-head">
+        <div><span class="eyebrow">04 · CASOS DE USO</span><h3>Cinco acciones. Un sistema completo.</h3></div>
+        <p>Elegí una tarjeta y recorré la secuencia visual.</p>
       </div>
 
       <div class="use-case-shell">
@@ -153,11 +249,9 @@
 
         <article class="use-case-detail" aria-live="polite">
           <div id="useCaseHeader" class="use-case-header"></div>
-          <div class="use-case-meta">
-            <div><span>ACTOR</span><strong id="useCaseActor"></strong></div>
-            <div><span>OBJETIVO</span><strong id="useCaseObjective"></strong></div>
-            <div><span>COMPONENTES</span><strong id="useCaseComponents"></strong></div>
-            <div><span>ÚLTIMA VALIDACIÓN</span><strong id="useCaseValidation"></strong></div>
+          <div class="use-case-meta primary-meta">
+            <div><span>QUIÉN</span><strong id="useCaseActor"></strong></div>
+            <div><span>PARA QUÉ</span><strong id="useCaseObjective"></strong></div>
           </div>
 
           <div class="execution-head">
@@ -175,6 +269,14 @@
             <small id="useCaseEvidence"></small>
           </div>
 
+          <details class="case-technical">
+            <summary>Ficha técnica y evidencia</summary>
+            <div class="use-case-meta technical-meta">
+              <div><span>COMPONENTES</span><strong id="useCaseComponents"></strong></div>
+              <div><span>ÚLTIMA VALIDACIÓN</span><strong id="useCaseValidation"></strong></div>
+            </div>
+          </details>
+
           <div class="case-controls">
             <span>ESTADO ARQUITECTÓNICO</span>
             <div role="group" aria-label="Actualizar estado del caso de uso">
@@ -187,10 +289,13 @@
         </article>
       </div>
 
-      <p class="architecture-rule"><b>Regla de sincronización:</b> si cambia un rol, clase, dato, componente o contrato de API relacionado, el caso pasa a REVALIDAR. Solo pueden existir cinco casos activos; una necesidad nueva reemplaza o fusiona uno y la versión anterior se archiva.</p>
+      <details class="architecture-rule">
+        <summary>Regla de sincronización de arquitectura</summary>
+        <p>Si cambia un rol, clase, dato, componente o contrato de API, el caso relacionado pasa a <b>REVALIDAR</b>. Solo pueden existir cinco casos activos; una necesidad nueva reemplaza o fusiona uno y la versión anterior se archiva.</p>
+      </details>
     </section>
 
-    <div class="workspace">
+    <div class="workspace" data-app-view="control">
       <nav class="stage-nav" aria-label="Etapas del proyecto">
         <div class="nav-head"><span>Ruta completa</span><button id="collapseAll" type="button">Cerrar</button></div>
         <div id="stageList"></div>
@@ -225,7 +330,7 @@
       </section>
     </div>
 
-    <section class="tools">
+    <section class="tools" data-app-view="control">
       <div><b>Base central + respaldo</b><span>Los cambios se sincronizan automáticamente. Exportá JSON al cerrar un hito importante.</span></div>
       <div class="tool-buttons">
         <button id="exportButton" type="button">Exportar JSON</button>
@@ -235,7 +340,7 @@
     </section>
   </main>
 
-  <footer>DigitalMas.PRO · contacto@digitalmas.pro · Director Master · v0.4.0</footer>
-  <script src="app.js?v=0.4.0"></script>
+  <footer>DigitalMas.PRO · contacto@digitalmas.pro · Director Master · v0.5.0</footer>
+  <script src="app.js?v=0.5.0"></script>
 </body>
 </html>
