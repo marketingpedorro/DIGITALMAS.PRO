@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="theme-color" content="#071a12">
   <title>DigitalMas.PRO · Control de Sitios</title>
-  <link rel="stylesheet" href="styles.css?v=0.3.0">
+  <link rel="stylesheet" href="styles.css?v=0.4.0">
 </head>
 <body>
   <section id="authGate" class="auth-gate" aria-live="polite">
@@ -107,6 +107,89 @@
       <p class="stop-rule"><b>ALTO:</b> exportar DNS y preservar MX, TXT y subdominios. Si algo no coincide, CORREGIR.</p>
     </section>
 
+    <section id="architecture" class="architecture-panel" aria-labelledby="architectureTitle">
+      <div class="architecture-head">
+        <div>
+          <span class="eyebrow">INGENIERÍA · SISTEMA KIXIKI</span>
+          <h2 id="architectureTitle">Arquitectura del sitio y su ABM.</h2>
+          <p>Describe actores, componentes, clases, datos y comportamiento del sistema. La metodología interna de DigitalMAS queda fuera de esta documentación.</p>
+        </div>
+        <div class="architecture-snapshot" aria-label="Estado de esta vista">
+          <span>VISTA</span>
+          <strong>PREVIEW</strong>
+          <small id="architectureSummary">Calculando estado…</small>
+        </div>
+      </div>
+
+      <div class="system-doc-grid">
+        <article class="system-map-card">
+          <div class="diagram-title"><span>01 · MAPA DEL SISTEMA</span><strong>Componentes y límites</strong><small>ACTUAL + OBJETIVO</small></div>
+          <div class="system-lanes" aria-label="Mapa de componentes de Kixiki">
+            <div class="system-lane"><span class="actor-node">Visitante</span><i>→</i><span class="component-node live">Landing Kixiki</span><i>→</i><span class="external-node">WhatsApp / Analítica</span></div>
+            <div class="system-lane"><span class="actor-node">Dueño</span><i>→</i><span class="component-node planned">Portal del Dueño</span><i>→</i><span class="service-node planned">API de catálogo</span></div>
+            <div class="system-lane"><span class="actor-node">Andy · Admin</span><i>→</i><span class="component-node live">Control Maestro</span><i>→</i><span class="service-node live">Auth / Workspace API</span></div>
+            <div class="data-lane"><span class="data-node live">Netlify Identity</span><span class="data-node live">Netlify Blobs</span><span class="data-node planned">Datos ABM versionados</span></div>
+          </div>
+          <p><b>Runtime actual:</b> la landing es pública; Identity autentica; Control Maestro guarda un workspace JSON por usuario en Netlify Blobs. El Portal del Dueño y la API de catálogo todavía son objetivo.</p>
+        </article>
+
+        <article class="domain-card">
+          <div class="diagram-title"><span>02 · MODELO DE DOMINIO</span><strong>Clases y persistencia</strong><small>UML SIMPLIFICADO</small></div>
+          <div class="class-model" aria-label="Modelo de clases de Kixiki">
+            <div class="class-box live"><b>User</b><span>id · email · roles</span><small>Identity · actual</small></div>
+            <div class="class-box live"><b>Workspace</b><span>projects · activeProjectId</span><small>Blob JSON · actual</small></div>
+            <div class="class-box planned"><b>Product</b><span>id · name · price · visible</span><small>ABM · objetivo</small></div>
+            <div class="class-box planned"><b>OperatingSettings</b><span>hours · availability · notice</span><small>ABM · objetivo</small></div>
+            <div class="class-box planned"><b>ChangeVersion</b><span>before · after · author · date</span><small>Rollback · objetivo</small></div>
+            <div class="class-box planned"><b>AuditEvent</b><span>action · entity · actor · result</span><small>Trazabilidad · objetivo</small></div>
+          </div>
+          <p><b>Relaciones objetivo:</b> User administra Project; Project contiene Product y OperatingSettings; cada cambio genera ChangeVersion y AuditEvent.</p>
+          <p class="model-warning"><b>Importante:</b> hoy no existen tablas SQL de productos. Antes de programar el ABM se debe aprobar este modelo y elegir persistencia.</p>
+        </article>
+      </div>
+
+      <div class="use-case-shell">
+        <nav id="useCaseList" class="use-case-list" aria-label="Casos de uso activos"></nav>
+
+        <article class="use-case-detail" aria-live="polite">
+          <div id="useCaseHeader" class="use-case-header"></div>
+          <div class="use-case-meta">
+            <div><span>ACTOR</span><strong id="useCaseActor"></strong></div>
+            <div><span>OBJETIVO</span><strong id="useCaseObjective"></strong></div>
+            <div><span>COMPONENTES</span><strong id="useCaseComponents"></strong></div>
+            <div><span>ÚLTIMA VALIDACIÓN</span><strong id="useCaseValidation"></strong></div>
+          </div>
+
+          <div class="execution-head">
+            <div>
+              <span class="eyebrow">EJECUCIÓN PASO A PASO</span>
+              <h3 id="executionTitle">Recorrido operativo</h3>
+            </div>
+            <button id="runUseCase" type="button">Iniciar recorrido →</button>
+          </div>
+          <ol id="useCaseExecution" class="execution-list"></ol>
+
+          <div class="use-case-result">
+            <span>RESULTADO ESPERADO</span>
+            <strong id="useCaseResult"></strong>
+            <small id="useCaseEvidence"></small>
+          </div>
+
+          <div class="case-controls">
+            <span>ESTADO ARQUITECTÓNICO</span>
+            <div role="group" aria-label="Actualizar estado del caso de uso">
+              <button data-case-status="vigente" type="button">VIGENTE</button>
+              <button data-case-status="revalidate" type="button">REVALIDAR</button>
+              <button data-case-status="blocked" type="button">BLOQUEADO</button>
+              <button data-case-status="obsolete" type="button">OBSOLETO</button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <p class="architecture-rule"><b>Regla de sincronización:</b> si cambia un rol, clase, dato, componente o contrato de API relacionado, el caso pasa a REVALIDAR. Solo pueden existir cinco casos activos; una necesidad nueva reemplaza o fusiona uno y la versión anterior se archiva.</p>
+    </section>
+
     <div class="workspace">
       <nav class="stage-nav" aria-label="Etapas del proyecto">
         <div class="nav-head"><span>Ruta completa</span><button id="collapseAll" type="button">Cerrar</button></div>
@@ -152,7 +235,7 @@
     </section>
   </main>
 
-  <footer>DigitalMas.PRO · contacto@digitalmas.pro · Director Master · v0.3.0</footer>
-  <script src="app.js?v=0.3.0"></script>
+  <footer>DigitalMas.PRO · contacto@digitalmas.pro · Director Master · v0.4.0</footer>
+  <script src="app.js?v=0.4.0"></script>
 </body>
 </html>
