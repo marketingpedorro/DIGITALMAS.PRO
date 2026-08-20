@@ -21,6 +21,7 @@ const caseStatusLabels={vigente:'VIGENTE',revalidate:'REVALIDAR',blocked:'BLOQUE
 const legacyKey='digitalmas-agency-os-v01';
 const previousLocalKey='digitalmas-agency-os-workspace-v02';
 const localKey='digitalmas-agency-os-workspace-v03';
+const viewKey='digitalmas-control-view-v01';
 const $=s=>document.querySelector(s); const $$=s=>[...document.querySelectorAll(s)];
 const projectId=()=>globalThis.crypto?.randomUUID?.()||`project-${Date.now()}-${Math.random().toString(16).slice(2)}`;
 const defaultUseCaseState=name=>Object.fromEntries(useCases.map(item=>[item.id,{status:String(name||'').toLowerCase().includes('kixiki')?item.defaultStatus:'revalidate',validatedAt:item.defaultStatus==='vigente'?'2026-08-14T12:12:00-03:00':'',validatedCommit:item.defaultStatus==='vigente'?'37c0c7e':'',evidence:item.defaultEvidence}]));
@@ -82,6 +83,13 @@ function renderUseCases(){
   $('#architectureSummary').textContent=counts.map(item=>`${item.count} ${caseStatusLabels[item.status].toLowerCase()}`).join(' · ');
 }
 function render(){document.documentElement.dataset.theme=state.theme;$('#projectName').value=state.project;renderProjects();renderNav();renderDetail();renderSummary();renderUseCases()}
+function setAppView(view,remember=true){
+  const next=view==='engineering'?'engineering':'control';
+  $$('[data-app-view]').forEach(section=>section.hidden=section.dataset.appView!==next);
+  $$('[data-view-target]').forEach(button=>{const active=button.dataset.viewTarget===next;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active))});
+  if(remember)localStorage.setItem(viewKey,next);
+  if(!authFlow)history.replaceState(null,'',location.pathname+location.search+(next==='engineering'?'#ingenieria':''));
+}
 function showLogin(message='',status=''){currentUser=null;$('#authGate').hidden=false;$('#loginForm').hidden=false;$('#authSuccess').hidden=true;$('#loginMessage').className=`auth-message ${status}`;$('#loginMessage').textContent=message;document.body.style.overflow='hidden'}
 function showApp(user){currentUser=user;$('#authGate').hidden=true;$('#accountName').textContent=user.email||'Director Master';document.body.style.overflow=''}
 function showAuthSuccess(user,kind){currentUser=user;$('#authGate').hidden=false;$('#loginForm').hidden=true;$('#authSuccess').hidden=false;$('#authTitle').innerHTML=kind==='accept-invite'?'Usuario creado.<br><em>Todo listo.</em>':'Contraseña actualizada.<br><em>Acceso recuperado.</em>';$('#authDescription').textContent='La operación terminó correctamente y tu acceso está protegido.';$('#authSuccessTitle').textContent=kind==='accept-invite'?'Cuenta creada correctamente':'Contraseña modificada correctamente';$('#authSuccessText').textContent=`${user.email||'Tu usuario'} ya puede ingresar al Director Master.`;document.body.style.overflow='hidden';$('#continueButton').onclick=async()=>{showApp(user);await loadRemote()}}
@@ -106,6 +114,8 @@ $('#importFile').onchange=async e=>{try{const data=JSON.parse(await e.target.fil
 $('#resetButton').onclick=()=>{if(confirm('¿Reiniciar todos los controles de este proyecto?')){const id=state.id,name=state.project,theme=state.theme;state=empty(name,id);state.theme=theme;workspace.projects[id]=state;save();render()}};
 $('#collapseAll').onclick=()=>document.querySelector('.stage-nav').classList.toggle('compact');
 render();
+$$('[data-view-target]').forEach(button=>button.onclick=()=>setAppView(button.dataset.viewTarget));
+setAppView(location.hash==='#ingenieria'?'engineering':localStorage.getItem(viewKey)||'control',false);
 if(authFlow)configureAuthFlow();
 else if(location.hostname==='terminal.local'){
   showApp({email:'preview@digitalmas.pro'});
