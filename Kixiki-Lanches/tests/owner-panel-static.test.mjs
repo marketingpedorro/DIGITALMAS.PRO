@@ -64,6 +64,17 @@ test("public bridge is isolated from owner auth, writes and storage internals", 
   assert.match(config, /to = "\/\.netlify\/functions\/kixiki-public"/);
 });
 
+test("public HTML has neutral delivery fallbacks in hero, logistics and FAQ", async () => {
+  const html = await read("../public/kixiki.html");
+  assert.match(html, /kixiki-hero-sub[\s\S]*Consulte entrega ou retirada pelo WhatsApp/);
+  assert.match(html, /kixiki-public-operation-summary[^>]*>🛵 Entrega ou retirada: consulte disponibilidade pelo WhatsApp/);
+  assert.match(html, /kixiki-public-delivery-faq[^>]*>Consulte a disponibilidade de entrega ou retirada/);
+  assert.doesNotMatch(
+    html,
+    /entrega rápida|entrega ágil|Raio de Entrega|Entregamos|dinheiro na entrega/i,
+  );
+});
+
 test("generated review QR is valid SVG without invalid dimensions", async () => {
   const qr = await read("../public/dono/review-qr.svg");
   assert.match(qr, /<svg/);

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
+  NEUTRAL_OPERATION_COPY,
   applyKixikiPublicProjection,
   hydrateKixikiPublicData,
 } from "../public/kixiki-public.js";
@@ -48,8 +49,9 @@ const createDocument = () => {
     "sticky-offer-title": { textContent: "Oferta estática" },
     "kixiki-public-hours-summary": { textContent: "Horário estático" },
     "kixiki-public-hours-faq": { textContent: "FAQ estático" },
-    "kixiki-public-operation-summary": { textContent: "Entrega estática" },
-    "kixiki-public-delivery-faq": { textContent: "FAQ entrega estática" },
+    "kixiki-hero-sub": { textContent: NEUTRAL_OPERATION_COPY.hero },
+    "kixiki-public-operation-summary": { textContent: NEUTRAL_OPERATION_COPY.logistics },
+    "kixiki-public-delivery-faq": { textContent: NEUTRAL_OPERATION_COPY.faq },
   };
   return {
     documentRef: { getElementById: (id) => nodes[id] || null },
@@ -59,11 +61,22 @@ const createDocument = () => {
   };
 };
 
-test("failed public API preserves every static fallback slot", async () => {
+const operationCopy = (page) => ({
+  hero: page.nodes["kixiki-hero-sub"].textContent,
+  logistics: page.nodes["kixiki-public-operation-summary"].textContent,
+  faq: page.nodes["kixiki-public-delivery-faq"].textContent,
+});
+
+const assertNoDeliveryPromise = (copy) => {
+  const combined = Object.values(copy).join(" ");
+  assert.doesNotMatch(combined, /entrega rápida|entrega ágil|entregamos|raio de entrega|delivery disponível/i);
+};
+
+test("failed public API restores neutral hero, logistics and FAQ fallbacks", async () => {
   const page = createDocument();
-  const before = Object.fromEntries(
-    Object.entries(page.nodes).map(([id, node]) => [id, node.textContent]),
-  );
+  page.nodes["kixiki-hero-sub"].textContent = "Entrega rápida na sua porta";
+  page.nodes["kixiki-public-operation-summary"].textContent = "Raio de Entrega: toda a região";
+  page.nodes["kixiki-public-delivery-faq"].textContent = "Entregamos na sua região";
   const applied = await hydrateKixikiPublicData({
     fetchImpl: async () => {
       throw new Error("offline");
@@ -72,12 +85,37 @@ test("failed public API preserves every static fallback slot", async () => {
   });
 
   assert.equal(applied, false);
-  assert.deepEqual(
-    Object.fromEntries(Object.entries(page.nodes).map(([id, node]) => [id, node.textContent])),
-    before,
-  );
+  assert.deepEqual(operationCopy(page), NEUTRAL_OPERATION_COPY);
+  assertNoDeliveryPromise(operationCopy(page));
   assert.equal(page.salad.card.hidden, false);
   assert.equal(page.bacon.card.hidden, false);
+});
+
+test("unknown operation keeps hero, logistics and FAQ neutral", () => {
+  const page = createDocument();
+  applyKixikiPublicProjection(
+    { products: [], hours: [], operation: {} },
+    page.documentRef,
+  );
+  assert.deepEqual(operationCopy(page), NEUTRAL_OPERATION_COPY);
+  assertNoDeliveryPromise(operationCopy(page));
+});
+
+test("delivery false removes every affirmative claim from hero, logistics and FAQ", () => {
+  const page = createDocument();
+  page.nodes["kixiki-hero-sub"].textContent = "Entrega rápida na sua porta";
+  page.nodes["kixiki-public-operation-summary"].textContent = "Raio de Entrega: toda a região";
+  page.nodes["kixiki-public-delivery-faq"].textContent = "Entregamos na sua região";
+  applyKixikiPublicProjection(
+    { products: [], hours: [], operation: { delivery: { enabled: false } } },
+    page.documentRef,
+  );
+  assert.deepEqual(operationCopy(page), {
+    hero: NEUTRAL_OPERATION_COPY.hero,
+    logistics: "🛵 Delivery indisponível",
+    faq: "Delivery indisponível",
+  });
+  assertNoDeliveryPromise(operationCopy(page));
 });
 
 test("active catalog is authoritative for mapped slots and hides inactive products", () => {
@@ -162,5 +200,8 @@ test("confirmed operation updates existing slots without creating an unknown cla
     { products: [], hours: [], operation: {} },
     fallback.documentRef,
   );
-  assert.equal(fallback.nodes["kixiki-public-delivery-faq"].textContent, "FAQ entrega estática");
+  assert.equal(
+    fallback.nodes["kixiki-public-delivery-faq"].textContent,
+    NEUTRAL_OPERATION_COPY.faq,
+  );
 });

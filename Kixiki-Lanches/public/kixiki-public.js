@@ -2,6 +2,13 @@ export const KIXIKI_PUBLIC_ENDPOINT = "/api/kixiki-public";
 
 const WHATSAPP_NUMBER = "48988048681";
 
+export const NEUTRAL_OPERATION_COPY = Object.freeze({
+  hero:
+    "Marmitas quentinhas no almoço e lanches gigantes à noite. Consulte entrega ou retirada pelo WhatsApp.",
+  logistics: "🛵 Entrega ou retirada: consulte disponibilidade pelo WhatsApp.",
+  faq: "Consulte a disponibilidade de entrega ou retirada para sua região pelo WhatsApp.",
+});
+
 const PRODUCT_SLOTS = Object.freeze([
   { slot: "marmita-p", ids: ["marmita-p"], names: ["Marmita P (Executiva)"] },
   { slot: "marmita-g", ids: ["marmita-m", "marmita-g"], names: ["Marmita M (Tradicional)"] },
@@ -97,6 +104,15 @@ const formatOperation = (operation) => {
   return parts.join(" · ");
 };
 
+const applyNeutralOperationCopy = (documentRef) => {
+  const hero = documentRef.getElementById("kixiki-hero-sub");
+  const logistics = documentRef.getElementById("kixiki-public-operation-summary");
+  const faq = documentRef.getElementById("kixiki-public-delivery-faq");
+  if (hero) hero.textContent = NEUTRAL_OPERATION_COPY.hero;
+  if (logistics) logistics.textContent = NEUTRAL_OPERATION_COPY.logistics;
+  if (faq) faq.textContent = NEUTRAL_OPERATION_COPY.faq;
+};
+
 const updateProduct = (elements, product) => {
   if (elements.card) elements.card.hidden = false;
   if (elements.name) elements.name.textContent = product.name;
@@ -123,6 +139,7 @@ const updateProduct = (elements, product) => {
 };
 
 export const applyKixikiPublicProjection = (payload, documentRef = document) => {
+  applyNeutralOperationCopy(documentRef);
   if (!payload || typeof payload !== "object") return false;
 
   const mappedProducts = Array.isArray(payload.products)
@@ -181,10 +198,14 @@ export const hydrateKixikiPublicData = async ({
       headers: { accept: "application/json" },
       credentials: "omit",
     });
-    if (!response.ok) return false;
+    if (!response.ok) {
+      applyNeutralOperationCopy(documentRef);
+      return false;
+    }
     const payload = await response.json();
     return applyKixikiPublicProjection(payload, documentRef);
   } catch {
+    applyNeutralOperationCopy(documentRef);
     return false;
   }
 };
