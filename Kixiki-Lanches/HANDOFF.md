@@ -8,10 +8,10 @@ current_player: mbappe
 repo: marketingpedorro/DIGITALMAS.PRO
 branch: fix/c001-per-item-save-feedback
 pr: 6
-checkpoint_head: 3a211f4b26d065b5d6f64d2a4c9981c2a35800a0
+checkpoint_head: b4b8adaac4778e4b47b6694a09629138c13fddec
 preview: https://deploy-preview-6--kixiki.netlify.app/
 production: https://kixiki.netlify.app/
-updated_at: 2026-08-21T17:20:00-03:00
+updated_at: 2026-08-21T17:30:00-03:00
 ---
 
 # HANDOFF · C001 KIXIKI
@@ -22,9 +22,9 @@ Entregar PR #6 limpio, probado y listo para la decisión humana final (GO / NO-G
 ## ✅ Hecho
 - **Panel do Dono**: interfaz pt-BR privada, alineada a la paleta Kixiki (forest, cream, mustard), desacoplada de workspaces internos y con guardado reactivo por ítem con confirmación visual de servidor.
 - **Cardápio Visual e Interactivo**: mobile-first, flip cards 3D; reverso estructurado con composición de ingredientes cuando existen, o descripción comercial limpia sin mensajes de incertidumbre.
-- **Armonización de Temas DIA/NOITE**: reverso de cards con fondo crema y tipografía verde bosque de alto contraste idéntica en modo día y noche.
+- **Migración Semántica Idempotente**: `upgradeLegacyOwnerData` compartida en memoria entre Owner y Public Projection para convertir descripciones compuestas existentes en ingredientes reales sin sobreescribir ediciones del dueño.
+- **Tipografía y Reverso Premium**: jerarquía visual con acento mostaza superior, nombres en `clamp(1.65rem, 2.2vw, 2rem)`, descripciones en `1rem`, viñetas `•` en `0.95rem - 1rem` y paridad total DIA/NOITE.
 - **Gestión de Fotos**: upload y optimización client-side (JPEG/PNG/WebP, máx 5 MB original, lado máx 1400 px, salida WebP calidad 0.82) hacia asset store sin URLs manuales.
-- **Fallbacks Neutrales**: protección ante estados incompletos en horarios, entrega y precios sin inventar promesas públicas.
 - **Conversión WhatsApp**: CTAs directos por producto posicionados fuera del cuerpo rotatorio de las tarjetas.
 - **Superficie Pública y 404**: `404.html` corregido con etiqueta visual `FORA DO CARDÁPIO`, `robots.txt`, `sitemap.xml` y QR SVG para reseñas (Táctica Regalo).
 - **Medición y Aislamiento**: tracking de eventos C001 y métricas aisladas estrictamente entre preview y producción por prefijo de storage.
@@ -36,7 +36,7 @@ Entregar PR #6 limpio, probado y listo para la decisión humana final (GO / NO-G
 3. Merge / producción únicamente si GO.
 
 ## 🚧 Bloqueos
-- **Bloqueo parcial de autenticación**: el entorno de QA no dispone de sesión Netlify Identity con rol `kixiki-owner` para interactuar en vivo con el panel privado en preview. Todos los flujos están 100% cubiertos por la suite automatizada (80/80 OK).
+- **Bloqueo parcial de autenticación**: el entorno de QA no dispone de sesión Netlify Identity con rol `kixiki-owner` para interactuar en vivo con el panel privado en preview. Todos los flujos están 100% cubiertos por la suite automatizada (82/82 OK).
 
 ## 🛑 No tocar
 - H1 estratégico.
@@ -47,12 +47,12 @@ Entregar PR #6 limpio, probado y listo para la decisión humana final (GO / NO-G
 - Migración general de Control Maestro fuera del alcance de C001.
 
 ## 🧪 Baseline
-- **Tests**: `npm run test:owner` (80/80 tests OK).
+- **Tests**: `npm run test:owner` (82/82 tests OK).
 - **Build**: `npm run netlify:build` exitoso.
 - **Preview**: [Netlify Deploy Preview #6](https://deploy-preview-6--kixiki.netlify.app/)
 
 ## 🏃 Última entrega
-- **Jugador anterior**: Mbappé (Pase #10 - Gate Final Higiene).
-- **Nuevo jugador**: Mbappé (Pase #10 - Corrección Modelo + Tema).
+- **Jugador anterior**: Mbappé (Pase #10 - Corrección Modelo + Tema).
+- **Nuevo jugador**: Mbappé (Pase #10 - Migración Real + Reverso Premium).
 - **Fecha**: 2026-08-21.
-- **Último commit relevante**: `3a211f4` (chore(c001): remove unused legacy public files and finalize pre-go handoff).
+- **Último commit relevante**: `b4b8ada` (fix(c001): align semantic catalog ingredients and enforce day-night backface contrast).

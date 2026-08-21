@@ -246,6 +246,106 @@ const LEGACY_CATALOG = Object.freeze({
   "marmita-caseira": "Marmita caseira",
 });
 
+const LEGACY_COMPOSITIONS = Object.freeze({
+  "marmita-p": {
+    legacyDescriptions: [
+      "Arroz, feijão caseiro, salada fresca, farofa e opção de proteína do dia (carne/frango).",
+      "Arroz, feijão caseiro, salada fresca, farofa e opção de proteína do dia (carne ou frango).",
+    ],
+    ingredients: "Arroz, feijão caseiro, salada fresca, farofa, proteína do dia (carne ou frango)",
+    description: "",
+  },
+  "xis-salada": {
+    legacyDescriptions: [
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer artesanal e ovo.",
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer artesanal, ovo",
+    ],
+    ingredients: "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer artesanal, ovo",
+    description: "",
+  },
+  "xis-bacon": {
+    legacyDescriptions: [
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela, bacon crocante em dobro e hambúrguer.",
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela, bacon crocante em dobro, hambúrguer",
+    ],
+    ingredients: "Maionese, ketchup, mostarda, milho, ervilha, mussarela, bacon crocante em dobro, hambúrguer",
+    description: "",
+  },
+  "xis-calabresa": {
+    legacyDescriptions: [
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela, calabresa fatiada e hambúrguer.",
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela, calabresa fatiada, hambúrguer",
+    ],
+    ingredients: "Maionese, ketchup, mostarda, milho, ervilha, mussarela, calabresa fatiada, hambúrguer",
+    description: "",
+  },
+  "xis-frango": {
+    legacyDescriptions: [
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela e frango desfiado suculento bem temperado.",
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela, frango desfiado suculento bem temperado",
+    ],
+    ingredients: "Maionese, ketchup, mostarda, milho, ervilha, mussarela, frango desfiado suculento bem temperado",
+    description: "",
+  },
+  "xis-strogonoff": {
+    legacyDescriptions: [
+      "Maionese, ketchup, mostarda, milho, ervilha, batata palha e strogonoff caseiro (carne ou frango).",
+      "Maionese, ketchup, mostarda, milho, ervilha, batata palha, strogonoff caseiro (carne ou frango)",
+    ],
+    ingredients: "Maionese, ketchup, mostarda, milho, ervilha, batata palha, strogonoff caseiro (carne ou frango)",
+    description: "",
+  },
+  "xis-coracao": {
+    legacyDescriptions: [
+      "Maionese, ketchup, mostarda, milho, ervilha, tomate, hambúrguer e coração de frango grelhado.",
+      "Maionese, ketchup, mostarda, milho, ervilha, tomate, hambúrguer, coração de frango grelhado",
+    ],
+    ingredients: "Maionese, ketchup, mostarda, milho, ervilha, tomate, hambúrguer, coração de frango grelhado",
+    description: "",
+  },
+  "xis-egg": {
+    legacyDescriptions: [
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer e ovo duplo na chapa.",
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer, ovo duplo na chapa",
+    ],
+    ingredients: "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer, ovo duplo na chapa",
+    description: "",
+  },
+  "xis-tudo": {
+    legacyDescriptions: [
+      "O mais completo! Hambúrguer, bacon, calabresa, frango desfiado, ovo, mussarela, milho e ervilha.",
+      "Hambúrguer, bacon, calabresa, frango desfiado, ovo, mussarela, milho, ervilha",
+    ],
+    ingredients: "Hambúrguer, bacon, calabresa, frango desfiado, ovo, mussarela, milho, ervilha",
+    description: "O lanche mais completo da casa.",
+  },
+  "pas-pizza": {
+    legacyDescriptions: [
+      "Presunto fatiado, queijo mussarela derretido, tomate fresco e toque de orégano.",
+      "Presunto fatiado, queijo mussarela derretido, tomate fresco, toque de orégano",
+    ],
+    ingredients: "Presunto fatiado, queijo mussarela derretido, tomate fresco, toque de orégano",
+    description: "",
+  },
+  "por-morro": {
+    legacyDescriptions: [
+      "Porção gigante de batata frita, mussarela derretida, calabresa fatiada e bacon crocante!",
+      "Porção gigante de batata frita, mussarela derretida, calabresa fatiada, bacon crocante",
+    ],
+    ingredients: "Porção gigante de batata frita, mussarela derretida, calabresa fatiada, bacon crocante",
+    description: "",
+  },
+});
+
+const normalizeLegacyText = (text) =>
+  String(text || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .replace(/[.!,;]+$/, "")
+    .trim();
+
 const legacyItemWasEdited = (item) =>
   item.name !== LEGACY_CATALOG[item.id] ||
   item.priceCents !== null ||
@@ -256,25 +356,55 @@ const legacyItemWasEdited = (item) =>
   item.active === false;
 
 export const upgradeLegacyOwnerData = (input) => {
-  const catalog = input?.catalog;
+  if (!input || typeof input !== "object") return { data: input, migrated: false };
+
+  let migrated = false;
+  let catalog = Array.isArray(input.catalog) ? input.catalog : [];
+
   const isLegacyStarter =
-    Array.isArray(catalog) &&
     catalog.length > 0 &&
     catalog.length <= Object.keys(LEGACY_CATALOG).length &&
     catalog.every((item) => item && Object.hasOwn(LEGACY_CATALOG, item.id));
 
-  if (!isLegacyStarter) return { data: input, migrated: false };
+  if (isLegacyStarter) {
+    const editedLegacyItems = catalog
+      .filter(legacyItemWasEdited)
+      .map((item) => ({ ...item }));
+    catalog = [...defaultCatalog(), ...editedLegacyItems];
+    migrated = true;
+  }
 
-  const editedLegacyItems = catalog
-    .filter(legacyItemWasEdited)
-    .map((item) => ({ ...item }));
+  const migratedCatalog = catalog.map((item) => {
+    if (!item || typeof item !== "object") return item;
+    const rule = LEGACY_COMPOSITIONS[item.id];
+    if (!rule) return item;
+
+    const currentIngredients = String(item.ingredients || "").trim();
+    if (currentIngredients) return item;
+
+    const currentDesc = normalizeLegacyText(item.description);
+    const matchesLegacyDesc = rule.legacyDescriptions.some(
+      (candidate) => normalizeLegacyText(candidate) === currentDesc,
+    );
+
+    if (matchesLegacyDesc) {
+      migrated = true;
+      return {
+        ...item,
+        ingredients: rule.ingredients,
+        description: rule.description,
+      };
+    }
+
+    return item;
+  });
 
   return {
     data: {
       ...input,
-      catalog: [...defaultCatalog(), ...editedLegacyItems],
+      catalog: migratedCatalog,
     },
-    migrated: true,
+    migrated,
   };
 };
 

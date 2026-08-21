@@ -136,3 +136,43 @@ test("internal photo version becomes a public same-origin URL without exposing t
   assert.equal("photoAssetKey" in result.data.products[0], false);
   assert.deepEqual(findForbiddenKeys(result.data), []);
 });
+
+test("projection applies semantic upgrade to unmigrated legacy descriptions", () => {
+  const legacyBlobData = {
+    ...createDefaultOwnerData(),
+    catalog: [
+      {
+        id: "xis-salada",
+        name: "X-Salada",
+        priceCents: 2800,
+        description: "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer artesanal e ovo.",
+        ingredients: "",
+        photoUrl: "",
+        photoAssetVersion: null,
+        active: true,
+      },
+      {
+        id: "marmita-m",
+        name: "Marmita M (Tradicional)",
+        priceCents: 2500,
+        description: "Marmita completa reforçada com porção generosa e acompanhamentos caseiros.",
+        ingredients: "",
+        photoUrl: "",
+        photoAssetVersion: null,
+        active: true,
+      },
+    ],
+  };
+
+  const result = createKixikiPublicProjection(legacyBlobData);
+  assert.equal(result.ok, true);
+
+  const salada = result.data.products.find((item) => item.id === "xis-salada");
+  const marmitaM = result.data.products.find((item) => item.id === "marmita-m");
+
+  assert.match(salada.ingredients, /Hambúrguer artesanal/i);
+  assert.equal("description" in salada, false); // empty string is omitted by projection
+
+  assert.match(marmitaM.description, /Marmita completa reforçada/i);
+  assert.equal("ingredients" in marmitaM, false); // empty string is omitted by projection
+});

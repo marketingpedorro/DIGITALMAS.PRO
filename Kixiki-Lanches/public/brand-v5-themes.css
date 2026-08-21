@@ -951,6 +951,7 @@ html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-
   font-weight: 720;
 }
 .kx-menu-back {
+  position: relative;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   gap: 17px;
@@ -960,6 +961,16 @@ html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-
     radial-gradient(circle at 100% 0%, rgba(248, 182, 47, .28), transparent 34%),
     #fff8e8 !important;
   transform: rotateY(180deg);
+}
+.kx-menu-back::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  height: 4px;
+  background: #f8b62f;
+  border-radius: 0 0 4px 4px;
 }
 html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back,
 html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back {
@@ -976,35 +987,36 @@ html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-
 .kx-menu-back-copy h3,
 html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-copy h3,
 html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-copy h3 {
-  margin: 0 0 13px !important;
+  margin: 0 0 10px !important;
   color: #012b18 !important;
-  font-size: clamp(1.35rem, 2.1vw, 1.8rem);
-  line-height: 1.02;
+  font-size: clamp(1.65rem, 2.2vw, 2rem) !important;
+  line-height: 1.05 !important;
   letter-spacing: -.035em;
 }
 .kx-menu-back-copy p,
 html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-copy p,
 html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-copy p {
-  margin: 0 0 17px !important;
+  margin: 0 0 14px !important;
   color: #28553f !important;
-  font-size: .82rem;
-  line-height: 1.52;
+  font-size: clamp(1rem, 1.3vw, 1.05rem) !important;
+  line-height: 1.55 !important;
 }
 .kx-menu-ingredients > strong,
 .kx-menu-back-copy strong,
 html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back strong,
 html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back strong {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 10px !important;
   color: #012b18 !important;
-  font-size: .72rem;
-  letter-spacing: .08em;
+  font-size: .85rem !important;
+  font-weight: 850 !important;
+  letter-spacing: .09em !important;
   text-transform: uppercase;
 }
 .kx-menu-ingredients ul {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5px 16px;
+  gap: 7px 18px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1013,10 +1025,10 @@ html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-
 html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-ingredients li,
 html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-ingredients li {
   position: relative;
-  padding-left: 12px;
+  padding-left: 14px;
   color: #28553f !important;
-  font-size: .72rem;
-  line-height: 1.38;
+  font-size: clamp(.95rem, 1.2vw, 1rem) !important;
+  line-height: 1.42 !important;
 }
 .kx-menu-ingredients li::before,
 html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-ingredients li::before,
@@ -1025,6 +1037,7 @@ html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-
   left: 0;
   content: "•";
   color: #d49818 !important;
+  font-size: 1.05rem;
   font-weight: 900;
 }
 .kx-menu-back-foot {
@@ -1039,14 +1052,14 @@ html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-
 html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-foot strong,
 html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-foot strong {
   color: #a86d00 !important;
-  font-size: 1.15rem;
+  font-size: clamp(1.25rem, 1.8vw, 1.4rem) !important;
 }
 .kx-menu-back-foot span,
 html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-foot span,
 html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-foot span {
   color: #28553f !important;
-  font-size: .65rem;
-  font-weight: 760;
+  font-size: clamp(.78rem, 1.1vw, .85rem) !important;
+  font-weight: 780 !important;
 }
 .kx-menu-whatsapp,
 .kx-menu-price-pending {

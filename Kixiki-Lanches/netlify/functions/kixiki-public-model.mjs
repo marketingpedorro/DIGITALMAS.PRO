@@ -1,4 +1,7 @@
-import { validateOwnerData } from "./kixiki-owner-model.mjs";
+import {
+  upgradeLegacyOwnerData,
+  validateOwnerData,
+} from "./kixiki-owner-model.mjs";
 
 const hasText = (value) => typeof value === "string" && value.length > 0;
 
@@ -61,7 +64,8 @@ export const createEmptyPublicProjection = () => ({
 });
 
 export const createKixikiPublicProjection = (ownerData) => {
-  const validated = validateOwnerData(ownerData);
+  const upgraded = upgradeLegacyOwnerData(ownerData);
+  const validated = validateOwnerData(upgraded.data);
   if (!validated.ok) return validated;
 
   return {
