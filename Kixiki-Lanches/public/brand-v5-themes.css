@@ -237,12 +237,21 @@ html[data-kx-theme="day"] body.kx-option-b main > section:not(#sec-hero) {
 }
 
 html[data-kx-theme="day"] body.kx-option-b .wf-footer {
-  color: #526158 !important;
-  border-color: rgba(1, 43, 23, 0.18) !important;
+  color: #012b18 !important;
+  border-color: rgba(1, 43, 23, 0.22) !important;
 }
 
 html[data-kx-theme="day"] body.kx-option-b .wf-footer a {
   color: #00512a !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+  text-decoration-color: rgba(0, 81, 42, 0.4) !important;
+  text-underline-offset: 3px !important;
+}
+
+html[data-kx-theme="day"] body.kx-option-b .wf-footer a:hover {
+  color: #012b18 !important;
+  text-decoration-color: #012b18 !important;
 }
 
 html[data-kx-theme="day"] .kx-hero-brand-mark {
@@ -317,6 +326,24 @@ html[data-kx-theme="night"] body.kx-option-b [id^="val-"] {
 
 html[data-kx-theme="night"] body.kx-option-b #sec-localizacao iframe {
   filter: saturate(0.55) sepia(0.14) brightness(0.82) contrast(1.08);
+}
+
+html[data-kx-theme="night"] body.kx-option-b .wf-footer {
+  color: #fff8e7 !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+html[data-kx-theme="night"] body.kx-option-b .wf-footer a {
+  color: #f8b62f !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+  text-decoration-color: rgba(248, 182, 47, 0.45) !important;
+  text-underline-offset: 3px !important;
+}
+
+html[data-kx-theme="night"] body.kx-option-b .wf-footer a:hover {
+  color: #ffca59 !important;
+  text-decoration-color: #ffca59 !important;
 }
 
 /* Tática Regalo: um momento de descoberta no scroll, sem competir com a venda. */

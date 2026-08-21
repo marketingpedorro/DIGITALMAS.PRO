@@ -88,3 +88,29 @@ test("owner panel exposes a compact read-only verification surface for MVP metri
   assert.match(app, /\/api\/kixiki-metrics/);
   assert.match(app, /credentials: "same-origin"/);
 });
+
+test("institutional footer includes privacy link, valid sitemap entry and high contrast themes", async () => {
+  const html = await read("../public/kixiki.html");
+  const css = await read("../public/brand-v5-themes.css");
+  const privacy = await read("../public/privacidade/index.html");
+  const sitemap = await read("../public/sitemap.xml");
+
+  assert.match(html, /class="wf-footer"/);
+  assert.match(html, /© 2026 Kixiki Lanches/);
+  assert.match(html, /Santo Antônio de Lisboa · Florianópolis - SC/);
+  assert.match(html, /href="https:\/\/www\.instagram\.com\/kixiki_lanches"/);
+  assert.match(html, /href="https:\/\/wa\.me\/48988048681"/);
+  assert.match(html, /href="\/privacidade\/"/);
+  assert.match(html, /DigitalMas\.PRO/);
+
+  assert.match(css, /html\[data-kx-theme="day"\] body\.kx-option-b \.wf-footer\s*\{[\s\S]*?color:\s*#012b18\s*!important/);
+  assert.match(css, /html\[data-kx-theme="night"\] body\.kx-option-b \.wf-footer\s*\{[\s\S]*?color:\s*#fff8e7\s*!important/);
+  assert.match(css, /html\[data-kx-theme="night"\] body\.kx-option-b \.wf-footer a\s*\{[\s\S]*?color:\s*#f8b62f\s*!important/);
+
+  assert.match(privacy, /<title>Aviso de Privacidade · Kixiki Lanches<\/title>/);
+  assert.match(privacy, /LGPD/);
+  assert.match(privacy, /sessionStorage/);
+  assert.match(privacy, /href="\/"/);
+
+  assert.match(sitemap, /<loc>https:\/\/kixiki\.digitalmas\.pro\/privacidade\/<\/loc>/);
+});

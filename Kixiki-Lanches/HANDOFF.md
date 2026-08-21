@@ -8,10 +8,10 @@ current_player: mbappe
 repo: marketingpedorro/DIGITALMAS.PRO
 branch: fix/c001-per-item-save-feedback
 pr: 6
-checkpoint_head: 29f787ec9ae1ba86da87e1fb659fda073057fe14
+checkpoint_head: cab6578346ea888e4111416d1f47f9bb394ea847
 preview: https://deploy-preview-6--kixiki.netlify.app/
 production: https://kixiki.netlify.app/
-updated_at: 2026-08-21T17:46:00-03:00
+updated_at: 2026-08-21T17:50:00-03:00
 ---
 
 # HANDOFF · C001 KIXIKI
@@ -23,6 +23,9 @@ Entregar PR #6 limpio, probado y listo para la decisión humana final (GO / NO-G
 - **Panel do Dono**: interfaz pt-BR privada, alineada a la paleta Kixiki (forest, cream, mustard), desacoplada de workspaces internos y con guardado reactivo por ítem con confirmación visual de servidor.
 - **Cardápio Visual e Interactivo**: mobile-first, flip cards 3D; reverso estructurado con composición de ingredientes quando existem, o descripción comercial limpia sin mensajes de incertidumbre.
 - **Simetría Geométrica Estricta**: altura fija e idéntica en todas las flip cards por breakpoint (480px de cuerpo + 56px CTA en desktop; 450px + 56px en móvil), eliminando desbordes en `.kx-menu-back` con scroll interno en `.kx-menu-back-copy` y anclaje inferior del footer/precio en la misma línea.
+- **Rodapé Institucional e Identidad**: contraste optimizado DIA/NOITE (crema/verde en DIA, verde profundo/mostaza en NOITE) con enlaces limpios a Instagram, WhatsApp, Privacidade y crédito DigitalMas.PRO.
+- **Aviso de Privacidade e LGPD**: página `/privacidade/` dedicada pt-BR, mobile-first, documentando transparencia en pedidos directos por WhatsApp, almacenamiento efímero de sesión (`sessionStorage` para `utm_*`) y medición first-party agregada sin cookies publicitarias de terceros (cookie banner no requerido).
+- **Sitemap Técnico**: `/privacidade/` incorporada en `sitemap.xml`.
 - **Migración Semántica Idempotente**: `upgradeLegacyOwnerData` compartida en memoria entre Owner y Public Projection para convertir descripciones compuestas existentes en ingredientes reales sin sobreescribir ediciones del dueño.
 - **Tipografía y Reverso Premium**: jerarquía visual con acento mostaza superior, nombres en `clamp(1.65rem, 2.2vw, 2rem)`, descripciones en `1rem`, viñetas `•` en `0.95rem - 1rem` y paridad total DIA/NOITE.
 - **Microfunnel Regalo WhatsApp DigitalMas**: CTA `"Quero meu presente no WhatsApp →"`, destino directo al WhatsApp operativo de DigitalMas con mensaje pre-cargado de atribución humana e inicialización segura del evento `gift_cta_click`.
@@ -38,7 +41,7 @@ Entregar PR #6 limpio, probado y listo para la decisión humana final (GO / NO-G
 3. Merge / producción únicamente si GO.
 
 ## 🚧 Bloqueos
-- **Bloqueo parcial de autenticación**: el entorno de QA no dispone de sesión Netlify Identity con rol `kixiki-owner` para interactuar en vivo con el panel privado en preview. Todos los flujos están 100% cubiertos por la suite automatizada (83/83 OK).
+- **Bloqueo parcial de autenticación**: el entorno de QA no dispone de sesión Netlify Identity con rol `kixiki-owner` para interactuar en vivo con el panel privado en preview. Todos los flujos están 100% cubiertos por la suite automatizada (84/84 OK).
 
 ## 🛑 No tocar
 - H1 estratégico.
@@ -49,12 +52,12 @@ Entregar PR #6 limpio, probado y listo para la decisión humana final (GO / NO-G
 - Migración general de Control Maestro fuera del alcance de C001.
 
 ## 🧪 Baseline
-- **Tests**: `npm run test:owner` (83/83 tests OK).
+- **Tests**: `npm run test:owner` (84/84 tests OK).
 - **Build**: `npm run netlify:build` exitoso.
 - **Preview**: [Netlify Deploy Preview #6](https://deploy-preview-6--kixiki.netlify.app/)
 
 ## 🏃 Última entrega
-- **Jugador anterior**: Mbappé (Pase #10 - Microfunnel Regalo WhatsApp).
-- **Nuevo jugador**: Mbappé (Pase #10 - Simetría Geométrica Flip Cards).
+- **Jugador anterior**: Mbappé (Pase #10 - Simetría Geométrica Flip Cards).
+- **Nuevo jugador**: Mbappé (Pase #10 - Footer + Base Institucional).
 - **Fecha**: 2026-08-21.
-- **Último commit relevante**: `29f787e` (fix(c001): convert referral gift CTA to direct WhatsApp microfunnel).
+- **Último commit relevante**: `cab6578` (fix(c001): enforce strict geometric symmetry on flip cards and backface layout).
