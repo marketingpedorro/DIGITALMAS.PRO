@@ -2,19 +2,46 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#001e10">
   <title>Página não encontrada | Kixiki Lanches</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/montserrat-latin-400-900.woff2" as="font" type="font/woff2" crossorigin>
   <style>
-    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:#001e10;color:#fff8e7;font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}.card{width:min(100%,620px);padding:clamp(28px,7vw,64px);border:1px solid rgba(224,180,56,.5);border-radius:12px 44px 12px 12px;background:#03381e;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.35)}h1{font-size:clamp(2rem,8vw,4rem);line-height:1;margin:.25em 0}.code{color:#f8b62f;font-weight:900;letter-spacing:.12em}.btn{display:inline-flex;min-height:48px;align-items:center;justify-content:center;margin-top:18px;padding:12px 22px;border-radius:8px 20px 8px 8px;background:#f8b62f;color:#001e10;font-weight:900;text-decoration:none}.btn:focus-visible{outline:3px solid #fff8e7;outline-offset:4px}
+    @font-face{font-family:Montserrat;src:url('/assets/montserrat-latin-400-900.woff2') format('woff2');font-style:normal;font-weight:400 900;font-display:swap}
+    :root{color-scheme:dark;font-family:Montserrat,system-ui,sans-serif;background:#001e10;color:#fff8e7}
+    *{box-sizing:border-box}
+    body{min-width:320px;min-height:100vh;margin:0;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 10%,rgba(248,182,47,.15),transparent 28rem),linear-gradient(180deg,#001e10,#012b17)}
+    main{width:min(100%,900px);display:grid;grid-template-columns:minmax(220px,320px) minmax(0,1fr);gap:clamp(24px,6vw,72px);align-items:center;padding:clamp(28px,6vw,58px);border:1px solid rgba(224,180,56,.45);border-radius:30px;background:#063a22;box-shadow:0 30px 90px rgba(0,0,0,.32)}
+    img{width:100%;height:auto;filter:drop-shadow(0 18px 28px rgba(0,18,9,.3))}
+    .code{color:#f8b62f;font-size:.72rem;font-weight:900;letter-spacing:.16em}
+    h1{max-width:590px;margin:10px 0 14px;font-size:clamp(2.2rem,7vw,4.5rem);line-height:.96;letter-spacing:-.055em}
+    p{max-width:560px;margin:0;color:rgba(255,248,231,.72);font-size:clamp(.95rem,2vw,1.1rem);line-height:1.65}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+    a{min-height:48px;display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:12px;font-weight:900;text-decoration:none}
+    .primary{background:#f8b62f;color:#012b17}
+    .primary:hover{background:#ffc64d}
+    .secondary{border:1px solid rgba(255,248,231,.26);color:#fff8e7;background:rgba(255,255,255,.035)}
+    a:focus-visible{outline:3px solid #fff8e7;outline-offset:4px}
+    small{display:block;margin-top:22px;color:rgba(255,248,231,.48);font-size:.7rem}
+    @media(max-width:640px){body{padding:14px}main{grid-template-columns:1fr;text-align:center;border-radius:24px}img{width:min(72vw,230px);margin:auto}.actions{flex-direction:column}.actions a{width:100%}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
   </style>
 </head>
 <body>
-  <main class="card">
-    <div class="code">ERRO 404</div>
-    <h1>Essa página saiu para fazer um lanche.</h1>
-    <p>Volte ao cardápio do Kixiki e continue seu pedido.</p>
-    <a class="btn" href="/">Voltar ao início</a>
+  <main>
+    <img src="/assets/kixiki-burger-mascot-v1.svg" width="320" height="320" alt="Hamburguesinha do Kixiki procurando o caminho de volta">
+    <div>
+      <span class="code">ERRO 404 · FORA DO CARDÁPIO</span>
+      <h1>Esse lanche não está no cardápio 😅</h1>
+      <p>Você caiu numa página que não existe.<br>E ficar por aqui não vai matar a fome.</p>
+      <div class="actions">
+        <a class="primary" href="/">Voltar para o Kixiki</a>
+        <a class="secondary" href="https://wa.me/48988048681?text=Olá!%20Vim%20pela%20página%20404%20do%20site%20e%20gostaria%20de%20fazer%20um%20pedido%20no%20Kixiki%20Lanches!" target="_blank" rel="noopener noreferrer">Pedir pelo WhatsApp</a>
+      </div>
+      <small>Kixiki Lanches · Santo Antônio de Lisboa</small>
+    </div>
   </main>
 </body>
 </html>

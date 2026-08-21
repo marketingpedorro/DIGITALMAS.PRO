@@ -24,6 +24,48 @@ html[data-kx-theme="night"] {
   flex: 0 0 auto;
 }
 
+.kx-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+
+.kx-owner-access {
+  width: 46px;
+  height: 46px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(224, 180, 56, 0.38);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.045);
+  color: rgba(255, 248, 231, 0.68);
+  text-decoration: none;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.kx-owner-access svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.kx-owner-access:hover {
+  color: #f8b62f;
+  border-color: #e0b438;
+  background: rgba(224, 180, 56, 0.1);
+}
+
+.kx-owner-access:focus-visible {
+  outline: 3px solid #f8b62f;
+  outline-offset: 3px;
+}
+
 .kx-theme-enabled .kx-theme-control {
   display: flex;
 }
@@ -176,6 +218,18 @@ html[data-kx-theme="day"] .kx-theme-track {
   background: rgba(1, 43, 23, 0.11);
 }
 
+html[data-kx-theme="day"] .kx-owner-access {
+  color: rgba(1, 43, 23, 0.7);
+  border-color: rgba(1, 43, 23, 0.26);
+  background: rgba(1, 43, 23, 0.045);
+}
+
+html[data-kx-theme="day"] .kx-owner-access:hover {
+  color: #012b17;
+  border-color: #9b7010;
+  background: rgba(224, 180, 56, 0.16);
+}
+
 html[data-kx-theme="day"] body.kx-option-b main > section:not(#sec-hero) {
   background: #fff8e7 !important;
   border-color: rgba(1, 43, 23, 0.18) !important;
@@ -265,6 +319,100 @@ html[data-kx-theme="night"] body.kx-option-b #sec-localizacao iframe {
   filter: saturate(0.55) sepia(0.14) brightness(0.82) contrast(1.08);
 }
 
+/* Tática Regalo: discreta para o restaurante, inequívoca para DigitalMas.PRO. */
+body.kx-option-b .kx-gift {
+  display: grid;
+  grid-template-columns: 152px minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 42px);
+  align-items: center;
+  padding: clamp(24px, 5vw, 44px) !important;
+  border: 1px solid rgba(224, 180, 56, 0.48) !important;
+  background:
+    radial-gradient(circle at 7% 20%, rgba(248, 182, 47, 0.16), transparent 20rem),
+    #063a22 !important;
+  text-align: left !important;
+}
+
+html[data-kx-theme="day"] body.kx-option-b main > section.kx-gift,
+html[data-kx-theme="night"] body.kx-option-b main > section.kx-gift {
+  border-color: rgba(224, 180, 56, 0.48) !important;
+  background:
+    radial-gradient(circle at 7% 20%, rgba(248, 182, 47, 0.16), transparent 20rem),
+    #063a22 !important;
+}
+
+.kx-gift-mascot {
+  width: min(100%, 152px);
+  height: auto;
+  filter: drop-shadow(0 18px 22px rgba(0, 18, 9, 0.24));
+}
+
+.kx-gift-copy {
+  min-width: 0;
+}
+
+.kx-gift-brand {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #f8b62f;
+  font-size: 0.69rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+}
+
+body.kx-option-b .kx-gift h2 {
+  margin: 0 0 10px;
+  color: #fff8e7 !important;
+  font-size: clamp(1.65rem, 4vw, 2.45rem);
+  letter-spacing: -0.035em;
+}
+
+body.kx-option-b .kx-gift p {
+  max-width: 720px;
+  margin: 0;
+  color: rgba(255, 248, 231, 0.77) !important;
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+html[data-kx-theme="day"] body.kx-option-b main > section.kx-gift h2,
+html[data-kx-theme="day"] body.kx-option-b main > section.kx-gift p,
+html[data-kx-theme="day"] body.kx-option-b main > section.kx-gift .kx-gift-support {
+  color: #fff8e7 !important;
+}
+
+body.kx-option-b .kx-gift .kx-gift-support {
+  margin-top: 8px;
+  color: #fff8e7 !important;
+  font-weight: 700;
+}
+
+.kx-gift-cta {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: #f8b62f;
+  color: #012b17 !important;
+  font-size: 0.9rem;
+  font-weight: 900;
+  text-decoration: none;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+}
+
+.kx-gift-cta:hover {
+  background: #ffc64d;
+  transform: translateY(-1px);
+}
+
+.kx-gift-cta:focus-visible {
+  outline: 3px solid #fff8e7;
+  outline-offset: 4px;
+}
+
 @media (max-width: 820px) {
   .kx-hero-brand-mark {
     top: -68px;
@@ -309,6 +457,10 @@ html[data-kx-theme="night"] body.kx-option-b #sec-localizacao iframe {
   html[data-kx-theme="night"] .kx-theme-thumb {
     transform: translateX(12px);
   }
+
+  body.kx-option-b .kx-gift {
+    grid-template-columns: 112px minmax(0, 1fr);
+  }
 }
 
 @media (max-width: 620px) {
@@ -328,9 +480,36 @@ html[data-kx-theme="night"] body.kx-option-b #sec-localizacao iframe {
     justify-content: center;
   }
 
+  .kx-header-actions,
   .kx-theme-control {
     width: 100%;
     justify-content: center;
+  }
+
+  .kx-header-actions {
+    gap: 8px;
+  }
+
+  .kx-theme-control {
+    width: auto;
+  }
+
+  body.kx-option-b .kx-gift {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center !important;
+  }
+
+  .kx-gift-mascot {
+    width: 124px;
+  }
+
+  .kx-gift-copy {
+    text-align: center;
+  }
+
+  .kx-gift-cta {
+    width: 100%;
   }
 }
 
