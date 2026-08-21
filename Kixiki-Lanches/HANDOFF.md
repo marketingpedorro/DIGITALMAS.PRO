@@ -3,61 +3,55 @@ schema: digitalmas-handoff-v1
 project_id: C001
 project_name: Kixiki Lanches
 status: in_progress
-stage: final-var
+stage: v1-publica
 current_player: mbappe
 repo: marketingpedorro/DIGITALMAS.PRO
 branch: fix/c001-per-item-save-feedback
 pr: 6
-checkpoint_head: 2e8e01310a5c0b3f447a4e05945b1522f8e231ae
+checkpoint_head: 2a39c84a5bb107d7994cff29fecc141abdaa869a
 preview: https://deploy-preview-6--kixiki.netlify.app/
-production: https://kixiki.netlify.app/
-updated_at: 2026-08-21T18:16:00-03:00
+production: https://kixiki.digitalmas.pro/
+updated_at: 2026-08-21T18:45:00-03:00
 ---
 
 # HANDOFF · C001 KIXIKI
 
 ## 🎯 Objetivo actual
-Entregar PR #6 limpio, probado y listo para la decisión humana final (GO / NO-GO) de Andy y Messi.
+Publicación oficial de la V1 pública de Kixiki Lanches en producción tras la aprobación GO de Messi y Andy.
 
 ## ✅ Hecho
-- **Panel do Dono**: interfaz pt-BR privada, alineada a la paleta Kixiki (forest, cream, mustard), desacoplada de workspaces internos y con guardado reactivo por ítem con confirmación visual de servidor.
-- **Cardápio Visual e Interactivo**: mobile-first, flip cards 3D; reverso estructurado con composición de ingredientes quando existem, o descripción comercial limpia sin mensajes de incertidumbre.
-- **Simetría Geométrica Estricta**: altura fija e idéntica en todas las flip cards por breakpoint (480px de cuerpo + 56px CTA en desktop; 450px + 56px en móvil), eliminando desbordes en `.kx-menu-back` con scroll interno en `.kx-menu-back-copy` y anclaje inferior del footer/precio en la misma línea.
-- **Rodapé Institucional e Identidad**: inversión total de superficie DIA/NOITE (`#fff8e7` en DIA vs `#001e10` en NOITE) con estructura y créditos exactos aprobados en 2 líneas ("Desenvolvido por Andrés Sebastián · DigitalMas.PRO" y "Fundador · Técnico Universitário em Web pela UNSL (Argentina)."), y enlaces limpios a Instagram, WhatsApp y Privacidade.
-- **Aviso de Privacidade e LGPD**: página `/privacidade/` dedicada pt-BR, mobile-first, com 9 seções estruturadas, suporte dinâmico para tema DIA / NOITE com toggle e variáveis compartilhadas, documentando medição first-party sem cookies publicitários de terceiros (cookie banner não exigido).
-- **Sitemap Técnico**: `/privacidade/` incorporada em `sitemap.xml`.
-- **Migración Semántica Idempotente**: `upgradeLegacyOwnerData` compartida en memoria entre Owner y Public Projection para convertir descripciones compuestas existentes en ingredientes reales sin sobreescribir ediciones del dueño.
-- **Tipografía y Reverso Premium**: jerarquía visual con acento mostaza superior, nombres en `clamp(1.65rem, 2.2vw, 2rem)`, descripciones en `1rem`, viñetas `•` en `0.95rem - 1rem` y paridad total DIA/NOITE.
-- **Microfunnel Regalo WhatsApp DigitalMas**: CTA `"Quero meu presente no WhatsApp →"`, destino directo al WhatsApp operativo de DigitalMas con mensaje pre-cargado de atribución humana e inicialización segura del evento `gift_cta_click`.
-- **Gestión de Fotos**: upload y optimización client-side (JPEG/PNG/WebP, máx 5 MB original, lado máx 1400 px, salida WebP calidad 0.82) hacia asset store sin URLs manuales.
-- **Conversión WhatsApp**: CTAs directos por producto posicionados fuera del cuerpo rotatorio de las tarjetas.
-- **Superficie Pública y 404**: `404.html` corregido con etiqueta visual `FORA DO CARDÁPIO`, `robots.txt`, `sitemap.xml` y QR SVG para reseñas (Táctica Regalo).
-- **Medición y Aislamiento**: tracking de eventos C001 y métricas aisladas estrictamente entre preview y producción por prefijo de storage.
-- **Higiene de `/public`**: remoción confirmada de 13 archivos huérfanos/legacy con cero referencias en el proyecto.
+- **V1 Pública Aprobada (GO)**: validación completa de la experiencia visual pública, responsive y funcional.
+- **Cardápio Visual e Interactivo**: mobile-first, flip cards 3D; simetría geométrica estricta (480px flip + 56px CTA desktop; 450px + 56px móvil) con reverso semántico `<ul>`/`<li>` para ingredientes y descripciones comerciales limpias.
+- **Rodapé Institucional e Identidad**: inversión total de superficie DIA/NOITE (`#fff8e7` en DIA vs `#001e10` en NOITE), créditos íntegros a 2 líneas ("Desenvolvido por Andrés Sebastián · DigitalMas.PRO" y "Fundador · Técnico Universitário em Web pela UNSL (Argentina)."), y enlaces canónicos a Instagram, WhatsApp y Privacidade.
+- **Aviso de Privacidade e LGPD First-Party**: página `/privacidade/` dedicada pt-BR, mobile-first, com 9 seções estruturadas, suporte dinâmico para tema DIA / NOITE e eliminação de dependência externa com fonte Montserrat local first-party (`/assets/montserrat-latin-400-900.woff2`).
+- **Microfunnel Regalo WhatsApp DigitalMas**: CTA `"Quero meu presente no WhatsApp →"`, destino direto ao WhatsApp da DigitalMas com mensagem pré-formatada de atribuição e disparo seguro do evento `gift_cta_click`.
+- **Superfície Pública e SEO**: `404.html` personalizado com etiqueta `FORA DO CARDÁPIO`, `sitemap.xml` atualizado com `/privacidade/`, `robots.txt` e QR SVG para avaliações (Táctica Regalo).
+- **Medição Técnica**: telemetria first-party anônima agregada em Netlify Blobs isolada por prefixos entre preview e produção.
+- **Higiene de `/public`**: 13 arquivos órfãos/legacy excluídos do repositório.
 
-## ⚽ Próximos 3
-1. Smoke autenticado privado.
-2. GO / CORREGIR de Andy + Messi.
-3. Merge / producción únicamente si GO.
+## ⚽ Próximos 3 (Fase Siguiente)
+1. **Modelado Vibe + Arquitetura**: diagramas e especificação do Painel do Dono.
+2. **Iteração Visual de Fotos Reais**: ingestão e publicação do catálogo de fotos dos lanches reais.
+3. **Smoke Autenticado do Painel**: validação de ponta a ponta com sessão real de proprietário (`kixiki-owner`).
 
-## 🚧 Bloqueos
-- **Bloqueo parcial de autenticación**: el entorno de QA no dispone de sesión Netlify Identity con rol `kixiki-owner` para interactuar en vivo con el panel privado en preview. Todos los flujos están 100% cubiertos por la suite automatizada (84/84 OK).
+## 🚧 Bloqueos / Estado de Módulos
+- **Painel do Dono (Privado / Congelado)**: O painel permanece isolado e protegido na infraestrutura interna, aguardando modelado formal e smoke autenticado para posterior liberação ao proprietário. Não impacta a V1 pública.
 
 ## 🛑 No tocar
 - H1 estratégico.
 - Dardo.
-- DNS / dominios de producción.
-- Producción sin GO y VAR aprobado.
+- DNS / dominios de producción sin autorización previa.
 - Proyectos externos o experimentos no relacionados.
 - Migración general de Control Maestro fuera del alcance de C001.
 
 ## 🧪 Baseline
 - **Tests**: `npm run test:owner` (84/84 tests OK).
 - **Build**: `npm run netlify:build` exitoso.
+- **Producción**: [https://kixiki.digitalmas.pro/](https://kixiki.digitalmas.pro/)
 - **Preview**: [Netlify Deploy Preview #6](https://deploy-preview-6--kixiki.netlify.app/)
 
 ## 🏃 Última entrega
-- **Jugador anterior**: Mbappé (Pase #10 - Microajuste Footer + Tema Privacidade).
-- **Nuevo jugador**: Mbappé (Pase #10 - Corrección Quirúrgica Footer NOITE).
+- **Jugador anterior**: Mbappé (Pase #10 - Corrección Quirúrgica Footer NOITE).
+- **Nuevo jugador**: Mbappé (Pase Final - Publicación V1 Oficial).
 - **Fecha**: 2026-08-21.
-- **Último commit relevante**: `2e8e013` (fix(c001): restore full institutional footer credit and add day-night theme support to privacy page).
+- **Último commit relevante**: `2a39c84` (fix(c001): enforce full footer surface inversion in night theme).

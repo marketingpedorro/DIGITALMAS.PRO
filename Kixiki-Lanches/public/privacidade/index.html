@@ -7,9 +7,7 @@
   <meta name="description" content="Aviso de Privacidade e transparência sobre dados, medição técnica e canais de atendimento do Kixiki Lanches em Florianópolis - SC.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://kixiki.digitalmas.pro/privacidade/">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preload" href="/assets/montserrat-latin-400-900.woff2" as="font" type="font/woff2" crossorigin>
   <script>
     (function () {
       let theme = 'night';
@@ -21,6 +19,13 @@
     })();
   </script>
   <style>
+    @font-face {
+      font-family: 'Montserrat';
+      src: url('/assets/montserrat-latin-400-900.woff2') format('woff2');
+      font-style: normal;
+      font-weight: 400 900;
+      font-display: swap;
+    }
     :root, html[data-kx-theme="night"] {
       --bg-deep: #001e10;
       --bg-card: #012b17;
