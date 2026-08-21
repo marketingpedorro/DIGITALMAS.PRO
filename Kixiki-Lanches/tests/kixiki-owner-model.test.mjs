@@ -179,3 +179,129 @@ test("accepts only HTTPS photo references", () => {
   assert.equal(result.ok, false);
   assert.match(result.error, /HTTPS/i);
 });
+
+test("accepts an internal product photo version without storing image bytes in owner JSON", () => {
+  const data = cloneDefault();
+  data.catalog[0].photoAssetVersion = "m0d3l-asset123";
+  data.catalog[0].photoUrl = "";
+
+  const result = validateOwnerData(data);
+  assert.equal(result.ok, true);
+  assert.equal(result.data.catalog[0].photoAssetVersion, "m0d3l-asset123");
+  assert.equal(result.data.catalog[0].photoUrl, "");
+  assert.doesNotMatch(JSON.stringify(result.data), /data:image|base64/i);
+});
+
+test("legacy products without photoAssetVersion remain valid and are normalized", () => {
+  const data = cloneDefault();
+  delete data.catalog[0].photoAssetVersion;
+  const result = validateOwnerData(data);
+  assert.equal(result.ok, true);
+  assert.equal(result.data.catalog[0].photoAssetVersion, null);
+});
+
+test("base catalog separates composition ingredients from general descriptions", () => {
+  const data = createDefaultOwnerData();
+  const salada = data.catalog.find((item) => item.id === "xis-salada");
+  const marmitaM = data.catalog.find((item) => item.id === "marmita-m");
+  const xisTudo = data.catalog.find((item) => item.id === "xis-tudo");
+
+  assert.match(salada.ingredients, /Hambúrguer artesanal/i);
+  assert.equal(salada.description, "");
+
+  assert.equal(marmitaM.ingredients, "");
+  assert.match(marmitaM.description, /Marmita completa reforçada/i);
+
+  assert.match(xisTudo.description, /O lanche mais completo/i);
+  assert.match(xisTudo.ingredients, /Hambúrguer/i);
+});
+
+test("migrates persisted 18-product catalog with legacy descriptions into semantic composition and preserves custom owner edits", () => {
+  const persistedLegacyData = {
+    ...createDefaultOwnerData(),
+    catalog: [
+      {
+        id: "xis-salada",
+        name: "X-Salada",
+        priceCents: 2800,
+        description: "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer artesanal e ovo.",
+        ingredients: "",
+        photoUrl: "",
+        photoAssetVersion: null,
+        active: true,
+      },
+      {
+        id: "xis-bacon",
+        name: "X-Bacon",
+        priceCents: 3200,
+        description: "Maionese, ketchup, mostarda, milho, ervilha, mussarela, bacon crocante em dobro e hambúrguer.",
+        ingredients: "",
+        photoUrl: "",
+        photoAssetVersion: null,
+        active: true,
+      },
+      {
+        id: "xis-calabresa",
+        name: "X-Calabresa do Carlos",
+        priceCents: 3500,
+        description: "Receita exclusiva do Carlos com toque de pimenta.",
+        ingredients: "",
+        photoUrl: "",
+        photoAssetVersion: null,
+        active: true,
+      },
+      {
+        id: "marmita-m",
+        name: "Marmita M (Tradicional)",
+        priceCents: 2500,
+        description: "Marmita completa reforçada com porção generosa e acompanhamentos caseiros.",
+        ingredients: "",
+        photoUrl: "",
+        photoAssetVersion: null,
+        active: true,
+      },
+      {
+        id: "por-morro",
+        name: "Morro de Batata",
+        priceCents: 5400,
+        description: "Porção gigante de batata frita, mussarela derretida, calabresa fatiada e bacon crocante!",
+        ingredients: "Batata especial do chefe",
+        photoUrl: "",
+        photoAssetVersion: null,
+        active: true,
+      },
+    ],
+  };
+
+  const upgraded = upgradeLegacyOwnerData(persistedLegacyData);
+  assert.equal(upgraded.migrated, true);
+
+  const salada = upgraded.data.catalog.find((item) => item.id === "xis-salada");
+  const bacon = upgraded.data.catalog.find((item) => item.id === "xis-bacon");
+  const calabresa = upgraded.data.catalog.find((item) => item.id === "xis-calabresa");
+  const marmitaM = upgraded.data.catalog.find((item) => item.id === "marmita-m");
+  const morro = upgraded.data.catalog.find((item) => item.id === "por-morro");
+
+  // Salada & Bacon: migrated semantically to ingredients, empty description
+  assert.match(salada.ingredients, /Hambúrguer artesanal/i);
+  assert.equal(salada.description, "");
+  assert.match(bacon.ingredients, /Bacon crocante em dobro/i);
+  assert.equal(bacon.description, "");
+
+  // Calabresa: custom edited description -> NOT overwritten
+  assert.equal(calabresa.name, "X-Calabresa do Carlos");
+  assert.equal(calabresa.priceCents, 3500);
+  assert.equal(calabresa.description, "Receita exclusiva do Carlos com toque de pimenta.");
+  assert.equal(calabresa.ingredients, "");
+
+  // Marmita M: pure description product -> retains description, empty ingredients
+  assert.match(marmitaM.description, /Marmita completa reforçada/i);
+  assert.equal(marmitaM.ingredients, "");
+
+  // Morro: owner provided custom ingredients -> NOT overwritten
+  assert.equal(morro.ingredients, "Batata especial do chefe");
+
+  // Idempotence check: running upgrade again produces identical data
+  const twice = upgradeLegacyOwnerData(upgraded.data);
+  assert.deepEqual(twice.data, upgraded.data);
+});

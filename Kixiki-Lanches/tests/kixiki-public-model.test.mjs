@@ -21,6 +21,8 @@ const FORBIDDEN_KEYS = new Set([
   "etag",
   "store",
   "namespace",
+  "photoAssetVersion",
+  "photoAssetKey",
 ]);
 
 const findForbiddenKeys = (value, found = []) => {
@@ -115,4 +117,62 @@ test("incomplete hours and null product prices are omitted without invention", (
   assert.equal(result.ok, true);
   assert.deepEqual(result.data.hours, []);
   assert.equal("priceCents" in result.data.products[0], false);
+});
+
+test("internal photo version becomes a public same-origin URL without exposing the asset key", () => {
+  const owner = createDefaultOwnerData();
+  owner.catalog = [{
+    ...owner.catalog.find((item) => item.id === "xis-bacon"),
+    photoUrl: "",
+    photoAssetVersion: "m0d3l-asset123",
+  }];
+  const result = createKixikiPublicProjection(owner);
+  assert.equal(result.ok, true);
+  assert.equal(
+    result.data.products[0].photoUrl,
+    "/api/kixiki-product-image?product=xis-bacon&v=m0d3l-asset123",
+  );
+  assert.equal("photoAssetVersion" in result.data.products[0], false);
+  assert.equal("photoAssetKey" in result.data.products[0], false);
+  assert.deepEqual(findForbiddenKeys(result.data), []);
+});
+
+test("projection applies semantic upgrade to unmigrated legacy descriptions", () => {
+  const legacyBlobData = {
+    ...createDefaultOwnerData(),
+    catalog: [
+      {
+        id: "xis-salada",
+        name: "X-Salada",
+        priceCents: 2800,
+        description: "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer artesanal e ovo.",
+        ingredients: "",
+        photoUrl: "",
+        photoAssetVersion: null,
+        active: true,
+      },
+      {
+        id: "marmita-m",
+        name: "Marmita M (Tradicional)",
+        priceCents: 2500,
+        description: "Marmita completa reforçada com porção generosa e acompanhamentos caseiros.",
+        ingredients: "",
+        photoUrl: "",
+        photoAssetVersion: null,
+        active: true,
+      },
+    ],
+  };
+
+  const result = createKixikiPublicProjection(legacyBlobData);
+  assert.equal(result.ok, true);
+
+  const salada = result.data.products.find((item) => item.id === "xis-salada");
+  const marmitaM = result.data.products.find((item) => item.id === "marmita-m");
+
+  assert.match(salada.ingredients, /Hambúrguer artesanal/i);
+  assert.equal("description" in salada, false); // empty string is omitted by projection
+
+  assert.match(marmitaM.description, /Marmita completa reforçada/i);
+  assert.equal("ingredients" in marmitaM, false); // empty string is omitted by projection
 });

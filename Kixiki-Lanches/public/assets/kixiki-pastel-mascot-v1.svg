@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="t d">
+  <title id="t">Pastel do Kixiki</title><desc id="d">Ilustração de um pastel crocante simpático nas cores do Kixiki.</desc>
+  <defs><linearGradient id="p" x2="0" y2="1"><stop stop-color="#ffd66b"/><stop offset="1" stop-color="#e8a91d"/></linearGradient><filter id="s"><feDropShadow dy="9" stdDeviation="7" flood-color="#012b17" flood-opacity=".22"/></filter></defs>
+  <ellipse cx="160" cy="212" rx="100" ry="13" fill="#012b17" opacity=".18"/>
+  <path d="M58 184 148 37c6-10 19-13 29-7 42 24 74 69 86 121 4 17-9 34-27 34H74c-13 0-22-1-16-1Z" fill="url(#p)" stroke="#012b17" stroke-width="8" stroke-linejoin="round" filter="url(#s)"/>
+  <path d="M77 169c42-9 104-70 103-126" fill="none" stroke="#fff0b0" stroke-width="8" stroke-linecap="round" opacity=".75"/>
+  <g fill="#012b17"><circle cx="147" cy="126" r="7"/><circle cx="202" cy="126" r="7"/></g>
+  <path d="M157 141c11 10 24 10 35 0" fill="none" stroke="#012b17" stroke-width="7" stroke-linecap="round"/>
+  <g fill="#fff0b0"><circle cx="118" cy="89" r="4"/><circle cx="98" cy="127" r="4"/><circle cx="221" cy="90" r="4"/></g>
+</svg>

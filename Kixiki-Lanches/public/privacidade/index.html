@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-kx-theme="night">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aviso de Privacidade · Kixiki Lanches</title>
+  <meta name="description" content="Aviso de Privacidade e transparência sobre dados, medição técnica e canais de atendimento do Kixiki Lanches em Florianópolis - SC.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://kixiki.digitalmas.pro/privacidade/">
+  <link rel="preload" href="/assets/montserrat-latin-400-900.woff2" as="font" type="font/woff2" crossorigin>
+  <script>
+    (function () {
+      let theme = 'night';
+      try { theme = localStorage.getItem('kixiki-theme'); } catch (error) {}
+      if (theme !== 'day' && theme !== 'night') {
+        theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
+      }
+      document.documentElement.setAttribute('data-kx-theme', theme);
+    })();
+  </script>
+  <style>
+    @font-face {
+      font-family: 'Montserrat';
+      src: url('/assets/montserrat-latin-400-900.woff2') format('woff2');
+      font-style: normal;
+      font-weight: 400 900;
+      font-display: swap;
+    }
+    :root, html[data-kx-theme="night"] {
+      --bg-deep: #001e10;
+      --bg-card: #012b17;
+      --paper: #fff8e7;
+      --muted: rgba(255, 248, 231, 0.82);
+      --gold: #f8b62f;
+      --gold-hover: #ffca59;
+      --line: rgba(224, 180, 56, 0.35);
+      --sec-bg: rgba(255, 255, 255, 0.035);
+      --sec-border: rgba(255, 248, 231, 0.14);
+      --badge-bg: rgba(248, 182, 47, 0.15);
+      --badge-color: #f8b62f;
+      --shadow: 0 16px 40px rgba(0, 14, 7, 0.32);
+    }
+    html[data-kx-theme="day"] {
+      --bg-deep: #fff8e7;
+      --bg-card: #fffdf5;
+      --paper: #012b18;
+      --muted: #28553f;
+      --gold: #00512a;
+      --gold-hover: #012b18;
+      --line: rgba(1, 43, 23, 0.22);
+      --sec-bg: #ffffff;
+      --sec-border: rgba(1, 43, 23, 0.16);
+      --badge-bg: rgba(1, 43, 23, 0.08);
+      --badge-color: #012b18;
+      --shadow: 0 16px 40px rgba(1, 43, 23, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 80% 10%, rgba(224, 180, 56, 0.12), transparent 28rem), linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-card) 100%);
+      color: var(--paper);
+      line-height: 1.65;
+      padding: 32px 18px 48px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .kx-privacy-container {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    header {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .kx-header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .kx-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gold);
+      font-size: 0.88rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .kx-back-link:hover {
+      color: var(--gold-hover);
+      text-decoration: underline;
+    }
+    .kx-theme-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--sec-bg);
+      color: var(--paper);
+      font-family: inherit;
+      font-size: 0.76rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .kx-theme-btn:hover {
+      border-color: var(--gold);
+    }
+    .kx-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: var(--badge-bg);
+      border: 1px solid var(--line);
+      color: var(--badge-color);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: clamp(1.85rem, 4.5vw, 2.75rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      color: var(--paper);
+      margin-bottom: 8px;
+    }
+    .kx-subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+    article {
+      display: grid;
+      gap: 22px;
+    }
+    section {
+      background: var(--sec-bg);
+      border: 1px solid var(--sec-border);
+      border-radius: 18px;
+      padding: 22px 24px;
+      box-shadow: var(--shadow);
+    }
+    h2 {
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    p:last-child { margin-bottom: 0; }
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 10px 0;
+      display: grid;
+      gap: 8px;
+    }
+    li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 900;
+    }
+    footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    footer a {
+      color: var(--gold);
+      text-decoration: underline;
+      font-weight: 700;
+    }
+    footer a:hover { color: var(--gold-hover); }
+  </style>
+</head>
+<body>
+  <div class="kx-privacy-container">
+    <header>
+      <div class="kx-header-top">
+        <a href="/" class="kx-back-link">← Voltar para o Cardápio do Kixiki</a>
+        <button id="kx-toggle" class="kx-theme-btn" type="button" aria-label="Alternar tema visual">
+          <span id="kx-theme-icon">☀️ / 🌙</span> Alternar Tema
+        </button>
+      </div>
+      <div><span class="kx-badge">TRANSPARÊNCIA · LGPD</span></div>
+      <h1>Aviso de Privacidade</h1>
+      <p class="kx-subtitle">Informações transparentes sobre o funcionamento deste site, tratamento de dados e seus direitos de privacidade.</p>
+    </header>
+
+    <article>
+      <section>
+        <h2>1. Responsável pelo site</h2>
+        <p><strong>Kixiki Lanches</strong> — Lanchonete e Delivery em Santo Antônio de Lisboa, Florianópolis - SC.</p>
+        <p>Canal oficial de atendimento ao público: WhatsApp (48) 98804-8681.</p>
+      </section>
+
+      <section>
+        <h2>2. Que informações este site pode tratar</h2>
+        <p>Nossa página pública foi desenhada com foco em simplicidade e privacidade:</p>
+        <ul>
+          <li><strong>Consulta ao cardápio:</strong> A navegação é pública e anônima. Não exigimos cadastro, login, CPF, telefone nem e-mail para visualizar pratos e preços.</li>
+          <li><strong>Interações voluntárias:</strong> Quando você clica em um item ou botão de contato, uma mensagem pré-formatada é aberta no seu aplicativo de WhatsApp. Nenhum dado pessoal é recolhido pelo site nesse momento.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>3. Para que são utilizadas</h2>
+        <p>Os dados técnicos e operacionais são utilizados exclusivamente para:</p>
+        <ul>
+          <li>Apresentar o cardápio atualizado e informações de funcionamento em tempo real;</li>
+          <li>Facilitar o início do atendimento direto entre o cliente e a equipe do Kixiki via WhatsApp;</li>
+          <li>Garantir a estabilidade técnica, segurança e carregamento rápido da página.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>4. Medição e eventos first-party</h2>
+        <p>Utilizamos um sistema próprio e anônimo de telemetria técnica agregada para entender o desempenho do site:</p>
+        <ul>
+          <li>Registramos contagens numéricas de eventos como visualizações de página (<code>page_view</code>) e cliques de pedido (<code>whatsapp_click</code>);</li>
+          <li><strong>Não usamos Google Analytics, Pixel da Meta nem rastreadores invasivos de terceiros</strong>;</li>
+          <li>Não coletamos nem armazenamos endereços IP completos, identidades de usuários nem histórico individualizado de navegação.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>5. Links externos / WhatsApp / Instagram</h2>
+        <p>O site contém links diretos para plataformas externas (WhatsApp e Instagram). Ao clicar nesses links, você sai do nosso site e passa a utilizar os serviços da Meta Platforms Inc., sujeitos aos termos de uso e políticas de privacidade dessas respectivas plataformas.</p>
+      </section>
+
+      <section>
+        <h2>6. Armazenamento e tecnologias locais</h2>
+        <p>Nosso site <strong>não utiliza cookies de rastreamento publicitário nem cookies de terceiros</strong>.</p>
+        <p>Utilizamos apenas tecnologias técnicas de armazenamento local no seu navegador:</p>
+        <ul>
+          <li><code>localStorage</code> (chave <code>kixiki-theme</code>): guarda exclusivamente a sua preferência de tema visual (modo DIA ou NOITE);</li>
+          <li><code>sessionStorage</code> (chave <code>kixiki-c001-attribution-v1</code>): guarda temporariamente parâmetros de campanha (<code>utm_*</code>) durante a sessão ativa, sendo descartado ao fechar a aba.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>7. Painel do Dono / área autenticada</h2>
+        <p>A área restrita de gestão administrativa (<code>/dono/</code>) é de uso exclusivo do estabelecimento comercial. Ela utiliza autenticação segura gerenciada pelo provedor de infraestrutura (Netlify Identity) para controle de acesso autorizado, sem impacto ou coleta sobre os visitantes da página pública.</p>
+      </section>
+
+      <section>
+        <h2>8. Direitos relacionados à LGPD (Lei nº 13.709/2018)</h2>
+        <p>Como visitante, a Lei Geral de Proteção de Dados Pessoais assegura seus direitos de transparência, confirmação de tratamento e eliminação de dados pessoais que venham a ser fornecidos no canal de atendimento.</p>
+      </section>
+
+      <section>
+        <h2>9. Como entrar em contato</h2>
+        <p>Para dúvidas sobre privacidade, pedidos ou informações do cardápio, entre em contato diretamente pelo canal oficial do Kixiki Lanches:</p>
+        <p><strong>WhatsApp:</strong> (48) 98804-8681 · Santo Antônio de Lisboa, Florianópolis - SC.</p>
+      </section>
+    </article>
+
+    <footer>
+      <p>© 2026 Kixiki Lanches • Santo Antônio de Lisboa · Florianópolis - SC</p>
+      <p style="margin-top: 8px;">
+        <a href="/">Voltar ao Cardápio</a> • 
+        <a href="https://wa.me/48988048681" target="_blank" rel="noopener noreferrer">WhatsApp: (48) 98804-8681</a> • 
+        <a href="https://www.instagram.com/kixiki_lanches" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const toggle = document.getElementById('kx-toggle');
+      if (!toggle) return;
+      toggle.addEventListener('click', function () {
+        const current = document.documentElement.getAttribute('data-kx-theme') || 'night';
+        const next = current === 'night' ? 'day' : 'night';
+        document.documentElement.setAttribute('data-kx-theme', next);
+        try { localStorage.setItem('kixiki-theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>

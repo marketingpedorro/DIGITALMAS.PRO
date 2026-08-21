@@ -98,14 +98,15 @@ const defaultTasks = () =>
 const defaultCheckpoints = () =>
   CHECKPOINT_DAYS.map((day) => ({ day, status: "pending", date: null, evidence: "" }));
 
-const product = (id, name, priceCents, description) =>
+const product = (id, name, priceCents, description = "", ingredients = "") =>
   Object.freeze({
     id,
     name,
     priceCents,
     description,
-    ingredients: "",
+    ingredients,
     photoUrl: "",
+    photoAssetVersion: null,
     active: true,
   });
 
@@ -114,109 +115,127 @@ export const KIXIKI_BASE_CATALOG = Object.freeze([
     "marmita-p",
     "Marmita P (Executiva)",
     2_500,
-    "Arroz, feijão caseiro, salada fresca, farofa e opção de proteína do dia (carne/frango).",
+    "",
+    "Arroz, feijão caseiro, salada fresca, farofa, proteína do dia (carne ou frango)",
   ),
   product(
     "marmita-m",
     "Marmita M (Tradicional)",
     2_500,
     "Marmita completa reforçada com porção generosa e acompanhamentos caseiros.",
+    "",
   ),
   product(
     "marmita-gg",
     "Marmita G / Especial Kixiki",
     3_000,
     "Marmita gigante fartíssima com dupla opção de proteína e acompanhamentos completos.",
+    "",
   ),
   product(
     "xis-salada",
     "X-Salada",
     2_800,
-    "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer artesanal e ovo.",
+    "",
+    "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer artesanal, ovo",
   ),
   product(
     "xis-bacon",
     "X-Bacon",
     3_200,
-    "Maionese, ketchup, mostarda, milho, ervilha, mussarela, bacon crocante em dobro e hambúrguer.",
+    "",
+    "Maionese, ketchup, mostarda, milho, ervilha, mussarela, bacon crocante em dobro, hambúrguer",
   ),
   product(
     "xis-calabresa",
     "X-Calabresa",
     3_000,
-    "Maionese, ketchup, mostarda, milho, ervilha, mussarela, calabresa fatiada e hambúrguer.",
+    "",
+    "Maionese, ketchup, mostarda, milho, ervilha, mussarela, calabresa fatiada, hambúrguer",
   ),
   product(
     "xis-frango",
     "X-Frango",
     3_000,
-    "Maionese, ketchup, mostarda, milho, ervilha, mussarela e frango desfiado suculento bem temperado.",
+    "",
+    "Maionese, ketchup, mostarda, milho, ervilha, mussarela, frango desfiado suculento bem temperado",
   ),
   product(
     "xis-strogonoff",
     "X-Strogonoff",
     3_000,
-    "Maionese, ketchup, mostarda, milho, ervilha, batata palha e strogonoff caseiro (carne ou frango).",
+    "",
+    "Maionese, ketchup, mostarda, milho, ervilha, batata palha, strogonoff caseiro (carne ou frango)",
   ),
   product(
     "xis-coracao",
     "X-Coração",
     3_600,
-    "Maionese, ketchup, mostarda, milho, ervilha, tomate, hambúrguer e coração de frango grelhado.",
+    "",
+    "Maionese, ketchup, mostarda, milho, ervilha, tomate, hambúrguer, coração de frango grelhado",
   ),
   product(
     "xis-egg",
     "X-Egg",
     2_800,
-    "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer e ovo duplo na chapa.",
+    "",
+    "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer, ovo duplo na chapa",
   ),
   product(
     "xis-tudo",
     "Kixiki Especial (X-Tudo)",
     3_800,
-    "O mais completo! Hambúrguer, bacon, calabresa, frango desfiado, ovo, mussarela, milho e ervilha.",
+    "O lanche mais completo da casa.",
+    "Hambúrguer, bacon, calabresa, frango desfiado, ovo, mussarela, milho, ervilha",
   ),
   product(
     "pas-carne",
     "Pastel Frango / Carne",
     1_200,
     "Massa de pastel caseira crocante recheada com frango desfiado ou carne moída temperada.",
+    "",
   ),
   product(
     "pas-queijo",
     "Pastel de Queijo",
     1_500,
     "Massa caseira bem recheada com mussarela derretida e douradinha.",
+    "",
   ),
   product(
     "pas-pizza",
     "Pastel Pizza",
     1_500,
-    "Presunto fatiado, queijo mussarela derretido, tomate fresco e toque de orégano.",
+    "",
+    "Presunto fatiado, queijo mussarela derretido, tomate fresco, toque de orégano",
   ),
   product(
     "pas-calabresa",
     "Pastel Calabresa com Queijo",
     1_600,
     "Calabresa moída temperada acompanhada de muita mussarela derretida.",
+    "",
   ),
   product(
     "por-batata",
     "Batata Frita Porção",
     2_500,
     "Batata frita crocante e dourada servida bem quentinha com sal na medida certa.",
+    "",
   ),
   product(
     "por-bacon",
     "Batata Frita c/ Queijo e Bacon",
     3_500,
     "Porção de batata frita coberta com molho de queijo cremoso e bacon crocante.",
+    "",
   ),
   product(
     "por-morro",
     "Morro de Batata",
     5_400,
-    "Porção gigante de batata frita, mussarela derretida, calabresa fatiada e bacon crocante!",
+    "",
+    "Porção gigante de batata frita, mussarela derretida, calabresa fatiada, bacon crocante",
   ),
 ]);
 
@@ -227,34 +246,165 @@ const LEGACY_CATALOG = Object.freeze({
   "marmita-caseira": "Marmita caseira",
 });
 
+const LEGACY_COMPOSITIONS = Object.freeze({
+  "marmita-p": {
+    legacyDescriptions: [
+      "Arroz, feijão caseiro, salada fresca, farofa e opção de proteína do dia (carne/frango).",
+      "Arroz, feijão caseiro, salada fresca, farofa e opção de proteína do dia (carne ou frango).",
+    ],
+    ingredients: "Arroz, feijão caseiro, salada fresca, farofa, proteína do dia (carne ou frango)",
+    description: "",
+  },
+  "xis-salada": {
+    legacyDescriptions: [
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer artesanal e ovo.",
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer artesanal, ovo",
+    ],
+    ingredients: "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer artesanal, ovo",
+    description: "",
+  },
+  "xis-bacon": {
+    legacyDescriptions: [
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela, bacon crocante em dobro e hambúrguer.",
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela, bacon crocante em dobro, hambúrguer",
+    ],
+    ingredients: "Maionese, ketchup, mostarda, milho, ervilha, mussarela, bacon crocante em dobro, hambúrguer",
+    description: "",
+  },
+  "xis-calabresa": {
+    legacyDescriptions: [
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela, calabresa fatiada e hambúrguer.",
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela, calabresa fatiada, hambúrguer",
+    ],
+    ingredients: "Maionese, ketchup, mostarda, milho, ervilha, mussarela, calabresa fatiada, hambúrguer",
+    description: "",
+  },
+  "xis-frango": {
+    legacyDescriptions: [
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela e frango desfiado suculento bem temperado.",
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela, frango desfiado suculento bem temperado",
+    ],
+    ingredients: "Maionese, ketchup, mostarda, milho, ervilha, mussarela, frango desfiado suculento bem temperado",
+    description: "",
+  },
+  "xis-strogonoff": {
+    legacyDescriptions: [
+      "Maionese, ketchup, mostarda, milho, ervilha, batata palha e strogonoff caseiro (carne ou frango).",
+      "Maionese, ketchup, mostarda, milho, ervilha, batata palha, strogonoff caseiro (carne ou frango)",
+    ],
+    ingredients: "Maionese, ketchup, mostarda, milho, ervilha, batata palha, strogonoff caseiro (carne ou frango)",
+    description: "",
+  },
+  "xis-coracao": {
+    legacyDescriptions: [
+      "Maionese, ketchup, mostarda, milho, ervilha, tomate, hambúrguer e coração de frango grelhado.",
+      "Maionese, ketchup, mostarda, milho, ervilha, tomate, hambúrguer, coração de frango grelhado",
+    ],
+    ingredients: "Maionese, ketchup, mostarda, milho, ervilha, tomate, hambúrguer, coração de frango grelhado",
+    description: "",
+  },
+  "xis-egg": {
+    legacyDescriptions: [
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer e ovo duplo na chapa.",
+      "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer, ovo duplo na chapa",
+    ],
+    ingredients: "Maionese, ketchup, mostarda, milho, ervilha, mussarela derretida, hambúrguer, ovo duplo na chapa",
+    description: "",
+  },
+  "xis-tudo": {
+    legacyDescriptions: [
+      "O mais completo! Hambúrguer, bacon, calabresa, frango desfiado, ovo, mussarela, milho e ervilha.",
+      "Hambúrguer, bacon, calabresa, frango desfiado, ovo, mussarela, milho, ervilha",
+    ],
+    ingredients: "Hambúrguer, bacon, calabresa, frango desfiado, ovo, mussarela, milho, ervilha",
+    description: "O lanche mais completo da casa.",
+  },
+  "pas-pizza": {
+    legacyDescriptions: [
+      "Presunto fatiado, queijo mussarela derretido, tomate fresco e toque de orégano.",
+      "Presunto fatiado, queijo mussarela derretido, tomate fresco, toque de orégano",
+    ],
+    ingredients: "Presunto fatiado, queijo mussarela derretido, tomate fresco, toque de orégano",
+    description: "",
+  },
+  "por-morro": {
+    legacyDescriptions: [
+      "Porção gigante de batata frita, mussarela derretida, calabresa fatiada e bacon crocante!",
+      "Porção gigante de batata frita, mussarela derretida, calabresa fatiada, bacon crocante",
+    ],
+    ingredients: "Porção gigante de batata frita, mussarela derretida, calabresa fatiada, bacon crocante",
+    description: "",
+  },
+});
+
+const normalizeLegacyText = (text) =>
+  String(text || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .replace(/[.!,;]+$/, "")
+    .trim();
+
 const legacyItemWasEdited = (item) =>
   item.name !== LEGACY_CATALOG[item.id] ||
   item.priceCents !== null ||
   Boolean(item.description?.trim()) ||
   Boolean(item.ingredients?.trim()) ||
   Boolean(item.photoUrl?.trim()) ||
+  Boolean(item.photoAssetVersion) ||
   item.active === false;
 
 export const upgradeLegacyOwnerData = (input) => {
-  const catalog = input?.catalog;
+  if (!input || typeof input !== "object") return { data: input, migrated: false };
+
+  let migrated = false;
+  let catalog = Array.isArray(input.catalog) ? input.catalog : [];
+
   const isLegacyStarter =
-    Array.isArray(catalog) &&
     catalog.length > 0 &&
     catalog.length <= Object.keys(LEGACY_CATALOG).length &&
     catalog.every((item) => item && Object.hasOwn(LEGACY_CATALOG, item.id));
 
-  if (!isLegacyStarter) return { data: input, migrated: false };
+  if (isLegacyStarter) {
+    const editedLegacyItems = catalog
+      .filter(legacyItemWasEdited)
+      .map((item) => ({ ...item }));
+    catalog = [...defaultCatalog(), ...editedLegacyItems];
+    migrated = true;
+  }
 
-  const editedLegacyItems = catalog
-    .filter(legacyItemWasEdited)
-    .map((item) => ({ ...item }));
+  const migratedCatalog = catalog.map((item) => {
+    if (!item || typeof item !== "object") return item;
+    const rule = LEGACY_COMPOSITIONS[item.id];
+    if (!rule) return item;
+
+    const currentIngredients = String(item.ingredients || "").trim();
+    if (currentIngredients) return item;
+
+    const currentDesc = normalizeLegacyText(item.description);
+    const matchesLegacyDesc = rule.legacyDescriptions.some(
+      (candidate) => normalizeLegacyText(candidate) === currentDesc,
+    );
+
+    if (matchesLegacyDesc) {
+      migrated = true;
+      return {
+        ...item,
+        ingredients: rule.ingredients,
+        description: rule.description,
+      };
+    }
+
+    return item;
+  });
 
   return {
     data: {
       ...input,
-      catalog: [...defaultCatalog(), ...editedLegacyItems],
+      catalog: migratedCatalog,
     },
-    migrated: true,
+    migrated,
   };
 };
 
@@ -342,7 +492,16 @@ const sanitizeCatalog = (input) => {
     const value = object(entry, `Item ${index + 1}`);
     onlyKeys(
       value,
-      ["id", "name", "priceCents", "description", "ingredients", "photoUrl", "active"],
+      [
+        "id",
+        "name",
+        "priceCents",
+        "description",
+        "ingredients",
+        "photoUrl",
+        "photoAssetVersion",
+        "active",
+      ],
       `Item ${index + 1}`,
     );
     const id = string(value.id, `Código do item ${index + 1}`, 80, { allowEmpty: false });
@@ -368,6 +527,19 @@ const sanitizeCatalog = (input) => {
       }
     }
 
+    let photoAssetVersion = null;
+    if (value.photoAssetVersion !== undefined && value.photoAssetVersion !== null) {
+      photoAssetVersion = string(
+        value.photoAssetVersion,
+        `Versão da foto do item ${index + 1}`,
+        80,
+        { allowEmpty: false },
+      );
+      if (!/^[a-zA-Z0-9-]{1,80}$/.test(photoAssetVersion)) {
+        fail(`A versão da foto do item ${index + 1} é inválida.`);
+      }
+    }
+
     return {
       id,
       name: string(value.name, `Nome do item ${index + 1}`, 80),
@@ -375,6 +547,7 @@ const sanitizeCatalog = (input) => {
       description: string(value.description, `Descrição do item ${index + 1}`, 500),
       ingredients: string(value.ingredients, `Ingredientes do item ${index + 1}`, 500),
       photoUrl,
+      photoAssetVersion,
       active: boolean(value.active, `Estado do item ${index + 1}`),
     };
   });
@@ -447,7 +620,7 @@ const validateCompletionRules = (data) => {
         item.name &&
         item.priceCents !== null &&
         item.description &&
-        item.photoUrl,
+        (item.photoUrl || item.photoAssetVersion),
     );
     if (!hasCompleteHours || !hasCompleteItem) {
       fail(

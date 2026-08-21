@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="t d">
+  <title id="t">Xis do Kixiki</title><desc id="d">Ilustração de um hambúrguer simpático nas cores do Kixiki.</desc>
+  <defs><linearGradient id="b" x2="0" y2="1"><stop stop-color="#ffd365"/><stop offset="1" stop-color="#f8b62f"/></linearGradient><filter id="s"><feDropShadow dy="9" stdDeviation="7" flood-color="#012b17" flood-opacity=".22"/></filter></defs>
+  <ellipse cx="160" cy="214" rx="100" ry="13" fill="#012b17" opacity=".18"/>
+  <g filter="url(#s)" stroke="#012b17" stroke-width="8" stroke-linejoin="round">
+    <path d="M61 93c6-50 47-73 99-73s93 23 99 73c1 7-5 13-12 13H73c-7 0-13-6-12-13Z" fill="url(#b)"/>
+    <path d="M65 113c19-15 36 10 55-2 20-13 38 10 58-2 20-12 37 11 56-1 11-7 18-4 24 1l-8 30H72Z" fill="#28b978"/>
+    <path d="m77 135 52 3 27 22 28-22 59-3-10 31H87Z" fill="#fff2b8"/>
+    <path d="M79 163h162l-7 28c-3 13-15 22-28 22h-92c-14 0-26-9-29-22Z" fill="url(#b)"/>
+  </g>
+  <g fill="#012b17"><circle cx="130" cy="78" r="7"/><circle cx="190" cy="78" r="7"/></g>
+  <path d="M141 91c12 11 26 11 38 0" fill="none" stroke="#012b17" stroke-width="7" stroke-linecap="round"/>
+  <g fill="#fff6db" opacity=".9"><ellipse cx="108" cy="48" rx="8" ry="3" transform="rotate(-20 108 48)"/><ellipse cx="158" cy="37" rx="8" ry="3"/><ellipse cx="210" cy="50" rx="8" ry="3" transform="rotate(20 210 50)"/></g>
+</svg>

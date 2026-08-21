@@ -42,6 +42,7 @@
   <link rel="preload" href="assets/montserrat-latin-400-900.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="assets/xis-gaucho-480.webp" imagesrcset="assets/xis-gaucho-480.webp 480w, assets/xis-gaucho-768.webp 768w, assets/xis-gaucho-960.webp 960w" imagesizes="(max-width: 820px) calc(100vw - 48px), 44vw" fetchpriority="high">
   <link rel="stylesheet" href="kixiki.min.css">
+  <link rel="stylesheet" href="brand-v5-themes.css">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -104,14 +105,23 @@
           </div>
       </div>
       
-      <!-- Selector de marca: respeta el sistema en la primera visita y recuerda la elección manual. -->
-      <div class="kx-theme-control">
-        <button type="button" id="kx-theme-toggle" class="kx-theme-toggle" role="switch" aria-labelledby="kx-theme-switch-label" aria-checked="true">
-          <span id="kx-theme-switch-label" class="kx-sr-only">DIA NOITE — alternar tema</span>
-          <span class="kx-theme-option kx-theme-day" aria-hidden="true">DIA</span>
-          <span class="kx-theme-track" aria-hidden="true"><span class="kx-theme-thumb"></span></span>
-          <span class="kx-theme-option kx-theme-night" aria-hidden="true">NOITE</span>
-        </button>
+      <!-- Ações secundárias: acesso do proprietário + seletor DIA/NOITE. -->
+      <div class="kx-header-actions">
+        <a class="kx-owner-access" href="/dono/" aria-label="Acesso do proprietário" title="Acesso do proprietário">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="8" cy="15" r="3.5"></circle>
+            <path d="M10.6 12.6 20 3.2M16.4 6.8l2.8 2.8M14.2 9l2.2 2.2"></path>
+          </svg>
+          <span class="kx-sr-only">Acesso do proprietário</span>
+        </a>
+        <div class="kx-theme-control">
+          <button type="button" id="kx-theme-toggle" class="kx-theme-toggle" role="switch" aria-labelledby="kx-theme-switch-label" aria-checked="true">
+            <span id="kx-theme-switch-label" class="kx-sr-only">DIA NOITE — alternar tema</span>
+            <span class="kx-theme-option kx-theme-day" aria-hidden="true">DIA</span>
+            <span class="kx-theme-track" aria-hidden="true"><span class="kx-theme-thumb"></span></span>
+            <span class="kx-theme-option kx-theme-night" aria-hidden="true">NOITE</span>
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -258,6 +268,16 @@
 
     <!-- SECCIÓN 3: CARDÁPIO COMPLETO INTERATIVO (18 ÍTEMS EM 4 CATEGORIAS) -->
     <section id="sec-cardapio" class="kx-card" style="margin-bottom: 2.5rem; padding: 2.5rem 2rem;">
+      <div id="kixiki-visual-menu" class="kx-visual-menu" hidden>
+        <header class="kx-menu-intro">
+          <span class="kx-menu-eyebrow">🍔 CARDÁPIO</span>
+          <h2>Cardápio do Kixiki</h2>
+          <p>Feito na hora com ingredientes frescos e muito carinho.</p>
+          <small><span aria-hidden="true">↻</span> Toque no card para ver detalhes e composição.</small>
+        </header>
+        <div id="kixiki-menu-grid" class="kx-menu-grid" aria-live="polite"></div>
+        <p id="kixiki-menu-empty" class="kx-menu-empty" hidden>O cardápio está sendo atualizado. Fale com a Kixiki pelo WhatsApp para consultar as opções.</p>
+      </div>
       <div style="text-align: center; margin-bottom: 2rem;">
         <span class="kx-badge">NOSSO CARDÁPIO COMPLETO</span>
         <h2 class="wf-section-title" style="font-size: 1.8rem; font-weight: 900; color: var(--text-main); margin-top: 0.5rem;">Escolha o Seu Prato Favorito</h2>
@@ -633,44 +653,35 @@
       </a>
     </section>
 
-    <!-- SECCIÓN 8.5: BANNER DE REFERIDOS VIP (CUPOM KIXIKI20 - 20% DE DESCONTO DIGITALMAS.PRO) -->
-    <section id="sec-digitalmas-referral" class="wf-section-box" style="background: radial-gradient(circle at 50% 0%, rgba(52, 211, 153, 0.16) 0%, var(--bg-card) 90%); border: 1.5px solid rgba(52, 211, 153, 0.4); border-radius: 24px; padding: 2.5rem 1.75rem; text-align: center; margin-bottom: 2.5rem; box-shadow: 0 15px 45px rgba(0,0,0,0.55);">
-      <div style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 0.75rem;">
-        <span class="wf-tag" style="background: rgba(250, 204, 21, 0.15); color: #FACC15; border: 1px solid rgba(250, 204, 21, 0.4); font-weight: 800; padding: 5px 16px; border-radius: 12px; font-size: 0.78rem; letter-spacing: 0.5px;">
-          🎁 PARCERIA EMPREENDEDORA & INDICAÇÃO VIP
-        </span>
+    <!-- SEÇÃO 8.5: TÁTICA REGALO MVP · KIXIKI → DIGITALMAS.PRO -->
+    <section id="sec-digitalmas-referral" class="wf-section-box kx-gift" data-kx-track-view="gift_view" aria-labelledby="kx-gift-title">
+      <div class="kx-gift-stage">
+        <span class="kx-gift-orbit" aria-hidden="true"></span>
+        <img class="kx-gift-mascot" src="assets/kixiki-burger-mascot-v1.svg" width="176" height="176" alt="Hamburguesinha do Kixiki entregando um presente">
+        <span class="kx-gift-stage-label" aria-hidden="true">UM PRESENTE PARA QUEM EMPREENDE</span>
       </div>
-
-      <h2 style="font-size: 1.7rem; font-weight: 800; color: var(--text-main); margin: 0.5rem 0 0.4rem 0;">
-        Você é Empreendedor ou Comerciante em Florianópolis?
-      </h2>
-      <p style="font-size: 0.94rem; color: var(--text-muted); max-width: 680px; margin: 0 auto 1.25rem auto; line-height: 1.5;">
-        Gostou da velocidade instantânea e do design deste site? Ganhe <strong style="color: #34D399;">20% DE DESCONTO EXCLUSIVO</strong> no desenvolvimento da página profissional do seu negócio com a <strong style="color: var(--text-main);">DIGITALMAS.PRO</strong> usando o cupom de indicação:
-      </p>
-
-      <!-- BADGE DEL CÓDIGO DE CUPÓN KIXIKI20 -->
-      <div style="margin: 0 auto 1.5rem auto; display: inline-flex; align-items: center; gap: 10px; background: rgba(16,185,129,0.12); border: 2px dashed #34D399; border-radius: 14px; padding: 10px 24px; box-shadow: 0 0 20px rgba(52,211,153,0.2);">
-        <span style="font-size: 1.2rem;">🎟️</span>
-        <span style="font-family: monospace; font-size: 1.35rem; font-weight: 900; color: #34D399; letter-spacing: 2px;">CUPOM: KIXIKI20</span>
-      </div>
-
-      <div>
-        <a href="https://wa.me/5492664266442?text=Olá%20DIGITALMAS.PRO!%20Vi%20o%20site%20do%20Kixiki%20Lanches%20e%20quero%20ativar%20meu%20cupom%20KIXIKI20%20com%2020%25%20de%20desconto%20para%20minha%20empresa!" target="_blank" class="wf-btn-primary" style="font-size: 1rem; padding: 16px 36px; background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: #FFFFFF; font-weight: 800; text-decoration: none; border-radius: 12px; box-shadow: 0 0 25px rgba(16, 185, 129, 0.45); display: inline-flex; align-items: center; gap: 8px;">
-          🚀 ATIVAR MEU CUPOM DE 20% NO WHATSAPP
-        </a>
+      <div class="kx-gift-copy">
+        <span class="kx-gift-brand">DIGITALMAS.PRO · PRESENTE KIXIKI</span>
+        <h2 id="kx-gift-title">Gostou do site do Kixiki?</h2>
+        <p>Se você também tem um negócio e sente que sua presença online poderia vender melhor, o Kixiki deixou um presente para você. 🎁</p>
+        <p class="kx-gift-support">Fale diretamente com a DigitalMas.PRO e conte que chegou pelo Kixiki.</p>
+        <a id="kixiki-gift-cta" class="kx-gift-cta" data-kx-track="gift_cta_click" href="https://wa.me/5555997120149?text=Ol%C3%A1!%20Vim%20pelo%20presente%20do%20Kixiki%20%F0%9F%8E%81%20e%20quero%20saber%20como%20a%20DigitalMas.PRO%20pode%20melhorar%20a%20presen%C3%A7a%20online%20do%20meu%20neg%C3%B3cio." target="_blank" rel="noopener noreferrer">Quero meu presente no WhatsApp →</a>
       </div>
     </section>
 
     <!-- SECCIÓN 9: PIE DE PÁGINA -->
-    <footer class="wf-footer" style="text-align: center; border-top: 1px solid var(--border-subtle); padding-top: 2rem; font-size: 0.78rem; color: var(--text-muted);">
-      <p>© 2026 Kixiki Lanches • Santo Antônio de Lisboa, Florianópolis - SC</p>
-      <p style="margin-top: 4px; font-size: 0.74rem;">
-        <a href="https://www.instagram.com/kixiki_lanches" target="_blank" style="color: #F472B6; text-decoration: none; font-weight: 700;">Instagram: @kixiki_lanches</a>
-        •
-        <a href="https://wa.me/48988048681" target="_blank" style="color: #34D399; text-decoration: none; font-weight: 700;">WhatsApp: (48) 98804-8681</a>
+    <footer class="wf-footer" style="text-align: center; border-top: 1px solid var(--border-subtle); padding: 2.5rem 1rem 2rem; font-size: 0.84rem;">
+      <p style="font-weight: 800; font-size: 0.96rem; margin-bottom: 4px;">© 2026 Kixiki Lanches</p>
+      <p style="margin-bottom: 12px; font-size: 0.88rem;">Santo Antônio de Lisboa · Florianópolis - SC</p>
+      <p class="kx-footer-links" style="margin-bottom: 14px; display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; font-weight: 700;">
+        <a href="https://www.instagram.com/kixiki_lanches" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <span aria-hidden="true">•</span>
+        <a href="https://wa.me/48988048681" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <span aria-hidden="true">•</span>
+        <a href="/privacidade/">Privacidade</a>
       </p>
-      <p style="margin-top: 12px; color: var(--text-muted); line-height: 1.5;">
-        Desenvolvido por <a href="https://digitalmas.pro" target="_blank" rel="noopener noreferrer" style="color: #34D399; font-weight: 800; text-decoration: none;">Andrés Sebastián · DigitalMAS.PRO</a>
+      <p style="margin-top: 16px; font-size: 0.78rem; opacity: 0.88; line-height: 1.5;">
+        Desenvolvido por <a href="https://digitalmas.pro" target="_blank" rel="noopener noreferrer" style="font-weight: 800;">Andrés Sebastián · DigitalMas.PRO</a>
         <span style="display: block; margin-top: 3px;">Fundador · Técnico Universitário em Web pela UNSL (Argentina).</span>
       </p>
     </footer>
@@ -843,5 +854,6 @@
     });
   </script>
   <script type="module" src="/kixiki-public.js"></script>
+  <script defer src="/kixiki-analytics.js"></script>
 </body>
 </html>

@@ -330,6 +330,24 @@ input:focus, select:focus, textarea:focus {
 .task-controls .wide { grid-column: 1 / -1; }
 .jump-button { width: 100%; }
 
+.metrics-card {
+  margin-top: 20px;
+  padding: clamp(20px, 4vw, 30px);
+  border: 1px solid var(--line-soft);
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(248, 182, 47, .07), var(--surface));
+}
+.metrics-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.metrics-heading h3 { margin: 7px 0 5px; font-size: 1.3rem; }
+.metrics-heading p { margin: 0; color: var(--muted); font-size: .78rem; line-height: 1.5; }
+.metrics-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 20px; }
+.metrics-grid article { padding: 16px; border: 1px solid var(--line-soft); border-radius: 14px; background: rgba(0, 0, 0, .13); }
+.metrics-grid span { color: var(--warning); font-size: .59rem; font-weight: 850; letter-spacing: .1em; }
+.metrics-grid strong { display: block; margin: 8px 0 1px; color: var(--accent); font-size: 1.9rem; letter-spacing: -.04em; }
+.metrics-grid small, .metrics-foot { color: var(--muted); font-size: .68rem; }
+.metrics-foot { display: flex; justify-content: space-between; gap: 16px; margin-top: 14px; line-height: 1.5; }
+.metrics-foot > span { color: var(--cream); }
+
 .form-card { padding: clamp(20px, 4vw, 34px); }
 .form-grid { display: grid; gap: 18px; }
 .two-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -403,7 +421,58 @@ input:focus, select:focus, textarea:focus {
 .active-toggle { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: .75rem; }
 .product-grid { display: grid; grid-template-columns: 1.2fr .55fr; gap: 16px; }
 .product-grid .wide { grid-column: 1 / -1; }
-.product-actions { display: flex; justify-content: flex-end; margin-top: 16px; }
+.field-label { display: block; margin-bottom: 8px; color: var(--cream); font-size: .72rem; font-weight: 800; }
+.product-photo-field {
+  padding: 16px;
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  background: rgba(0, 20, 13, .28);
+}
+.product-photo-editor {
+  display: grid;
+  grid-template-columns: 176px 1fr;
+  gap: 18px;
+  align-items: center;
+}
+.product-photo-preview {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: linear-gradient(145deg, #f8b62f, #ffe6a0);
+}
+.product-photo-preview img { width: 100%; height: 100%; object-fit: cover; }
+.product-photo-preview img.is-fallback { object-fit: contain; padding: 16px; }
+.product-photo-controls { display: grid; gap: 8px; align-content: center; }
+.product-photo-controls > strong { color: var(--cream); font-size: .9rem; }
+.product-photo-controls > p { margin: 0; color: var(--muted); font-size: .7rem; line-height: 1.5; }
+.product-photo-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.product-photo-button { min-height: 42px; }
+.product-photo-button:disabled, .product-photo-remove:disabled { cursor: wait; opacity: .6; }
+.product-photo-state { min-height: 1.2em; color: var(--muted); font-size: .7rem; font-weight: 750; }
+.product-photo-state.loading { color: var(--warning); }
+.product-photo-state.success { color: var(--accent); }
+.product-photo-state.error { color: var(--danger); }
+.product-actions {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line-soft);
+}
+.product-action-buttons { display: flex; align-items: center; gap: 12px; }
+.item-save-button { min-width: 132px; }
+.item-save-button:disabled { cursor: wait; opacity: .65; }
+.product-save-feedback { color: var(--muted); font-size: .72rem; font-weight: 700; line-height: 1.45; }
+.product-save-feedback.pending, .product-save-feedback.saving { color: var(--warning); }
+.product-save-feedback.synced { color: var(--accent); }
+.product-save-feedback.error { color: var(--danger); }
 .remove-button { border: 0; background: transparent; color: var(--danger); font-weight: 750; }
 .empty-state { padding: 28px; border: 1px dashed var(--line); border-radius: 18px; color: var(--muted); text-align: center; }
 
@@ -445,6 +514,7 @@ footer {
   .hours-grid { grid-template-columns: repeat(2, 1fr); }
   .reputation-grid { grid-template-columns: 1fr; }
   .checkpoint-grid { grid-template-columns: repeat(2, 1fr); }
+  .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 620px) {
@@ -467,12 +537,21 @@ footer {
   .hero { padding: 24px 20px; border-radius: 20px; }
   .hero h1 { font-size: clamp(2.5rem, 14vw, 4.2rem); }
   .section-heading, .section-heading.compact { align-items: stretch; flex-direction: column; }
+  .metrics-heading, .metrics-foot { align-items: stretch; flex-direction: column; }
+  .metrics-heading .secondary-button { width: 100%; }
+  .metrics-grid { grid-template-columns: 1fr 1fr; }
   .progress-ring { min-width: 100px; min-height: 100px; align-self: flex-start; }
   .two-columns, .product-grid { grid-template-columns: 1fr; }
   .product-grid .wide { grid-column: auto; }
   .product-summary { align-items: flex-start; flex-direction: column; padding-right: 52px; }
   .product-status { align-self: flex-start; }
   .product-head { align-items: flex-start; flex-direction: column; }
+  .product-actions { align-items: stretch; flex-direction: column; }
+  .product-action-buttons { align-items: stretch; flex-direction: column; }
+  .product-photo-editor { grid-template-columns: 1fr; }
+  .product-photo-preview { max-width: 320px; }
+  .product-photo-buttons { align-items: stretch; flex-direction: column; }
+  .item-save-button, .remove-button { width: 100%; min-height: 44px; }
   .hours-grid { grid-template-columns: 1fr; }
   .confirmation-row { align-items: stretch; flex-direction: column; }
   .review-card { grid-template-columns: 1fr; }
@@ -480,6 +559,10 @@ footer {
   .checkpoint-grid { grid-template-columns: 1fr; }
   .conflict-banner { align-items: stretch; flex-direction: column; }
   footer { flex-direction: column; }
+}
+
+@media (max-width: 390px) {
+  .metrics-grid { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {

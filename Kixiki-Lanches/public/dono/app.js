@@ -1,6 +1,8 @@
 const API = {
   auth: "/api/auth",
   owner: "/api/kixiki-owner",
+  metrics: "/api/kixiki-metrics",
+  productImage: "/api/kixiki-product-image",
 };
 
 const TASK_COPY = [
@@ -142,6 +144,206 @@ const safeReviewUrl = () => {
   return FALLBACK_REFERENCE.reviewRequestUrl;
 };
 
+const PRODUCT_FALLBACKS = Object.freeze({
+  marmita: "/assets/kixiki-marmita-mascot-v1.svg",
+  xis: "/assets/kixiki-burger-menu-v1.svg",
+  pas: "/assets/kixiki-pastel-mascot-v1.svg",
+  por: "/assets/kixiki-porcao-mascot-v1.svg",
+  item: "/assets/kixiki-logo-v0.1.svg",
+});
+
+const productFamily = (productId) => {
+  const prefix = String(productId || "").split("-")[0];
+  return Object.hasOwn(PRODUCT_FALLBACKS, prefix) ? prefix : "item";
+};
+
+const productFallbackUrl = (productId) => PRODUCT_FALLBACKS[productFamily(productId)];
+
+const productPhotoUrl = (item) => {
+  if (item?.photoAssetVersion) {
+    return `${API.productImage}?product=${encodeURIComponent(item.id)}&v=${encodeURIComponent(item.photoAssetVersion)}`;
+  }
+  return item?.photoUrl || "";
+};
+
+const hasProductPhoto = (item) => Boolean(item?.photoAssetVersion || item?.photoUrl);
+
+const canvasToBlob = (canvas, type, quality) =>
+  new Promise((resolve) => canvas.toBlob(resolve, type, quality));
+
+const optimizeProductPhoto = async (file) => {
+  if (!file || !["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+    throw new Error("Use uma foto JPEG, PNG ou WEBP.");
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    throw new Error("A foto original deve ter no máximo 5 MB.");
+  }
+
+  let bitmap;
+  try {
+    bitmap = await createImageBitmap(file, { imageOrientation: "from-image" });
+  } catch {
+    throw new Error("Não foi possível ler esta foto.");
+  }
+
+  const maxSide = 1_400;
+  const ratio = Math.min(1, maxSide / Math.max(bitmap.width, bitmap.height));
+  const width = Math.max(1, Math.round(bitmap.width * ratio));
+  const height = Math.max(1, Math.round(bitmap.height * ratio));
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext("2d", { alpha: false });
+  context.fillStyle = "#fff8e8";
+  context.fillRect(0, 0, width, height);
+  context.drawImage(bitmap, 0, 0, width, height);
+  bitmap.close?.();
+
+  const optimized = await canvasToBlob(canvas, "image/webp", 0.82);
+  if (!optimized) throw new Error("Não foi possível otimizar esta foto.");
+  if (optimized.size > 5 * 1024 * 1024) {
+    throw new Error("A foto otimizada ainda ultrapassa 5 MB.");
+  }
+  return new File([optimized], "foto-kixiki.webp", { type: "image/webp" });
+};
+
+const setPhotoState = (index, message, tone = "") => {
+  const element = $(`[data-product-photo-state="${index}"]`);
+  if (!element) return;
+  element.textContent = message;
+  element.className = `product-photo-state ${tone}`.trim();
+};
+
+const refreshProductPhotoUI = (index) => {
+  const item = ownerData?.catalog?.[index];
+  if (!item) return;
+  const image = $(`[data-product-photo-preview="${index}"]`);
+  const label = $(`[data-product-photo-label="${index}"]`);
+  const remove = $(`[data-product-photo-remove="${index}"]`);
+  const realPhoto = productPhotoUrl(item);
+  if (image) {
+    image.src = realPhoto || productFallbackUrl(item.id);
+    image.alt = realPhoto
+      ? `Foto de ${item.name || "produto do Kixiki"}`
+      : `Ilustração do Kixiki para ${item.name || "produto"}`;
+    image.dataset.fallback = productFallbackUrl(item.id);
+    image.classList.toggle("is-fallback", !realPhoto);
+  }
+  if (label) label.textContent = realPhoto ? "Trocar foto" : "Adicionar foto";
+  if (remove) remove.hidden = !realPhoto;
+};
+
+const uploadProductPhoto = async (index, file, button) => {
+  const item = ownerData?.catalog?.[index];
+  if (!item) return;
+  const previous = {
+    photoUrl: item.photoUrl,
+    photoAssetVersion: item.photoAssetVersion,
+  };
+  button.disabled = true;
+  setPhotoState(index, "Otimizando foto…", "loading");
+  try {
+    const optimized = await optimizeProductPhoto(file);
+    setPhotoState(index, "Carregando…", "loading");
+    const form = new FormData();
+    form.set("photo", optimized, optimized.name);
+    const response = await fetch(
+      `${API.productImage}?product=${encodeURIComponent(item.id)}`,
+      {
+        method: "POST",
+        credentials: "same-origin",
+        body: form,
+      },
+    );
+    const result = await response.json().catch(() => ({}));
+    if (response.status === 401) {
+      showLogin("Sua sessão terminou. Entre novamente.", "info");
+      throw new Error("Sua sessão terminou.");
+    }
+    if (response.status === 403) {
+      showDenied();
+      throw new Error("Esta conta não possui permissão para enviar fotos.");
+    }
+    if (!response.ok) throw new Error(result.error || "Erro ao enviar a foto.");
+
+    item.photoAssetVersion = result.version;
+    item.photoUrl = "";
+    clearTimeout(syncTimer);
+    syncTimer = null;
+    markProductChanged(index);
+    clearTimeout(syncTimer);
+    syncTimer = null;
+    refreshProductPhotoUI(index);
+    const outcome = await syncRemote();
+    if (!outcome?.ok) {
+      item.photoUrl = previous.photoUrl;
+      item.photoAssetVersion = previous.photoAssetVersion;
+      refreshProductPhotoUI(index);
+      await fetch(
+        `${API.productImage}?product=${encodeURIComponent(item.id)}&v=${encodeURIComponent(result.version)}`,
+        { method: "DELETE", credentials: "same-origin" },
+      ).catch(() => {});
+      throw new Error(outcome?.message || "Foto enviada, mas o item ainda não foi salvo.");
+    }
+    if (
+      previous.photoAssetVersion &&
+      previous.photoAssetVersion !== result.version
+    ) {
+      await fetch(
+        `${API.productImage}?product=${encodeURIComponent(item.id)}&v=${encodeURIComponent(previous.photoAssetVersion)}`,
+        { method: "DELETE", credentials: "same-origin" },
+      ).catch(() => {});
+    }
+    setPhotoState(index, "✓ Foto adicionada e item salvo.", "success");
+  } catch (error) {
+    setPhotoState(index, error?.message || "Erro ao enviar", "error");
+  } finally {
+    button.disabled = false;
+  }
+};
+
+const removeProductPhoto = async (index, button) => {
+  const item = ownerData?.catalog?.[index];
+  if (!item || !hasProductPhoto(item)) return;
+  if (!confirm(`Remover a foto de “${item.name || "este item"}” e voltar ao visual Kixiki?`)) return;
+
+  const previous = {
+    photoUrl: item.photoUrl,
+    photoAssetVersion: item.photoAssetVersion,
+  };
+  button.disabled = true;
+  item.photoUrl = "";
+  item.photoAssetVersion = null;
+  clearTimeout(syncTimer);
+  syncTimer = null;
+  markProductChanged(index);
+  clearTimeout(syncTimer);
+  syncTimer = null;
+  refreshProductPhotoUI(index);
+  setPhotoState(index, "Removendo foto…", "loading");
+
+  const outcome = await syncRemote();
+  if (!outcome?.ok) {
+    item.photoUrl = previous.photoUrl;
+    item.photoAssetVersion = previous.photoAssetVersion;
+    refreshProductPhotoUI(index);
+    setPhotoState(index, outcome?.message || "Não foi possível remover a foto.", "error");
+    button.disabled = false;
+    return;
+  }
+
+  if (previous.photoAssetVersion) {
+    try {
+      await fetch(
+        `${API.productImage}?product=${encodeURIComponent(item.id)}&v=${encodeURIComponent(previous.photoAssetVersion)}`,
+        { method: "DELETE", credentials: "same-origin" },
+      );
+    } catch {}
+  }
+  setPhotoState(index, "✓ Foto removida. O visual Kixiki voltou.", "success");
+  button.disabled = false;
+};
+
 const showLogin = (message = "", tone = "") => {
   currentUser = null;
   $("#ownerApp").hidden = true;
@@ -188,6 +390,54 @@ const formatDateTime = (value) => {
 const setLastUpdate = (value) => {
   $$('[data-last-update]').forEach((element) => {
     element.textContent = formatDateTime(value);
+  });
+};
+
+const setMetricValue = (selector, value) => {
+  const element = $(selector);
+  if (element) element.textContent = Number.isFinite(Number(value)) ? String(Number(value)) : "0";
+};
+
+const loadMetrics = async () => {
+  const status = $("#metricsStatus");
+  if (!status) return;
+  status.textContent = "Atualizando métricas…";
+  try {
+    const response = await fetch(API.metrics, { credentials: "same-origin" });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(result.error || "Não foi possível carregar as métricas.");
+    setMetricValue("#metricPageView", result.events?.page_view);
+    setMetricValue("#metricWhatsappClick", result.events?.whatsapp_click);
+    setMetricValue("#metricGiftView", result.events?.gift_view);
+    setMetricValue("#metricGiftClick", result.events?.gift_cta_click);
+    const primarySource = result.sources?.[0];
+    $("#metricSource").textContent = primarySource
+      ? `Origem principal: ${primarySource.source} (${primarySource.count})`
+      : "Origem principal: ainda sem dados";
+    const environment = result.environment === "production" ? "produção" : "preview isolado";
+    status.textContent = `${environment} · ${formatDateTime(result.lastUpdated).replace("Última atualização: ", "")}`;
+  } catch (error) {
+    status.textContent = error?.message || "Métricas temporariamente indisponíveis.";
+  }
+};
+
+const setProductSaveFeedback = (productId, message, tone = "") => {
+  const element = $$('[data-product-feedback]').find(
+    (candidate) => candidate.dataset.productFeedback === productId,
+  );
+  if (!element) return;
+  element.textContent = message;
+  element.className = `product-save-feedback ${tone}`.trim();
+};
+
+const confirmPendingProductFeedback = () => {
+  $$('.product-save-feedback.pending').forEach((element) => {
+    const item = ownerData?.catalog.find(
+      (candidate) => candidate.id === element.dataset.productFeedback,
+    );
+    const label = item?.name?.trim() || "Item";
+    element.textContent = `✓ ${label}: alterações salvas.`;
+    element.className = "product-save-feedback synced";
   });
 };
 
@@ -273,15 +523,20 @@ const markChanged = ({ rerenderSummary = true } = {}) => {
 };
 
 async function syncRemote() {
-  if (!currentUser || !ownerData || conflict) return;
+  if (!currentUser || !ownerData) {
+    return { ok: false, message: "Sessão indisponível." };
+  }
+  if (conflict) {
+    return { ok: false, message: "Carregue a versão mais nova antes de salvar." };
+  }
   const incomplete = pendingCompletionMessage();
   if (incomplete) {
     setSaveState(incomplete, "error");
-    return;
+    return { ok: false, message: incomplete };
   }
   if (syncing) {
     syncQueued = true;
-    return;
+    return { ok: false, message: "Outro salvamento está em andamento." };
   }
   syncing = true;
   setSaveState("Salvando na base segura…");
@@ -296,15 +551,15 @@ async function syncRemote() {
     const result = await response.json().catch(() => ({}));
     if (response.status === 409) {
       showConflict();
-      return;
+      return { ok: false, message: "Existe uma versão mais nova em outro aparelho." };
     }
     if (response.status === 401) {
       showLogin("Sua sessão terminou. Entre novamente.", "info");
-      return;
+      return { ok: false, message: "Sua sessão terminou." };
     }
     if (response.status === 403) {
       showDenied();
-      return;
+      return { ok: false, message: "Esta conta não possui permissão para salvar." };
     }
     if (!response.ok) throw new Error(result.error || "Não foi possível salvar.");
 
@@ -314,13 +569,15 @@ async function syncRemote() {
     saveCache();
     setLastUpdate(remoteUpdatedAt);
     setSaveState("Sincronizado entre dispositivos", "synced");
+    confirmPendingProductFeedback();
+    return { ok: true, updatedAt: remoteUpdatedAt };
   } catch (error) {
-    setSaveState(
+    const message =
       error?.message && error.message !== "Failed to fetch"
         ? error.message
-        : "Sem conexão · alterações só neste aparelho",
-      "error",
-    );
+        : "Sem conexão · alterações só neste aparelho";
+    setSaveState(message, "error");
+    return { ok: false, message };
   } finally {
     syncing = false;
     if (syncQueued) {
@@ -354,6 +611,7 @@ const loadPanel = async ({ allowCache = true } = {}) => {
     saveCache();
     showApp();
     renderAll();
+    void loadMetrics();
     setSaveState(
       dirty
         ? "Cardápio completo preparado · clique em Salvar agora"
@@ -376,6 +634,7 @@ const loadPanel = async ({ allowCache = true } = {}) => {
     remoteUpdatedAt = cached.updatedAt || null;
     showApp();
     renderAll();
+    void loadMetrics();
     setSaveState("Sem conexão · mostrando cache deste aparelho", "error");
     return true;
   }
@@ -697,6 +956,35 @@ const parsePrice = (value) => {
 const createProductId = () =>
   `item-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 
+const markProductChanged = (index) => {
+  const item = ownerData.catalog[index];
+  if (item) {
+    setProductSaveFeedback(item.id, "Alterações deste item pendentes.", "pending");
+  }
+  markChanged({ rerenderSummary: false });
+};
+
+const saveProduct = async (index, button) => {
+  const item = ownerData.catalog[index];
+  if (!item) return;
+  clearTimeout(syncTimer);
+  syncTimer = null;
+  button.disabled = true;
+  setProductSaveFeedback(item.id, "Salvando este item…", "saving");
+  const outcome = await syncRemote();
+  if (outcome?.ok) {
+    const label = item.name.trim() || "Item";
+    setProductSaveFeedback(item.id, `✓ ${label}: alterações salvas.`, "synced");
+  } else {
+    setProductSaveFeedback(
+      item.id,
+      outcome?.message || "Não foi possível salvar este item.",
+      "error",
+    );
+  }
+  button.disabled = false;
+};
+
 const catalogGroupFor = (item) =>
   CATALOG_GROUPS.find((group) => group.productIds.includes(item.id)) || {
     id: "outros",
@@ -731,11 +1019,32 @@ const renderProductCard = (item, index) => `<details class="product-card">
       <label class="wide">Ingredientes
         <textarea data-product-ingredients="${index}" rows="3" maxlength="500" placeholder="Ingredientes reais e informações úteis">${escapeHtml(item.ingredients)}</textarea>
       </label>
-      <label class="wide">URL HTTPS da foto real
-        <input data-product-photo="${index}" type="url" maxlength="500" value="${escapeHtml(item.photoUrl)}" placeholder="https://…">
-      </label>
+      <div class="wide product-photo-field">
+        <span class="field-label">Foto do produto</span>
+        <div class="product-photo-editor">
+          <figure class="product-photo-preview">
+            <img data-product-photo-preview="${index}" src="${escapeHtml(productPhotoUrl(item) || productFallbackUrl(item.id))}" data-fallback="${escapeHtml(productFallbackUrl(item.id))}" class="${hasProductPhoto(item) ? "" : "is-fallback"}" alt="${escapeHtml(hasProductPhoto(item) ? `Foto de ${item.name || "produto do Kixiki"}` : `Ilustração do Kixiki para ${item.name || "produto"}`)}">
+          </figure>
+          <div class="product-photo-controls">
+            <strong>${hasProductPhoto(item) ? "Foto adicionada" : "Sem foto"}</strong>
+            <p>JPEG, PNG ou WEBP. A imagem é otimizada antes do envio.</p>
+            <input data-product-photo-input="${index}" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+            <div class="product-photo-buttons">
+              <button class="secondary-button product-photo-button" data-product-photo-trigger="${index}" type="button"><span aria-hidden="true">📷</span> <span data-product-photo-label="${index}">${hasProductPhoto(item) ? "Trocar foto" : "Adicionar foto"}</span></button>
+              <button class="remove-button product-photo-remove" data-product-photo-remove="${index}" type="button" ${hasProductPhoto(item) ? "" : "hidden"}>Remover foto</button>
+            </div>
+            <span class="product-photo-state" data-product-photo-state="${index}" role="status" aria-live="polite"></span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="product-actions"><button class="remove-button" data-product-remove="${index}" type="button">Remover item</button></div>
+    <div class="product-actions">
+      <span class="product-save-feedback" data-product-feedback="${escapeHtml(item.id)}" role="status" aria-live="polite"></span>
+      <div class="product-action-buttons">
+        <button class="primary-button item-save-button" data-product-save="${index}" type="button">Salvar item</button>
+        <button class="remove-button" data-product-remove="${index}" type="button">Remover item</button>
+      </div>
+    </div>
   </div>
 </details>`;
 
@@ -761,12 +1070,13 @@ const renderCatalog = () => {
 
   $$('[data-product-name]').forEach((input) =>
     input.addEventListener("input", () => {
-      ownerData.catalog[Number(input.dataset.productName)].name = input.value;
+      const index = Number(input.dataset.productName);
+      ownerData.catalog[index].name = input.value;
       const summaryName = input
         .closest(".product-card")
         ?.querySelector(".product-summary-copy strong");
       if (summaryName) summaryName.textContent = input.value || "Item sem nome";
-      markChanged({ rerenderSummary: false });
+      markProductChanged(index);
     }),
   );
   $$('[data-product-price]').forEach((input) =>
@@ -778,7 +1088,8 @@ const renderCatalog = () => {
         return;
       }
       input.setCustomValidity("");
-      ownerData.catalog[Number(input.dataset.productPrice)].priceCents = parsed;
+      const index = Number(input.dataset.productPrice);
+      ownerData.catalog[index].priceCents = parsed;
       input.value = formatPrice(parsed);
       const summaryPrice = input
         .closest(".product-card")
@@ -786,37 +1097,66 @@ const renderCatalog = () => {
       if (summaryPrice) {
         summaryPrice.textContent = parsed === null ? "Preço pendente" : `R$ ${formatPrice(parsed)}`;
       }
-      markChanged({ rerenderSummary: false });
+      markProductChanged(index);
     }),
   );
   $$('[data-product-description]').forEach((input) =>
     input.addEventListener("input", () => {
-      ownerData.catalog[Number(input.dataset.productDescription)].description = input.value;
-      markChanged({ rerenderSummary: false });
+      const index = Number(input.dataset.productDescription);
+      ownerData.catalog[index].description = input.value;
+      markProductChanged(index);
     }),
   );
   $$('[data-product-ingredients]').forEach((input) =>
     input.addEventListener("input", () => {
-      ownerData.catalog[Number(input.dataset.productIngredients)].ingredients = input.value;
-      markChanged({ rerenderSummary: false });
+      const index = Number(input.dataset.productIngredients);
+      ownerData.catalog[index].ingredients = input.value;
+      markProductChanged(index);
     }),
   );
-  $$('[data-product-photo]').forEach((input) =>
-    input.addEventListener("change", () => {
-      ownerData.catalog[Number(input.dataset.productPhoto)].photoUrl = input.value;
-      markChanged({ rerenderSummary: false });
+  $$('[data-product-photo-preview]').forEach((image) =>
+    image.addEventListener("error", () => {
+      if (image.src.endsWith(image.dataset.fallback)) return;
+      image.src = image.dataset.fallback;
+      image.classList.add("is-fallback");
     }),
+  );
+  $$('[data-product-photo-trigger]').forEach((button) =>
+    button.addEventListener("click", () => {
+      const input = $(`[data-product-photo-input="${button.dataset.productPhotoTrigger}"]`);
+      input?.click();
+    }),
+  );
+  $$('[data-product-photo-input]').forEach((input) =>
+    input.addEventListener("change", async () => {
+      const index = Number(input.dataset.productPhotoInput);
+      const button = $(`[data-product-photo-trigger="${index}"]`);
+      const file = input.files?.[0];
+      if (file && button) await uploadProductPhoto(index, file, button);
+      input.value = "";
+    }),
+  );
+  $$('[data-product-photo-remove]').forEach((button) =>
+    button.addEventListener("click", () =>
+      removeProductPhoto(Number(button.dataset.productPhotoRemove), button),
+    ),
   );
   $$('[data-product-active]').forEach((input) =>
     input.addEventListener("change", () => {
-      ownerData.catalog[Number(input.dataset.productActive)].active = input.checked;
+      const index = Number(input.dataset.productActive);
+      ownerData.catalog[index].active = input.checked;
       const status = input.closest(".product-card")?.querySelector(".product-status");
       if (status) {
         status.textContent = input.checked ? "Ativo" : "Inativo";
         status.className = `product-status ${input.checked ? "active" : "inactive"}`;
       }
-      markChanged({ rerenderSummary: false });
+      markProductChanged(index);
     }),
+  );
+  $$('[data-product-save]').forEach((button) =>
+    button.addEventListener("click", () =>
+      saveProduct(Number(button.dataset.productSave), button),
+    ),
   );
   $$('[data-product-remove]').forEach((button) =>
     button.addEventListener("click", () => {
@@ -841,6 +1181,7 @@ $("#addProductButton").addEventListener("click", () => {
     description: "",
     ingredients: "",
     photoUrl: "",
+    photoAssetVersion: null,
     active: true,
   });
   renderCatalog();
@@ -924,6 +1265,7 @@ const renderAll = () => {
 
 $("#saveNowButton").addEventListener("click", syncRemote);
 $("#saveStripButton").addEventListener("click", syncRemote);
+$("#refreshMetricsButton").addEventListener("click", loadMetrics);
 $("#reloadRemoteButton").addEventListener("click", () => loadPanel({ allowCache: false }));
 $("#logoutButton").addEventListener("click", logout);
 $("#deniedLogoutButton").addEventListener("click", logout);

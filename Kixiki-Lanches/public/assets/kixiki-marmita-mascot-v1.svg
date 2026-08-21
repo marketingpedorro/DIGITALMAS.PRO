@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="t d">
+  <title id="t">Marmita do Kixiki</title><desc id="d">Ilustração de uma marmita caseira simpática nas cores do Kixiki.</desc>
+  <defs><linearGradient id="p" x2="0" y2="1"><stop stop-color="#fff8e8"/><stop offset="1" stop-color="#eadfbf"/></linearGradient><filter id="s"><feDropShadow dy="9" stdDeviation="7" flood-color="#012b17" flood-opacity=".22"/></filter></defs>
+  <ellipse cx="160" cy="213" rx="101" ry="13" fill="#012b17" opacity=".18"/>
+  <g filter="url(#s)" stroke="#012b17" stroke-width="8" stroke-linejoin="round">
+    <path d="M55 83h210l-17 116c-2 12-12 21-25 21H97c-13 0-23-9-25-21Z" fill="url(#p)"/>
+    <path d="M78 102c18-36 55-49 88-23 25-26 72-17 83 23Z" fill="#f8b62f"/>
+    <path d="M75 119c33-17 61-3 83 17 23-25 56-35 87-17l-6 42H81Z" fill="#32c987"/>
+  </g>
+  <g fill="#012b17"><circle cx="128" cy="165" r="7"/><circle cx="191" cy="165" r="7"/></g>
+  <path d="M141 179c12 11 26 11 38 0" fill="none" stroke="#012b17" stroke-width="7" stroke-linecap="round"/>
+  <path d="M54 83h212" stroke="#f8b62f" stroke-width="13" stroke-linecap="round"/>
+</svg>
