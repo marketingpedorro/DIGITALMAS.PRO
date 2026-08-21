@@ -101,7 +101,7 @@ test("institutional footer includes privacy link, valid sitemap entry and high c
   assert.match(html, /href="https:\/\/www\.instagram\.com\/kixiki_lanches"/);
   assert.match(html, /href="https:\/\/wa\.me\/48988048681"/);
   assert.match(html, /href="\/privacidade\/"/);
-  assert.match(html, /DigitalMas\.PRO/);
+  assert.match(html, /Andrés Sebastián · DigitalMas\.PRO/);
 
   assert.match(css, /html\[data-kx-theme="day"\] body\.kx-option-b \.wf-footer\s*\{[\s\S]*?color:\s*#012b18\s*!important/);
   assert.match(css, /html\[data-kx-theme="night"\] body\.kx-option-b \.wf-footer\s*\{[\s\S]*?color:\s*#fff8e7\s*!important/);
