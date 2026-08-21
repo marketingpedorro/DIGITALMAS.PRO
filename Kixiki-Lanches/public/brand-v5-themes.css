@@ -237,8 +237,14 @@ html[data-kx-theme="day"] body.kx-option-b main > section:not(#sec-hero) {
 }
 
 html[data-kx-theme="day"] body.kx-option-b .wf-footer {
+  background: #fff8e7 !important;
   color: #012b18 !important;
-  border-color: rgba(1, 43, 23, 0.22) !important;
+  border-top: 1px solid rgba(1, 43, 23, 0.22) !important;
+}
+
+html[data-kx-theme="day"] body.kx-option-b .wf-footer p,
+html[data-kx-theme="day"] body.kx-option-b .wf-footer span {
+  color: #012b18 !important;
 }
 
 html[data-kx-theme="day"] body.kx-option-b .wf-footer a {
@@ -329,8 +335,14 @@ html[data-kx-theme="night"] body.kx-option-b #sec-localizacao iframe {
 }
 
 html[data-kx-theme="night"] body.kx-option-b .wf-footer {
+  background: #001e10 !important;
   color: #fff8e7 !important;
-  border-color: rgba(255, 255, 255, 0.16) !important;
+  border-top: 1px solid rgba(224, 180, 56, 0.35) !important;
+}
+
+html[data-kx-theme="night"] body.kx-option-b .wf-footer p,
+html[data-kx-theme="night"] body.kx-option-b .wf-footer span {
+  color: #fff8e7 !important;
 }
 
 html[data-kx-theme="night"] body.kx-option-b .wf-footer a {

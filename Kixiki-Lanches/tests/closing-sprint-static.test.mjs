@@ -103,7 +103,9 @@ test("institutional footer includes privacy link, valid sitemap entry and high c
   assert.match(html, /href="\/privacidade\/"/);
   assert.match(html, /Andrés Sebastián · DigitalMas\.PRO/);
 
+  assert.match(css, /html\[data-kx-theme="day"\] body\.kx-option-b \.wf-footer\s*\{[\s\S]*?background:\s*#fff8e7\s*!important/);
   assert.match(css, /html\[data-kx-theme="day"\] body\.kx-option-b \.wf-footer\s*\{[\s\S]*?color:\s*#012b18\s*!important/);
+  assert.match(css, /html\[data-kx-theme="night"\] body\.kx-option-b \.wf-footer\s*\{[\s\S]*?background:\s*#001e10\s*!important/);
   assert.match(css, /html\[data-kx-theme="night"\] body\.kx-option-b \.wf-footer\s*\{[\s\S]*?color:\s*#fff8e7\s*!important/);
   assert.match(css, /html\[data-kx-theme="night"\] body\.kx-option-b \.wf-footer a\s*\{[\s\S]*?color:\s*#f8b62f\s*!important/);
 

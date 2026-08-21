@@ -8,10 +8,10 @@ current_player: mbappe
 repo: marketingpedorro/DIGITALMAS.PRO
 branch: fix/c001-per-item-save-feedback
 pr: 6
-checkpoint_head: 30d25594d6f0fe6bf1fd0d95d18c5ef5950801b3
+checkpoint_head: 2e8e01310a5c0b3f447a4e05945b1522f8e231ae
 preview: https://deploy-preview-6--kixiki.netlify.app/
 production: https://kixiki.netlify.app/
-updated_at: 2026-08-21T18:13:00-03:00
+updated_at: 2026-08-21T18:16:00-03:00
 ---
 
 # HANDOFF · C001 KIXIKI
@@ -23,7 +23,7 @@ Entregar PR #6 limpio, probado y listo para la decisión humana final (GO / NO-G
 - **Panel do Dono**: interfaz pt-BR privada, alineada a la paleta Kixiki (forest, cream, mustard), desacoplada de workspaces internos y con guardado reactivo por ítem con confirmación visual de servidor.
 - **Cardápio Visual e Interactivo**: mobile-first, flip cards 3D; reverso estructurado con composición de ingredientes quando existem, o descripción comercial limpia sin mensajes de incertidumbre.
 - **Simetría Geométrica Estricta**: altura fija e idéntica en todas las flip cards por breakpoint (480px de cuerpo + 56px CTA en desktop; 450px + 56px en móvil), eliminando desbordes en `.kx-menu-back` con scroll interno en `.kx-menu-back-copy` y anclaje inferior del footer/precio en la misma línea.
-- **Rodapé Institucional e Identidad**: estructura y créditos exactos aprobados en 2 líneas ("Desenvolvido por Andrés Sebastián · DigitalMas.PRO" y "Fundador · Técnico Universitário em Web pela UNSL (Argentina)."), contraste optimizado DIA/NOITE (crema/verde en DIA, verde profundo/mostaza en NOITE) con enlaces limpios a Instagram, WhatsApp y Privacidade.
+- **Rodapé Institucional e Identidad**: inversión total de superficie DIA/NOITE (`#fff8e7` en DIA vs `#001e10` en NOITE) con estructura y créditos exactos aprobados en 2 líneas ("Desenvolvido por Andrés Sebastián · DigitalMas.PRO" y "Fundador · Técnico Universitário em Web pela UNSL (Argentina)."), y enlaces limpios a Instagram, WhatsApp y Privacidade.
 - **Aviso de Privacidade e LGPD**: página `/privacidade/` dedicada pt-BR, mobile-first, com 9 seções estruturadas, suporte dinâmico para tema DIA / NOITE com toggle e variáveis compartilhadas, documentando medição first-party sem cookies publicitários de terceiros (cookie banner não exigido).
 - **Sitemap Técnico**: `/privacidade/` incorporada em `sitemap.xml`.
 - **Migración Semántica Idempotente**: `upgradeLegacyOwnerData` compartida en memoria entre Owner y Public Projection para convertir descripciones compuestas existentes en ingredientes reales sin sobreescribir ediciones del dueño.
@@ -57,7 +57,7 @@ Entregar PR #6 limpio, probado y listo para la decisión humana final (GO / NO-G
 - **Preview**: [Netlify Deploy Preview #6](https://deploy-preview-6--kixiki.netlify.app/)
 
 ## 🏃 Última entrega
-- **Jugador anterior**: Mbappé (Pase #10 - Footer + Base Institucional).
-- **Nuevo jugador**: Mbappé (Pase #10 - Microajuste Footer + Tema Privacidade).
+- **Jugador anterior**: Mbappé (Pase #10 - Microajuste Footer + Tema Privacidade).
+- **Nuevo jugador**: Mbappé (Pase #10 - Corrección Quirúrgica Footer NOITE).
 - **Fecha**: 2026-08-21.
-- **Último commit relevante**: `30d2559` (feat(c001): refine privacy structure and align institutional footer credit).
+- **Último commit relevante**: `2e8e013` (fix(c001): restore full institutional footer credit and add day-night theme support to privacy page).
