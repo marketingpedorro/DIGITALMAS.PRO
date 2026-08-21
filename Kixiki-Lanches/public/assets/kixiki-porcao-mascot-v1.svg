@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="t d">
+  <title id="t">Porção do Kixiki</title><desc id="d">Ilustração de uma porção de batatas simpática nas cores do Kixiki.</desc>
+  <defs><linearGradient id="f" x2="0" y2="1"><stop stop-color="#ffe276"/><stop offset="1" stop-color="#f8b62f"/></linearGradient><filter id="s"><feDropShadow dy="9" stdDeviation="7" flood-color="#012b17" flood-opacity=".22"/></filter></defs>
+  <ellipse cx="160" cy="215" rx="96" ry="13" fill="#012b17" opacity=".18"/>
+  <g filter="url(#s)" stroke="#012b17" stroke-width="7" stroke-linejoin="round">
+    <path d="m92 112-7-73 28-2 7 75m10-4 1-83 28 1-1 82m13 1 10-78 28 4-11 78m15 6 23-67 26 9-24 68" fill="url(#f)"/>
+    <path d="M73 104h174l-19 102c-2 10-11 18-22 18h-92c-11 0-20-8-22-18Z" fill="#0a7a43"/>
+    <path d="M89 134h142" fill="none" stroke="#f8b62f" stroke-width="9"/>
+  </g>
+  <g fill="#fff8e8"><circle cx="132" cy="166" r="7"/><circle cx="190" cy="166" r="7"/></g>
+  <path d="M145 181c10 9 23 9 33 0" fill="none" stroke="#fff8e8" stroke-width="7" stroke-linecap="round"/>
+</svg>
