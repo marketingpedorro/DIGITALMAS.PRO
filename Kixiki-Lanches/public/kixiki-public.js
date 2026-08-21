@@ -149,7 +149,11 @@ export const buildProductCardMarkup = (product) => {
           <div class="kx-menu-back-copy">
             <h3>${escapeHtml(name)}</h3>
             ${product.description ? `<p>${escapeHtml(product.description)}</p>` : ""}
-            ${ingredients.length ? `<div class="kx-menu-ingredients"><strong>Ingredientes</strong><ul>${ingredients.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>` : ""}
+            ${
+              ingredients.length
+                ? `<div class="kx-menu-ingredients"><strong>Ingredientes</strong><ul>${ingredients.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>`
+                : `<div class="kx-menu-ingredients kx-menu-ingredients-pending"><strong>Ingredientes</strong><p class="kx-menu-pending-note">Ingredientes ainda não informados.<br><span>Consulte o Kixiki pelo WhatsApp.</span></p></div>`
+            }
           </div>
           <div class="kx-menu-back-foot">
             ${price ? `<strong>${escapeHtml(price)}</strong>` : ""}

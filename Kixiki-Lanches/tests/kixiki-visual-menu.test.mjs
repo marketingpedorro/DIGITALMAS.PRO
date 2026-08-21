@@ -113,3 +113,19 @@ test("missing price is never invented and removes the order CTA", () => {
   assert.match(markup, /kx-menu-price-pending/);
   assert.equal(createProductWhatsappUrl({ ...product, priceCents: null }), "");
 });
+
+test("product without ingredients renders neutral structured notice without blank space", () => {
+  const markup = buildProductCardMarkup({ ...product, ingredients: "" });
+  assert.match(markup, /class="kx-menu-ingredients kx-menu-ingredients-pending"/);
+  assert.match(markup, /<strong>Ingredientes<\/strong>/);
+  assert.match(markup, /Ingredientes ainda não informados\./);
+  assert.match(markup, /Consulte o Kixiki pelo WhatsApp\./);
+  assert.doesNotMatch(markup, /<li>/);
+});
+
+test("card backface styles support neutral pending note and contrast", async () => {
+  const css = await readFile(new URL("../public/brand-v5-themes.css", import.meta.url), "utf8");
+  assert.match(css, /\.kx-menu-ingredients-pending\s*\{/);
+  assert.match(css, /\.kx-menu-pending-note\s*\{/);
+  assert.match(css, /\.kx-menu-back\s*\{[\s\S]*?background:[\s\S]*?#fff8e8/);
+});

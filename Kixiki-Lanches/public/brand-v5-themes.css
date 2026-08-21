@@ -1006,6 +1006,24 @@ html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-
   color: #d49818;
   font-weight: 900;
 }
+.kx-menu-ingredients-pending {
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: rgba(1, 43, 24, .04);
+  border: 1px dashed rgba(1, 43, 24, .18);
+}
+.kx-menu-pending-note {
+  margin: 0 !important;
+  color: #28553f !important;
+  font-size: .74rem !important;
+  line-height: 1.4 !important;
+}
+.kx-menu-pending-note span {
+  display: inline-block;
+  margin-top: 3px;
+  color: #8c5b00;
+  font-weight: 650;
+}
 .kx-menu-back-foot {
   display: flex;
   align-items: end;
