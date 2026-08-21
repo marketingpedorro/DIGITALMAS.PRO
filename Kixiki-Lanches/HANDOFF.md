@@ -8,10 +8,10 @@ current_player: mbappe
 repo: marketingpedorro/DIGITALMAS.PRO
 branch: fix/c001-per-item-save-feedback
 pr: 6
-checkpoint_head: b4b8adaac4778e4b47b6694a09629138c13fddec
+checkpoint_head: 2af1373eaef078f44ff53eec0104f2fecb5ff7b5
 preview: https://deploy-preview-6--kixiki.netlify.app/
 production: https://kixiki.netlify.app/
-updated_at: 2026-08-21T17:30:00-03:00
+updated_at: 2026-08-21T17:40:00-03:00
 ---
 
 # HANDOFF · C001 KIXIKI
@@ -21,9 +21,10 @@ Entregar PR #6 limpio, probado y listo para la decisión humana final (GO / NO-G
 
 ## ✅ Hecho
 - **Panel do Dono**: interfaz pt-BR privada, alineada a la paleta Kixiki (forest, cream, mustard), desacoplada de workspaces internos y con guardado reactivo por ítem con confirmación visual de servidor.
-- **Cardápio Visual e Interactivo**: mobile-first, flip cards 3D; reverso estructurado con composición de ingredientes cuando existen, o descripción comercial limpia sin mensajes de incertidumbre.
+- **Cardápio Visual e Interactivo**: mobile-first, flip cards 3D; reverso estructurado con composición de ingredientes quando existem, o descripción comercial limpia sin mensajes de incertidumbre.
 - **Migración Semántica Idempotente**: `upgradeLegacyOwnerData` compartida en memoria entre Owner y Public Projection para convertir descripciones compuestas existentes en ingredientes reales sin sobreescribir ediciones del dueño.
 - **Tipografía y Reverso Premium**: jerarquía visual con acento mostaza superior, nombres en `clamp(1.65rem, 2.2vw, 2rem)`, descripciones en `1rem`, viñetas `•` en `0.95rem - 1rem` y paridad total DIA/NOITE.
+- **Microfunnel Regalo WhatsApp DigitalMas**: CTA `"Quero meu presente no WhatsApp →"`, destino directo al WhatsApp operativo de DigitalMas con mensaje pre-cargado de atribución humana e inicialización segura del evento `gift_cta_click`.
 - **Gestión de Fotos**: upload y optimización client-side (JPEG/PNG/WebP, máx 5 MB original, lado máx 1400 px, salida WebP calidad 0.82) hacia asset store sin URLs manuales.
 - **Conversión WhatsApp**: CTAs directos por producto posicionados fuera del cuerpo rotatorio de las tarjetas.
 - **Superficie Pública y 404**: `404.html` corregido con etiqueta visual `FORA DO CARDÁPIO`, `robots.txt`, `sitemap.xml` y QR SVG para reseñas (Táctica Regalo).
@@ -52,7 +53,7 @@ Entregar PR #6 limpio, probado y listo para la decisión humana final (GO / NO-G
 - **Preview**: [Netlify Deploy Preview #6](https://deploy-preview-6--kixiki.netlify.app/)
 
 ## 🏃 Última entrega
-- **Jugador anterior**: Mbappé (Pase #10 - Corrección Modelo + Tema).
-- **Nuevo jugador**: Mbappé (Pase #10 - Migración Real + Reverso Premium).
+- **Jugador anterior**: Mbappé (Pase #10 - Migración Real + Reverso Premium).
+- **Nuevo jugador**: Mbappé (Pase #10 - Microfunnel Regalo WhatsApp).
 - **Fecha**: 2026-08-21.
-- **Último commit relevante**: `b4b8ada` (fix(c001): align semantic catalog ingredients and enforce day-night backface contrast).
+- **Último commit relevante**: `2af1373` (fix(c001): apply semantic migration on public projection and enhance reverse card typography).

@@ -102,8 +102,11 @@
       document.addEventListener("click", (event) => {
         const link = event.target instanceof Element ? event.target.closest("a") : null;
         if (!link) return;
-        if (link.matches('a[href*="wa.me/"]')) send(EVENTS.whatsappClick);
-        if (link.dataset.kxTrack === EVENTS.giftCtaClick) send(EVENTS.giftCtaClick);
+        if (link.dataset.kxTrack === EVENTS.giftCtaClick) {
+          send(EVENTS.giftCtaClick);
+        } else if (link.matches('a[href*="wa.me/"]') || link.dataset.kxTrack === EVENTS.whatsappClick) {
+          send(EVENTS.whatsappClick);
+        }
       });
     },
     { once: true },

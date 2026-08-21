@@ -42,9 +42,8 @@ test("Tática Regalo has approved copy, inverted brand scene and accessible scro
   const section = html.slice(html.indexOf('id="sec-digitalmas-referral"'), html.indexOf("<!-- SECCIÓN 9"));
   assert.match(section, /Gostou do site do Kixiki\?/);
   assert.match(section, /o Kixiki deixou um presente para você\. 🎁/);
-  assert.match(section, /Fale diretamente com a DigitalMas\.PRO e conte que chegou pelo Kixiki/);
-  assert.match(section, /Quero descobrir meu presente →/);
-  assert.match(section, /https:\/\/digitalmas\.pro\/\?utm_source=kixiki&amp;utm_medium=referral&amp;utm_campaign=referral_mvp_01/);
+  assert.match(section, /Quero meu presente no WhatsApp →/);
+  assert.match(section, /https:\/\/wa\.me\/5555997120149\?text=Ol%C3%A1!%20Vim%20pelo%20presente%20do%20Kixiki%20%F0%9F%8E%81%20e%20quero%20saber%20como%20a%20DigitalMas\.PRO%20pode%20melhorar%20a%20presen%C3%A7a%20online%20do%20meu%20neg%C3%B3cio\./);
   assert.match(section, /data-kx-track-view="gift_view"/);
   assert.match(section, /data-kx-track="gift_cta_click"/);
   assert.doesNotMatch(section, /KIXIKI20|20% DE DESCONTO/i);
