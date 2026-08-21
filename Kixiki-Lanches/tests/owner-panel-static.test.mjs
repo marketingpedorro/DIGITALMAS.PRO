@@ -51,6 +51,20 @@ test("save status and manual save action remain visible outside the overview", a
   assert.match(app, /\$\("#saveStripButton"\)\.addEventListener\("click", syncRemote\)/);
 });
 
+test("every rendered catalog item has server-confirmed individual save feedback", async () => {
+  const app = await read("../public/dono/app.js");
+  const css = await read("../public/dono/styles.css");
+
+  assert.match(app, /data-product-save="\$\{index\}"[^>]*>Salvar item</);
+  assert.match(app, /data-product-feedback="\$\{escapeHtml\(item\.id\)\}"/);
+  assert.match(app, /role="status" aria-live="polite"/);
+  assert.match(app, /const outcome = await syncRemote\(\)/);
+  assert.match(app, /✓ \$\{label\}: alterações salvas\./);
+  assert.match(app, /Alterações deste item pendentes\./);
+  assert.match(css, /\.product-save-feedback\.synced/);
+  assert.match(css, /\.item-save-button/);
+});
+
 test("client code exposes exactly the three approved SEO priorities", async () => {
   const app = await read("../public/dono/app.js");
   const taskCopy = app.slice(app.indexOf("const TASK_COPY"), app.indexOf("const DAY_LABELS"));

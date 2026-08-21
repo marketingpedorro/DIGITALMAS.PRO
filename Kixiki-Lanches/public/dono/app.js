@@ -191,6 +191,26 @@ const setLastUpdate = (value) => {
   });
 };
 
+const setProductSaveFeedback = (productId, message, tone = "") => {
+  const element = $$('[data-product-feedback]').find(
+    (candidate) => candidate.dataset.productFeedback === productId,
+  );
+  if (!element) return;
+  element.textContent = message;
+  element.className = `product-save-feedback ${tone}`.trim();
+};
+
+const confirmPendingProductFeedback = () => {
+  $$('.product-save-feedback.pending').forEach((element) => {
+    const item = ownerData?.catalog.find(
+      (candidate) => candidate.id === element.dataset.productFeedback,
+    );
+    const label = item?.name?.trim() || "Item";
+    element.textContent = `✓ ${label}: alterações salvas.`;
+    element.className = "product-save-feedback synced";
+  });
+};
+
 const today = () => {
   const date = new Date();
   const offset = date.getTimezoneOffset() * 60_000;
@@ -273,15 +293,20 @@ const markChanged = ({ rerenderSummary = true } = {}) => {
 };
 
 async function syncRemote() {
-  if (!currentUser || !ownerData || conflict) return;
+  if (!currentUser || !ownerData) {
+    return { ok: false, message: "Sessão indisponível." };
+  }
+  if (conflict) {
+    return { ok: false, message: "Carregue a versão mais nova antes de salvar." };
+  }
   const incomplete = pendingCompletionMessage();
   if (incomplete) {
     setSaveState(incomplete, "error");
-    return;
+    return { ok: false, message: incomplete };
   }
   if (syncing) {
     syncQueued = true;
-    return;
+    return { ok: false, message: "Outro salvamento está em andamento." };
   }
   syncing = true;
   setSaveState("Salvando na base segura…");
@@ -296,15 +321,15 @@ async function syncRemote() {
     const result = await response.json().catch(() => ({}));
     if (response.status === 409) {
       showConflict();
-      return;
+      return { ok: false, message: "Existe uma versão mais nova em outro aparelho." };
     }
     if (response.status === 401) {
       showLogin("Sua sessão terminou. Entre novamente.", "info");
-      return;
+      return { ok: false, message: "Sua sessão terminou." };
     }
     if (response.status === 403) {
       showDenied();
-      return;
+      return { ok: false, message: "Esta conta não possui permissão para salvar." };
     }
     if (!response.ok) throw new Error(result.error || "Não foi possível salvar.");
 
@@ -314,13 +339,15 @@ async function syncRemote() {
     saveCache();
     setLastUpdate(remoteUpdatedAt);
     setSaveState("Sincronizado entre dispositivos", "synced");
+    confirmPendingProductFeedback();
+    return { ok: true, updatedAt: remoteUpdatedAt };
   } catch (error) {
-    setSaveState(
+    const message =
       error?.message && error.message !== "Failed to fetch"
         ? error.message
-        : "Sem conexão · alterações só neste aparelho",
-      "error",
-    );
+        : "Sem conexão · alterações só neste aparelho";
+    setSaveState(message, "error");
+    return { ok: false, message };
   } finally {
     syncing = false;
     if (syncQueued) {
@@ -697,6 +724,35 @@ const parsePrice = (value) => {
 const createProductId = () =>
   `item-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 
+const markProductChanged = (index) => {
+  const item = ownerData.catalog[index];
+  if (item) {
+    setProductSaveFeedback(item.id, "Alterações deste item pendentes.", "pending");
+  }
+  markChanged({ rerenderSummary: false });
+};
+
+const saveProduct = async (index, button) => {
+  const item = ownerData.catalog[index];
+  if (!item) return;
+  clearTimeout(syncTimer);
+  syncTimer = null;
+  button.disabled = true;
+  setProductSaveFeedback(item.id, "Salvando este item…", "saving");
+  const outcome = await syncRemote();
+  if (outcome?.ok) {
+    const label = item.name.trim() || "Item";
+    setProductSaveFeedback(item.id, `✓ ${label}: alterações salvas.`, "synced");
+  } else {
+    setProductSaveFeedback(
+      item.id,
+      outcome?.message || "Não foi possível salvar este item.",
+      "error",
+    );
+  }
+  button.disabled = false;
+};
+
 const catalogGroupFor = (item) =>
   CATALOG_GROUPS.find((group) => group.productIds.includes(item.id)) || {
     id: "outros",
@@ -735,7 +791,13 @@ const renderProductCard = (item, index) => `<details class="product-card">
         <input data-product-photo="${index}" type="url" maxlength="500" value="${escapeHtml(item.photoUrl)}" placeholder="https://…">
       </label>
     </div>
-    <div class="product-actions"><button class="remove-button" data-product-remove="${index}" type="button">Remover item</button></div>
+    <div class="product-actions">
+      <span class="product-save-feedback" data-product-feedback="${escapeHtml(item.id)}" role="status" aria-live="polite"></span>
+      <div class="product-action-buttons">
+        <button class="primary-button item-save-button" data-product-save="${index}" type="button">Salvar item</button>
+        <button class="remove-button" data-product-remove="${index}" type="button">Remover item</button>
+      </div>
+    </div>
   </div>
 </details>`;
 
@@ -761,12 +823,13 @@ const renderCatalog = () => {
 
   $$('[data-product-name]').forEach((input) =>
     input.addEventListener("input", () => {
-      ownerData.catalog[Number(input.dataset.productName)].name = input.value;
+      const index = Number(input.dataset.productName);
+      ownerData.catalog[index].name = input.value;
       const summaryName = input
         .closest(".product-card")
         ?.querySelector(".product-summary-copy strong");
       if (summaryName) summaryName.textContent = input.value || "Item sem nome";
-      markChanged({ rerenderSummary: false });
+      markProductChanged(index);
     }),
   );
   $$('[data-product-price]').forEach((input) =>
@@ -778,7 +841,8 @@ const renderCatalog = () => {
         return;
       }
       input.setCustomValidity("");
-      ownerData.catalog[Number(input.dataset.productPrice)].priceCents = parsed;
+      const index = Number(input.dataset.productPrice);
+      ownerData.catalog[index].priceCents = parsed;
       input.value = formatPrice(parsed);
       const summaryPrice = input
         .closest(".product-card")
@@ -786,37 +850,46 @@ const renderCatalog = () => {
       if (summaryPrice) {
         summaryPrice.textContent = parsed === null ? "Preço pendente" : `R$ ${formatPrice(parsed)}`;
       }
-      markChanged({ rerenderSummary: false });
+      markProductChanged(index);
     }),
   );
   $$('[data-product-description]').forEach((input) =>
     input.addEventListener("input", () => {
-      ownerData.catalog[Number(input.dataset.productDescription)].description = input.value;
-      markChanged({ rerenderSummary: false });
+      const index = Number(input.dataset.productDescription);
+      ownerData.catalog[index].description = input.value;
+      markProductChanged(index);
     }),
   );
   $$('[data-product-ingredients]').forEach((input) =>
     input.addEventListener("input", () => {
-      ownerData.catalog[Number(input.dataset.productIngredients)].ingredients = input.value;
-      markChanged({ rerenderSummary: false });
+      const index = Number(input.dataset.productIngredients);
+      ownerData.catalog[index].ingredients = input.value;
+      markProductChanged(index);
     }),
   );
   $$('[data-product-photo]').forEach((input) =>
     input.addEventListener("change", () => {
-      ownerData.catalog[Number(input.dataset.productPhoto)].photoUrl = input.value;
-      markChanged({ rerenderSummary: false });
+      const index = Number(input.dataset.productPhoto);
+      ownerData.catalog[index].photoUrl = input.value;
+      markProductChanged(index);
     }),
   );
   $$('[data-product-active]').forEach((input) =>
     input.addEventListener("change", () => {
-      ownerData.catalog[Number(input.dataset.productActive)].active = input.checked;
+      const index = Number(input.dataset.productActive);
+      ownerData.catalog[index].active = input.checked;
       const status = input.closest(".product-card")?.querySelector(".product-status");
       if (status) {
         status.textContent = input.checked ? "Ativo" : "Inativo";
         status.className = `product-status ${input.checked ? "active" : "inactive"}`;
       }
-      markChanged({ rerenderSummary: false });
+      markProductChanged(index);
     }),
+  );
+  $$('[data-product-save]').forEach((button) =>
+    button.addEventListener("click", () =>
+      saveProduct(Number(button.dataset.productSave), button),
+    ),
   );
   $$('[data-product-remove]').forEach((button) =>
     button.addEventListener("click", () => {

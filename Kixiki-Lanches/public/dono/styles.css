@@ -403,7 +403,23 @@ input:focus, select:focus, textarea:focus {
 .active-toggle { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: .75rem; }
 .product-grid { display: grid; grid-template-columns: 1.2fr .55fr; gap: 16px; }
 .product-grid .wide { grid-column: 1 / -1; }
-.product-actions { display: flex; justify-content: flex-end; margin-top: 16px; }
+.product-actions {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line-soft);
+}
+.product-action-buttons { display: flex; align-items: center; gap: 12px; }
+.item-save-button { min-width: 132px; }
+.item-save-button:disabled { cursor: wait; opacity: .65; }
+.product-save-feedback { color: var(--muted); font-size: .72rem; font-weight: 700; line-height: 1.45; }
+.product-save-feedback.pending, .product-save-feedback.saving { color: var(--warning); }
+.product-save-feedback.synced { color: var(--accent); }
+.product-save-feedback.error { color: var(--danger); }
 .remove-button { border: 0; background: transparent; color: var(--danger); font-weight: 750; }
 .empty-state { padding: 28px; border: 1px dashed var(--line); border-radius: 18px; color: var(--muted); text-align: center; }
 
@@ -473,6 +489,9 @@ footer {
   .product-summary { align-items: flex-start; flex-direction: column; padding-right: 52px; }
   .product-status { align-self: flex-start; }
   .product-head { align-items: flex-start; flex-direction: column; }
+  .product-actions { align-items: stretch; flex-direction: column; }
+  .product-action-buttons { align-items: stretch; flex-direction: column; }
+  .item-save-button, .remove-button { width: 100%; min-height: 44px; }
   .hours-grid { grid-template-columns: 1fr; }
   .confirmation-row { align-items: stretch; flex-direction: column; }
   .review-card { grid-template-columns: 1fr; }
