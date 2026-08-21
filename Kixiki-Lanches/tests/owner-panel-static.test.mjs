@@ -65,6 +65,25 @@ test("every rendered catalog item has server-confirmed individual save feedback"
   assert.match(css, /\.item-save-button/);
 });
 
+test("owner edits real product photos without pasting URLs", async () => {
+  const app = await read("../public/dono/app.js");
+  const css = await read("../public/dono/styles.css");
+  const config = await read("../../netlify.toml");
+
+  assert.match(app, /Foto do produto/);
+  assert.match(app, /Adicionar foto/);
+  assert.match(app, /Trocar foto/);
+  assert.match(app, /Remover foto/);
+  assert.match(app, /accept="image\/jpeg,image\/png,image\/webp"/);
+  assert.match(app, /createImageBitmap\(file, \{ imageOrientation: "from-image" \}\)/);
+  assert.match(app, /canvasToBlob\(canvas, "image\/webp", 0\.82\)/);
+  assert.match(app, /maxSide = 1_400/);
+  assert.doesNotMatch(app, /URL HTTPS da foto real/);
+  assert.match(css, /\.product-photo-editor/);
+  assert.match(config, /from = "\/api\/kixiki-product-image"/);
+  assert.match(config, /img-src 'self' data: blob: https:/);
+});
+
 test("client code exposes exactly the three approved SEO priorities", async () => {
   const app = await read("../public/dono/app.js");
   const taskCopy = app.slice(app.indexOf("const TASK_COPY"), app.indexOf("const DAY_LABELS"));

@@ -21,6 +21,8 @@ const FORBIDDEN_KEYS = new Set([
   "etag",
   "store",
   "namespace",
+  "photoAssetVersion",
+  "photoAssetKey",
 ]);
 
 const findForbiddenKeys = (value, found = []) => {
@@ -115,4 +117,22 @@ test("incomplete hours and null product prices are omitted without invention", (
   assert.equal(result.ok, true);
   assert.deepEqual(result.data.hours, []);
   assert.equal("priceCents" in result.data.products[0], false);
+});
+
+test("internal photo version becomes a public same-origin URL without exposing the asset key", () => {
+  const owner = createDefaultOwnerData();
+  owner.catalog = [{
+    ...owner.catalog.find((item) => item.id === "xis-bacon"),
+    photoUrl: "",
+    photoAssetVersion: "m0d3l-asset123",
+  }];
+  const result = createKixikiPublicProjection(owner);
+  assert.equal(result.ok, true);
+  assert.equal(
+    result.data.products[0].photoUrl,
+    "/api/kixiki-product-image?product=xis-bacon&v=m0d3l-asset123",
+  );
+  assert.equal("photoAssetVersion" in result.data.products[0], false);
+  assert.equal("photoAssetKey" in result.data.products[0], false);
+  assert.deepEqual(findForbiddenKeys(result.data), []);
 });

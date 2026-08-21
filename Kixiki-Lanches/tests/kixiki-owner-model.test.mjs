@@ -179,3 +179,23 @@ test("accepts only HTTPS photo references", () => {
   assert.equal(result.ok, false);
   assert.match(result.error, /HTTPS/i);
 });
+
+test("accepts an internal product photo version without storing image bytes in owner JSON", () => {
+  const data = cloneDefault();
+  data.catalog[0].photoAssetVersion = "m0d3l-asset123";
+  data.catalog[0].photoUrl = "";
+
+  const result = validateOwnerData(data);
+  assert.equal(result.ok, true);
+  assert.equal(result.data.catalog[0].photoAssetVersion, "m0d3l-asset123");
+  assert.equal(result.data.catalog[0].photoUrl, "");
+  assert.doesNotMatch(JSON.stringify(result.data), /data:image|base64/i);
+});
+
+test("legacy products without photoAssetVersion remain valid and are normalized", () => {
+  const data = cloneDefault();
+  delete data.catalog[0].photoAssetVersion;
+  const result = validateOwnerData(data);
+  assert.equal(result.ok, true);
+  assert.equal(result.data.catalog[0].photoAssetVersion, null);
+});
