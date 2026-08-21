@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import {
@@ -29,6 +30,14 @@ test("visual card front uses a real photo and back uses dynamic product details"
   assert.match(markup, /O clássico do Kixiki/);
   assert.match(markup, /<li>pão<\/li>/);
   assert.match(markup, /<li>bacon<\/li>/);
+});
+
+test("product names keep cream contrast on the forest front in both themes", async () => {
+  const css = await readFile(new URL("../public/brand-v5-themes.css", import.meta.url), "utf8");
+  assert.match(
+    css,
+    /html\[data-kx-theme="day"\][\s\S]*?#sec-cardapio\.kx-menu-upgraded \.kx-menu-front-copy h3,[\s\S]*?html\[data-kx-theme="night"\][\s\S]*?color:\s*#fff8e8\s*!important/,
+  );
 });
 
 test("product without a photo receives its branded family fallback", () => {

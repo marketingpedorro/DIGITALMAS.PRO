@@ -935,6 +935,10 @@ html[data-kx-theme="night"] body.kx-option-b main > section#sec-digitalmas-refer
   line-height: 1.04;
   letter-spacing: -.03em;
 }
+html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-front-copy h3,
+html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-front-copy h3 {
+  color: #fff8e8 !important;
+}
 .kx-menu-front-copy > strong {
   color: #f8b62f;
   font-size: clamp(1.05rem, 1.6vw, 1.28rem);
