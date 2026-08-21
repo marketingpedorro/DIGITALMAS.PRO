@@ -832,13 +832,23 @@ html[data-kx-theme="night"] body.kx-option-b main > section#sec-digitalmas-refer
   min-width: 0;
   display: grid;
   grid-template-rows: 480px 56px;
+  height: 548px;
+  min-height: 548px;
+  max-height: 548px;
   gap: 12px;
+  align-content: start;
+  box-sizing: border-box;
   transition: transform 180ms ease, filter 180ms ease;
 }
 .kx-menu-flip {
+  position: relative;
   min-width: 0;
+  width: 100%;
   height: 480px;
+  min-height: 480px;
+  max-height: 480px;
   border-radius: 24px;
+  box-sizing: border-box;
   outline: 0;
   perspective: 1000px;
   cursor: pointer;
@@ -852,14 +862,21 @@ html[data-kx-theme="night"] body.kx-option-b main > section#sec-digitalmas-refer
   position: relative;
   width: 100%;
   height: 100%;
+  min-height: 100%;
+  max-height: 100%;
   transform-style: preserve-3d;
   transition: transform .6s cubic-bezier(.4, .2, .2, 1);
 }
 .kx-menu-card.is-flipped .kx-menu-inner { transform: rotateY(180deg); }
 .kx-menu-face {
-  position: absolute;
-  inset: 0;
+  position: absolute !important;
+  inset: 0 !important;
   min-width: 0;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  max-height: 100% !important;
+  box-sizing: border-box !important;
   overflow: hidden;
   border: 1px solid rgba(224, 180, 56, .55);
   border-radius: 24px;
@@ -870,6 +887,7 @@ html[data-kx-theme="night"] body.kx-option-b main > section#sec-digitalmas-refer
 .kx-menu-front {
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
+  height: 100%;
   background: #001e10;
 }
 .kx-menu-photo {
@@ -951,11 +969,12 @@ html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-
   font-weight: 720;
 }
 .kx-menu-back {
-  position: relative;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
-  gap: 17px;
-  padding: clamp(22px, 3vw, 30px);
+  gap: 12px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: clamp(20px, 2.5vw, 26px);
   color: #012b18 !important;
   background:
     radial-gradient(circle at 100% 0%, rgba(248, 182, 47, .28), transparent 34%),
@@ -983,7 +1002,14 @@ html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-
   color: #fff8e8 !important;
   background: #073b22 !important;
 }
-.kx-menu-back-copy { min-height: 0; overflow: auto; scrollbar-width: thin; }
+.kx-menu-back-copy {
+  min-height: 0;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  padding-right: 4px;
+}
 .kx-menu-back-copy h3,
 html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-copy h3,
 html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-copy h3 {
@@ -1104,11 +1130,11 @@ html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-
 @media (max-width: 620px) {
   #sec-cardapio.kx-menu-upgraded { padding: 24px 14px 30px !important; border-radius: 22px !important; }
   .kx-menu-grid { grid-template-columns: 1fr; gap: 22px; }
-  .kx-menu-card { grid-template-rows: 450px 56px; }
-  .kx-menu-flip { height: 450px; }
+  .kx-menu-card { grid-template-rows: 450px 56px; height: 518px; min-height: 518px; max-height: 518px; }
+  .kx-menu-flip { height: 450px; min-height: 450px; max-height: 450px; }
   .kx-menu-front-copy { min-height: 132px; padding: 18px; }
-  .kx-menu-back { padding: 22px; }
-  .kx-menu-ingredients ul { grid-template-columns: 1fr; }
+  .kx-menu-back { padding: 20px; gap: 10px; }
+  .kx-menu-ingredients ul { grid-template-columns: 1fr; gap: 6px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -131,3 +131,15 @@ test("card backface styles enforce cream background and dark forest text in both
   assert.match(css, /html\[data-kx-theme="night"\][\s\S]*?\.kx-menu-back-copy p\s*\{[\s\S]*?color:\s*#28553f\s*!important/);
   assert.match(css, /html\[data-kx-theme="night"\][\s\S]*?\.kx-menu-back-foot strong\s*\{[\s\S]*?color:\s*#a86d00\s*!important/);
 });
+
+test("flip card geometry enforces strict desktop and mobile heights without backface overflow", async () => {
+  const css = await readFile(new URL("../public/brand-v5-themes.css", import.meta.url), "utf8");
+  assert.match(css, /\.kx-menu-card\s*\{[\s\S]*?grid-template-rows:\s*480px 56px;/);
+  assert.match(css, /\.kx-menu-card\s*\{[\s\S]*?height:\s*548px;/);
+  assert.match(css, /\.kx-menu-flip\s*\{[\s\S]*?height:\s*480px;/);
+  assert.match(css, /\.kx-menu-face\s*\{[\s\S]*?position:\s*absolute !important;/);
+  assert.match(css, /\.kx-menu-face\s*\{[\s\S]*?inset:\s*0 !important;/);
+  assert.match(css, /\.kx-menu-back-copy\s*\{[\s\S]*?overflow-y:\s*auto;/);
+  const backBlock = css.slice(css.indexOf(".kx-menu-back {"), css.indexOf(".kx-menu-back::before"));
+  assert.doesNotMatch(backBlock, /position:\s*relative/);
+});
