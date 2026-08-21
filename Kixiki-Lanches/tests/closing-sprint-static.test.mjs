@@ -11,6 +11,7 @@ test("public header has a secondary accessible owner key on every viewport", asy
   assert.match(html, /aria-label="Acesso do proprietário"/);
   assert.match(html, /title="Acesso do proprietário"/);
   assert.match(html, /class="kx-header-actions"/);
+  assert.match(html, /<script defer src="\/theme-v5\.js"><\/script>/);
   assert.match(css, /\.kx-owner-access/);
   assert.match(css, /@media \(max-width: 420px\)[\s\S]*\.kx-header-actions/);
 });
