@@ -8,10 +8,10 @@ current_player: mbappe
 repo: marketingpedorro/DIGITALMAS.PRO
 branch: fix/c001-per-item-save-feedback
 pr: 6
-checkpoint_head: e6a20ff3417b56c80061dd99bc65b63d07270d69
+checkpoint_head: 30d25594d6f0fe6bf1fd0d95d18c5ef5950801b3
 preview: https://deploy-preview-6--kixiki.netlify.app/
 production: https://kixiki.netlify.app/
-updated_at: 2026-08-21T17:57:00-03:00
+updated_at: 2026-08-21T18:13:00-03:00
 ---
 
 # HANDOFF · C001 KIXIKI
@@ -23,9 +23,9 @@ Entregar PR #6 limpio, probado y listo para la decisión humana final (GO / NO-G
 - **Panel do Dono**: interfaz pt-BR privada, alineada a la paleta Kixiki (forest, cream, mustard), desacoplada de workspaces internos y con guardado reactivo por ítem con confirmación visual de servidor.
 - **Cardápio Visual e Interactivo**: mobile-first, flip cards 3D; reverso estructurado con composición de ingredientes quando existem, o descripción comercial limpia sin mensajes de incertidumbre.
 - **Simetría Geométrica Estricta**: altura fija e idéntica en todas las flip cards por breakpoint (480px de cuerpo + 56px CTA en desktop; 450px + 56px en móvil), eliminando desbordes en `.kx-menu-back` con scroll interno en `.kx-menu-back-copy` y anclaje inferior del footer/precio en la misma línea.
-- **Rodapé Institucional e Identidad**: contraste optimizado DIA/NOITE (crema/verde en DIA, verde profundo/mostaza en NOITE) con enlaces limpios a Instagram, WhatsApp, Privacidade y crédito completo "Andrés Sebastián · DigitalMas.PRO".
-- **Aviso de Privacidade e LGPD**: página `/privacidade/` dedicada pt-BR, mobile-first, com 9 seções estructuradas documentando transparencia en pedidos directos por WhatsApp, almacenamiento efímero de sesión (`sessionStorage` para `utm_*`), canal oficial de contacto y medición first-party agregada sin cookies publicitarias de terceros (cookie banner no requerido).
-- **Sitemap Técnico**: `/privacidade/` incorporada en `sitemap.xml`.
+- **Rodapé Institucional e Identidad**: estructura y créditos exactos aprobados en 2 líneas ("Desenvolvido por Andrés Sebastián · DigitalMas.PRO" y "Fundador · Técnico Universitário em Web pela UNSL (Argentina)."), contraste optimizado DIA/NOITE (crema/verde en DIA, verde profundo/mostaza en NOITE) con enlaces limpios a Instagram, WhatsApp y Privacidade.
+- **Aviso de Privacidade e LGPD**: página `/privacidade/` dedicada pt-BR, mobile-first, com 9 seções estruturadas, suporte dinâmico para tema DIA / NOITE com toggle e variáveis compartilhadas, documentando medição first-party sem cookies publicitários de terceiros (cookie banner não exigido).
+- **Sitemap Técnico**: `/privacidade/` incorporada em `sitemap.xml`.
 - **Migración Semántica Idempotente**: `upgradeLegacyOwnerData` compartida en memoria entre Owner y Public Projection para convertir descripciones compuestas existentes en ingredientes reales sin sobreescribir ediciones del dueño.
 - **Tipografía y Reverso Premium**: jerarquía visual con acento mostaza superior, nombres en `clamp(1.65rem, 2.2vw, 2rem)`, descripciones en `1rem`, viñetas `•` en `0.95rem - 1rem` y paridad total DIA/NOITE.
 - **Microfunnel Regalo WhatsApp DigitalMas**: CTA `"Quero meu presente no WhatsApp →"`, destino directo al WhatsApp operativo de DigitalMas con mensaje pre-cargado de atribución humana e inicialización segura del evento `gift_cta_click`.
@@ -57,7 +57,7 @@ Entregar PR #6 limpio, probado y listo para la decisión humana final (GO / NO-G
 - **Preview**: [Netlify Deploy Preview #6](https://deploy-preview-6--kixiki.netlify.app/)
 
 ## 🏃 Última entrega
-- **Jugador anterior**: Mbappé (Pase #10 - Simetría Geométrica Flip Cards).
-- **Nuevo jugador**: Mbappé (Pase #10 - Footer + Base Institucional).
+- **Jugador anterior**: Mbappé (Pase #10 - Footer + Base Institucional).
+- **Nuevo jugador**: Mbappé (Pase #10 - Microajuste Footer + Tema Privacidade).
 - **Fecha**: 2026-08-21.
-- **Último commit relevante**: `e6a20ff` (feat(c001): add privacy notice page and enhance institutional footer contrast).
+- **Último commit relevante**: `30d2559` (feat(c001): refine privacy structure and align institutional footer credit).
