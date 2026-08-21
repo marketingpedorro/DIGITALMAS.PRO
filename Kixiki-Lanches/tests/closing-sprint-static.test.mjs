@@ -24,6 +24,8 @@ test("404 is branded, uses the official mascot and keeps a real Netlify 404 path
   const mascot = await read("../public/assets/kixiki-burger-mascot-v1.svg");
   const config = await read("../../netlify.toml");
   assert.match(html, /<title>Página não encontrada \| Kixiki Lanches<\/title>/);
+  assert.match(html, /<span class="code">FORA DO CARDÁPIO<\/span>/);
+  assert.doesNotMatch(html, /ERRO 404 · FORA DO CARDÁPIO/);
   assert.match(html, /Esse lanche não está no cardápio 😅/);
   assert.match(html, /Você caiu numa página que não existe/);
   assert.match(html, /E ficar por aqui não vai matar a fome/);

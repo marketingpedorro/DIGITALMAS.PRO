@@ -3,21 +3,21 @@ schema: digitalmas-handoff-v1
 project_id: C001
 project_name: Kixiki Lanches
 status: in_progress
-stage: cierre-c001
+stage: pre-var
 current_player: mbappe
 repo: marketingpedorro/DIGITALMAS.PRO
 branch: fix/c001-per-item-save-feedback
 pr: 6
-checkpoint_head: dbb9261c54cb48aca3911044b0f36b067305336f
+checkpoint_head: 058c0d9bee825818feaf6acaad27306262fd29cb
 preview: https://deploy-preview-6--kixiki.netlify.app/
 production: https://kixiki.netlify.app/
-updated_at: 2026-08-21T16:05:00-03:00
+updated_at: 2026-08-21T16:38:00-03:00
 ---
 
 # HANDOFF · C001 KIXIKI
 
 ## 🎯 Objetivo actual
-Cerrar correctamente el proyecto piloto C001 Kixiki Lanches desde el estado técnico y visual verificado.
+Completar el cierre técnico de C001 Kixiki Lanches y entregar el paquete listo para VAR final de Messi / Andy.
 
 ## ✅ Hecho
 - **Panel do Dono**: interfaz pt-BR privada, alineada a la paleta Kixiki (forest, cream, mustard) y desacoplada de workspaces internos.
@@ -26,16 +26,17 @@ Cerrar correctamente el proyecto piloto C001 Kixiki Lanches desde el estado téc
 - **Gestión de Fotos**: upload y optimización de fotos reales de productos hacia asset store sin URLs manuales.
 - **Fallbacks Neutrales**: protección ante estados incompletos en horarios, entrega y precios sin inventar promesas públicas.
 - **Conversión WhatsApp**: CTAs directos por producto posicionados fuera del cuerpo rotatorio de las tarjetas.
-- **Superficie Pública**: `404.html`, `robots.txt`, `sitemap.xml` y QR SVG para reseñas (Táctica Regalo).
-- **Medición**: tracking de eventos clave y métricas operativas C001.
+- **Superficie Pública y 404**: `404.html` corregido con etiqueta visual `FORA DO CARDÁPIO`, `robots.txt`, `sitemap.xml` y QR SVG para reseñas (Táctica Regalo).
+- **Medición y Aislamiento**: tracking de eventos C001 y métricas aisladas estrictamente entre preview y producción por prefijo de storage.
+- **Auditoría Higiene `/public`**: clasificación completa de 46 archivos públicos entre runtime, assets y candidatos huérfanos/legacy.
 
 ## ⚽ Próximos 3
-1. QA visual real del cardápio y fotos en viewport móvil.
-2. Smoke funcional restante del Panel do Dono y feedback de guardado.
-3. VAR final → decisión de merge/publicación a producción.
+1. VAR final de Messi / Andy sobre Deploy Preview #6.
+2. Gate de Higiene Public (limpieza de archivos huérfanos/legacy identificados).
+3. Merge de PR #6 a main y publicación controlada a producción.
 
 ## 🚧 Bloqueos
-- Ninguno en el código ni en la infraestructura técnica de C001.
+- **Bloqueo parcial de autenticación**: el entorno de QA no dispone de sesión Netlify Identity con rol `kixiki-owner` para interactuar en vivo con el panel privado en preview. Todos los flujos están 100% cubiertos por la suite automatizada (77/77 OK).
 
 ## 🛑 No tocar
 - H1 estratégico.
@@ -51,7 +52,7 @@ Cerrar correctamente el proyecto piloto C001 Kixiki Lanches desde el estado téc
 - **Preview**: [Netlify Deploy Preview #6](https://deploy-preview-6--kixiki.netlify.app/)
 
 ## 🏃 Última entrega
-- **Jugador anterior**: Haaland / Messi.
-- **Nuevo jugador**: Mbappé (Antigravity).
+- **Jugador anterior**: Mbappé (Pase #10 - Protocolo).
+- **Nuevo jugador**: Mbappé (Pase #10 - Sprint de Cierre).
 - **Fecha**: 2026-08-21.
-- **Último commit relevante**: `dbb9261` (fix/c001-per-item-save-feedback).
+- **Último commit relevante**: `058c0d9` (docs(ops): clarify canonical head ownership).
