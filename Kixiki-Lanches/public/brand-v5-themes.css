@@ -320,7 +320,7 @@ html[data-kx-theme="night"] body.kx-option-b #sec-localizacao iframe {
 }
 
 /* Tática Regalo: discreta para o restaurante, inequívoca para DigitalMas.PRO. */
-body.kx-option-b .kx-gift {
+body.kx-option-b #sec-digitalmas-referral.kx-gift {
   display: grid !important;
   grid-template-columns: 152px minmax(0, 1fr);
   gap: clamp(20px, 4vw, 42px);

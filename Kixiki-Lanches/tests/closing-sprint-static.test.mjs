@@ -32,6 +32,7 @@ test("404 is branded, uses the official mascot and keeps a real Netlify 404 path
 
 test("Tática Regalo has the approved copy, one CTA and clean referral attribution", async () => {
   const html = await read("../public/kixiki.html");
+  const css = await read("../public/brand-v5-themes.css");
   const section = html.slice(html.indexOf('id="sec-digitalmas-referral"'), html.indexOf("<!-- SECCIÓN 9"));
   assert.match(section, /Gostou do site do Kixiki\?/);
   assert.match(section, /o Kixiki deixou um presente para você\. 🎁/);
@@ -42,6 +43,7 @@ test("Tática Regalo has the approved copy, one CTA and clean referral attributi
   assert.match(section, /data-kx-track="gift_cta_click"/);
   assert.doesNotMatch(section, /KIXIKI20|20% DE DESCONTO/i);
   assert.equal((section.match(/<a\b/g) || []).length, 1);
+  assert.match(css, /#sec-digitalmas-referral\.kx-gift\s*\{[\s\S]*?display:\s*grid\s*!important/);
 });
 
 test("client emits only the four MVP events and preserves first-party attribution", async () => {
