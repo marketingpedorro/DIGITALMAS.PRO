@@ -955,31 +955,48 @@ html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-
   grid-template-rows: auto minmax(0, 1fr) auto;
   gap: 17px;
   padding: clamp(22px, 3vw, 30px);
-  color: #012b18;
+  color: #012b18 !important;
   background:
     radial-gradient(circle at 100% 0%, rgba(248, 182, 47, .28), transparent 34%),
-    #fff8e8;
+    #fff8e8 !important;
   transform: rotateY(180deg);
 }
-.kx-menu-back .kx-menu-category { color: #fff8e8; background: #073b22; }
+html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back,
+html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back {
+  color: #012b18 !important;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(248, 182, 47, .28), transparent 34%),
+    #fff8e8 !important;
+}
+.kx-menu-back .kx-menu-category {
+  color: #fff8e8 !important;
+  background: #073b22 !important;
+}
 .kx-menu-back-copy { min-height: 0; overflow: auto; scrollbar-width: thin; }
-.kx-menu-back-copy h3 {
-  margin: 0 0 13px;
+.kx-menu-back-copy h3,
+html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-copy h3,
+html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-copy h3 {
+  margin: 0 0 13px !important;
   color: #012b18 !important;
   font-size: clamp(1.35rem, 2.1vw, 1.8rem);
   line-height: 1.02;
   letter-spacing: -.035em;
 }
-.kx-menu-back-copy p {
-  margin: 0 0 17px;
+.kx-menu-back-copy p,
+html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-copy p,
+html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-copy p {
+  margin: 0 0 17px !important;
   color: #28553f !important;
   font-size: .82rem;
   line-height: 1.52;
 }
-.kx-menu-ingredients > strong {
+.kx-menu-ingredients > strong,
+.kx-menu-back-copy strong,
+html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back strong,
+html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back strong {
   display: block;
   margin-bottom: 8px;
-  color: #012b18;
+  color: #012b18 !important;
   font-size: .72rem;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -992,37 +1009,23 @@ html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-
   padding: 0;
   list-style: none;
 }
-.kx-menu-ingredients li {
+.kx-menu-ingredients li,
+html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-ingredients li,
+html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-ingredients li {
   position: relative;
   padding-left: 12px;
   color: #28553f !important;
   font-size: .72rem;
   line-height: 1.38;
 }
-.kx-menu-ingredients li::before {
+.kx-menu-ingredients li::before,
+html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-ingredients li::before,
+html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-ingredients li::before {
   position: absolute;
   left: 0;
   content: "•";
-  color: #d49818;
+  color: #d49818 !important;
   font-weight: 900;
-}
-.kx-menu-ingredients-pending {
-  padding: 9px 12px;
-  border-radius: 10px;
-  background: rgba(1, 43, 24, .04);
-  border: 1px dashed rgba(1, 43, 24, .18);
-}
-.kx-menu-pending-note {
-  margin: 0 !important;
-  color: #28553f !important;
-  font-size: .74rem !important;
-  line-height: 1.4 !important;
-}
-.kx-menu-pending-note span {
-  display: inline-block;
-  margin-top: 3px;
-  color: #8c5b00;
-  font-weight: 650;
 }
 .kx-menu-back-foot {
   display: flex;
@@ -1032,8 +1035,19 @@ html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-
   padding-top: 15px;
   border-top: 1px solid rgba(1, 43, 24, .16);
 }
-.kx-menu-back-foot strong { color: #a86d00; font-size: 1.15rem; }
-.kx-menu-back-foot span { color: #28553f; font-size: .65rem; font-weight: 760; }
+.kx-menu-back-foot strong,
+html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-foot strong,
+html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-foot strong {
+  color: #a86d00 !important;
+  font-size: 1.15rem;
+}
+.kx-menu-back-foot span,
+html[data-kx-theme="day"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-foot span,
+html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-menu-back-foot span {
+  color: #28553f !important;
+  font-size: .65rem;
+  font-weight: 760;
+}
 .kx-menu-whatsapp,
 .kx-menu-price-pending {
   width: 100%;

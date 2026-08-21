@@ -27,7 +27,9 @@ test("visual card front uses a real photo and back uses dynamic product details"
   assert.match(markup, /kixiki-product-image\?product=xis-bacon&amp;v=abc/);
   assert.match(markup, />X-Bacon</);
   assert.match(markup, />R\$\u00a032,00</);
+  assert.match(markup, /Ver detalhes/);
   assert.match(markup, /O clássico do Kixiki/);
+  assert.match(markup, /<strong>Composição<\/strong>/);
   assert.match(markup, /<li>pão<\/li>/);
   assert.match(markup, /<li>bacon<\/li>/);
 });
@@ -114,18 +116,18 @@ test("missing price is never invented and removes the order CTA", () => {
   assert.equal(createProductWhatsappUrl({ ...product, priceCents: null }), "");
 });
 
-test("product without ingredients renders neutral structured notice without blank space", () => {
-  const markup = buildProductCardMarkup({ ...product, ingredients: "" });
-  assert.match(markup, /class="kx-menu-ingredients kx-menu-ingredients-pending"/);
-  assert.match(markup, /<strong>Ingredientes<\/strong>/);
-  assert.match(markup, /Ingredientes ainda não informados\./);
-  assert.match(markup, /Consulte o Kixiki pelo WhatsApp\./);
+test("product without ingredients renders only description without empty pending notice", () => {
+  const markup = buildProductCardMarkup({ ...product, description: "Marmita completa reforçada.", ingredients: "" });
+  assert.match(markup, /Marmita completa reforçada\./);
+  assert.doesNotMatch(markup, /Ingredientes ainda não informados/);
+  assert.doesNotMatch(markup, /Consulte o Kixiki pelo WhatsApp/);
   assert.doesNotMatch(markup, /<li>/);
 });
 
-test("card backface styles support neutral pending note and contrast", async () => {
+test("card backface styles enforce cream background and dark forest text in both themes", async () => {
   const css = await readFile(new URL("../public/brand-v5-themes.css", import.meta.url), "utf8");
-  assert.match(css, /\.kx-menu-ingredients-pending\s*\{/);
-  assert.match(css, /\.kx-menu-pending-note\s*\{/);
-  assert.match(css, /\.kx-menu-back\s*\{[\s\S]*?background:[\s\S]*?#fff8e8/);
+  assert.match(css, /html\[data-kx-theme="night"\][\s\S]*?\.kx-menu-back[\s\S]*?background:[\s\S]*?#fff8e8\s*!important/);
+  assert.match(css, /html\[data-kx-theme="night"\][\s\S]*?\.kx-menu-back-copy h3\s*\{[\s\S]*?color:\s*#012b18\s*!important/);
+  assert.match(css, /html\[data-kx-theme="night"\][\s\S]*?\.kx-menu-back-copy p\s*\{[\s\S]*?color:\s*#28553f\s*!important/);
+  assert.match(css, /html\[data-kx-theme="night"\][\s\S]*?\.kx-menu-back-foot strong\s*\{[\s\S]*?color:\s*#a86d00\s*!important/);
 });

@@ -199,3 +199,19 @@ test("legacy products without photoAssetVersion remain valid and are normalized"
   assert.equal(result.ok, true);
   assert.equal(result.data.catalog[0].photoAssetVersion, null);
 });
+
+test("base catalog separates composition ingredients from general descriptions", () => {
+  const data = createDefaultOwnerData();
+  const salada = data.catalog.find((item) => item.id === "xis-salada");
+  const marmitaM = data.catalog.find((item) => item.id === "marmita-m");
+  const xisTudo = data.catalog.find((item) => item.id === "xis-tudo");
+
+  assert.match(salada.ingredients, /Hambúrguer artesanal/i);
+  assert.equal(salada.description, "");
+
+  assert.equal(marmitaM.ingredients, "");
+  assert.match(marmitaM.description, /Marmita completa reforçada/i);
+
+  assert.match(xisTudo.description, /O lanche mais completo/i);
+  assert.match(xisTudo.ingredients, /Hambúrguer/i);
+});

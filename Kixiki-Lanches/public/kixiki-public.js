@@ -131,7 +131,7 @@ export const buildProductCardMarkup = (product) => {
   const backId = `kx-menu-back-${id}`;
 
   return `<article class="kx-menu-card" data-kixiki-product="${escapeHtml(id)}">
-    <div class="kx-menu-flip" role="button" tabindex="0" aria-expanded="false" aria-controls="${escapeHtml(backId)}" aria-label="Ver ingredientes e detalhes de ${escapeHtml(name)}">
+    <div class="kx-menu-flip" role="button" tabindex="0" aria-expanded="false" aria-controls="${escapeHtml(backId)}" aria-label="Ver detalhes de ${escapeHtml(name)}">
       <div class="kx-menu-inner">
         <section class="kx-menu-face kx-menu-front" aria-hidden="false" aria-label="Foto e preço de ${escapeHtml(name)}">
           <div class="kx-menu-photo">
@@ -141,19 +141,15 @@ export const buildProductCardMarkup = (product) => {
           <div class="kx-menu-front-copy">
             <h3>${escapeHtml(name)}</h3>
             ${price ? `<strong>${escapeHtml(price)}</strong>` : ""}
-            <span class="kx-menu-flip-hint"><span aria-hidden="true">↻</span> Ver ingredientes</span>
+            <span class="kx-menu-flip-hint"><span aria-hidden="true">↻</span> Ver detalhes</span>
           </div>
         </section>
-        <section id="${escapeHtml(backId)}" class="kx-menu-face kx-menu-back" aria-hidden="true" aria-label="Ingredientes e detalhes de ${escapeHtml(name)}">
+        <section id="${escapeHtml(backId)}" class="kx-menu-face kx-menu-back" aria-hidden="true" aria-label="Detalhes de ${escapeHtml(name)}">
           <span class="kx-menu-category">${escapeHtml(MENU_CATEGORY[family])}</span>
           <div class="kx-menu-back-copy">
             <h3>${escapeHtml(name)}</h3>
             ${product.description ? `<p>${escapeHtml(product.description)}</p>` : ""}
-            ${
-              ingredients.length
-                ? `<div class="kx-menu-ingredients"><strong>Ingredientes</strong><ul>${ingredients.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>`
-                : `<div class="kx-menu-ingredients kx-menu-ingredients-pending"><strong>Ingredientes</strong><p class="kx-menu-pending-note">Ingredientes ainda não informados.<br><span>Consulte o Kixiki pelo WhatsApp.</span></p></div>`
-            }
+            ${ingredients.length ? `<div class="kx-menu-ingredients"><strong>Composição</strong><ul>${ingredients.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>` : ""}
           </div>
           <div class="kx-menu-back-foot">
             ${price ? `<strong>${escapeHtml(price)}</strong>` : ""}
