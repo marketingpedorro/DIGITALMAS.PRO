@@ -106,6 +106,7 @@ const product = (id, name, priceCents, description) =>
     description,
     ingredients: "",
     photoUrl: "",
+    photoAssetVersion: null,
     active: true,
   });
 
@@ -233,6 +234,7 @@ const legacyItemWasEdited = (item) =>
   Boolean(item.description?.trim()) ||
   Boolean(item.ingredients?.trim()) ||
   Boolean(item.photoUrl?.trim()) ||
+  Boolean(item.photoAssetVersion) ||
   item.active === false;
 
 export const upgradeLegacyOwnerData = (input) => {
@@ -342,7 +344,16 @@ const sanitizeCatalog = (input) => {
     const value = object(entry, `Item ${index + 1}`);
     onlyKeys(
       value,
-      ["id", "name", "priceCents", "description", "ingredients", "photoUrl", "active"],
+      [
+        "id",
+        "name",
+        "priceCents",
+        "description",
+        "ingredients",
+        "photoUrl",
+        "photoAssetVersion",
+        "active",
+      ],
       `Item ${index + 1}`,
     );
     const id = string(value.id, `Código do item ${index + 1}`, 80, { allowEmpty: false });
@@ -368,6 +379,19 @@ const sanitizeCatalog = (input) => {
       }
     }
 
+    let photoAssetVersion = null;
+    if (value.photoAssetVersion !== undefined && value.photoAssetVersion !== null) {
+      photoAssetVersion = string(
+        value.photoAssetVersion,
+        `Versão da foto do item ${index + 1}`,
+        80,
+        { allowEmpty: false },
+      );
+      if (!/^[a-zA-Z0-9-]{1,80}$/.test(photoAssetVersion)) {
+        fail(`A versão da foto do item ${index + 1} é inválida.`);
+      }
+    }
+
     return {
       id,
       name: string(value.name, `Nome do item ${index + 1}`, 80),
@@ -375,6 +399,7 @@ const sanitizeCatalog = (input) => {
       description: string(value.description, `Descrição do item ${index + 1}`, 500),
       ingredients: string(value.ingredients, `Ingredientes do item ${index + 1}`, 500),
       photoUrl,
+      photoAssetVersion,
       active: boolean(value.active, `Estado do item ${index + 1}`),
     };
   });
@@ -447,7 +472,7 @@ const validateCompletionRules = (data) => {
         item.name &&
         item.priceCents !== null &&
         item.description &&
-        item.photoUrl,
+        (item.photoUrl || item.photoAssetVersion),
     );
     if (!hasCompleteHours || !hasCompleteItem) {
       fail(

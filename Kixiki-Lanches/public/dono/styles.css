@@ -421,6 +421,41 @@ input:focus, select:focus, textarea:focus {
 .active-toggle { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: .75rem; }
 .product-grid { display: grid; grid-template-columns: 1.2fr .55fr; gap: 16px; }
 .product-grid .wide { grid-column: 1 / -1; }
+.field-label { display: block; margin-bottom: 8px; color: var(--cream); font-size: .72rem; font-weight: 800; }
+.product-photo-field {
+  padding: 16px;
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  background: rgba(0, 20, 13, .28);
+}
+.product-photo-editor {
+  display: grid;
+  grid-template-columns: 176px 1fr;
+  gap: 18px;
+  align-items: center;
+}
+.product-photo-preview {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: linear-gradient(145deg, #f8b62f, #ffe6a0);
+}
+.product-photo-preview img { width: 100%; height: 100%; object-fit: cover; }
+.product-photo-preview img.is-fallback { object-fit: contain; padding: 16px; }
+.product-photo-controls { display: grid; gap: 8px; align-content: center; }
+.product-photo-controls > strong { color: var(--cream); font-size: .9rem; }
+.product-photo-controls > p { margin: 0; color: var(--muted); font-size: .7rem; line-height: 1.5; }
+.product-photo-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.product-photo-button { min-height: 42px; }
+.product-photo-button:disabled, .product-photo-remove:disabled { cursor: wait; opacity: .6; }
+.product-photo-state { min-height: 1.2em; color: var(--muted); font-size: .7rem; font-weight: 750; }
+.product-photo-state.loading { color: var(--warning); }
+.product-photo-state.success { color: var(--accent); }
+.product-photo-state.error { color: var(--danger); }
 .product-actions {
   display: flex;
   min-height: 48px;
@@ -513,6 +548,9 @@ footer {
   .product-head { align-items: flex-start; flex-direction: column; }
   .product-actions { align-items: stretch; flex-direction: column; }
   .product-action-buttons { align-items: stretch; flex-direction: column; }
+  .product-photo-editor { grid-template-columns: 1fr; }
+  .product-photo-preview { max-width: 320px; }
+  .product-photo-buttons { align-items: stretch; flex-direction: column; }
   .item-save-button, .remove-button { width: 100%; min-height: 44px; }
   .hours-grid { grid-template-columns: 1fr; }
   .confirmation-row { align-items: stretch; flex-direction: column; }

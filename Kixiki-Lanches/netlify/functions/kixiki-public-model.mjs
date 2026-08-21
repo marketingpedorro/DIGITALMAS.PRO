@@ -9,6 +9,9 @@ const projectHours = (hours) =>
     return [{ day: entry.id, open: true, opens: entry.opens, closes: entry.closes }];
   });
 
+const publicAssetUrl = (item) =>
+  `/api/kixiki-product-image?product=${encodeURIComponent(item.id)}&v=${encodeURIComponent(item.photoAssetVersion)}`;
+
 const projectProducts = (catalog) =>
   catalog
     .filter((item) => item.active && hasText(item.name))
@@ -19,7 +22,11 @@ const projectProducts = (catalog) =>
       ...(item.priceCents === null ? {} : { priceCents: item.priceCents }),
       ...(hasText(item.description) ? { description: item.description } : {}),
       ...(hasText(item.ingredients) ? { ingredients: item.ingredients } : {}),
-      ...(hasText(item.photoUrl) ? { photoUrl: item.photoUrl } : {}),
+      ...(hasText(item.photoAssetVersion)
+        ? { photoUrl: publicAssetUrl(item) }
+        : hasText(item.photoUrl)
+          ? { photoUrl: item.photoUrl }
+          : {}),
     }));
 
 const projectOperation = (service) => {

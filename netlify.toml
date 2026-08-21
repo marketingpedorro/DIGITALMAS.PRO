@@ -40,7 +40,7 @@
   for = "/dono/*"
   [headers.values]
     Cache-Control = "private, no-store"
-    Content-Security-Policy = "default-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'"
+    Content-Security-Policy = "default-src 'self'; connect-src 'self'; img-src 'self' data: blob: https:; style-src 'self'; script-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'"
 
 [[headers]]
   for = "/api/*"
@@ -65,6 +65,11 @@
 [[redirects]]
   from = "/api/kixiki-public"
   to = "/.netlify/functions/kixiki-public"
+  status = 200
+
+[[redirects]]
+  from = "/api/kixiki-product-image"
+  to = "/.netlify/functions/kixiki-product-image"
   status = 200
 
 [[redirects]]
