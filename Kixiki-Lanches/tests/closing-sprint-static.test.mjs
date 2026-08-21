@@ -34,7 +34,7 @@ test("404 is branded, uses the official mascot and keeps a real Netlify 404 path
   assert.doesNotMatch(config, /from = "\/\*"[\s\S]*status = 200/);
 });
 
-test("Tática Regalo has the approved copy, one CTA and clean referral attribution", async () => {
+test("Tática Regalo has approved copy, inverted brand scene and accessible scrollytelling", async () => {
   const html = await read("../public/kixiki.html");
   const css = await read("../public/brand-v5-themes.css");
   const section = html.slice(html.indexOf('id="sec-digitalmas-referral"'), html.indexOf("<!-- SECCIÓN 9"));
@@ -47,7 +47,15 @@ test("Tática Regalo has the approved copy, one CTA and clean referral attributi
   assert.match(section, /data-kx-track="gift_cta_click"/);
   assert.doesNotMatch(section, /KIXIKI20|20% DE DESCONTO/i);
   assert.equal((section.match(/<a\b/g) || []).length, 1);
+  assert.match(section, /class="kx-gift-stage"/);
+  assert.match(section, /class="kx-gift-orbit" aria-hidden="true"/);
   assert.match(css, /#sec-digitalmas-referral\.kx-gift\s*\{[\s\S]*?display:\s*grid\s*!important/);
+  assert.match(css, /#sec-digitalmas-referral\.kx-gift\s*\{[\s\S]*?linear-gradient\(125deg, #f8b62f/);
+  assert.match(css, /\.kx-gift-cta\s*\{[\s\S]*?background:\s*#012b17/);
+  assert.match(css, /@supports \(animation-timeline: view\(\)\)/);
+  assert.match(css, /view-timeline-name:\s*--kx-gift-scene/);
+  assert.match(css, /animation-timeline:\s*--kx-gift-scene/);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?#sec-digitalmas-referral[\s\S]*?animation:\s*none !important/);
 });
 
 test("client emits only the four MVP events and preserves first-party attribution", async () => {
