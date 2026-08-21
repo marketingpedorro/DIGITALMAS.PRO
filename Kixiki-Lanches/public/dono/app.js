@@ -1,6 +1,7 @@
 const API = {
   auth: "/api/auth",
   owner: "/api/kixiki-owner",
+  metrics: "/api/kixiki-metrics",
 };
 
 const TASK_COPY = [
@@ -189,6 +190,34 @@ const setLastUpdate = (value) => {
   $$('[data-last-update]').forEach((element) => {
     element.textContent = formatDateTime(value);
   });
+};
+
+const setMetricValue = (selector, value) => {
+  const element = $(selector);
+  if (element) element.textContent = Number.isFinite(Number(value)) ? String(Number(value)) : "0";
+};
+
+const loadMetrics = async () => {
+  const status = $("#metricsStatus");
+  if (!status) return;
+  status.textContent = "Atualizando métricas…";
+  try {
+    const response = await fetch(API.metrics, { credentials: "same-origin" });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(result.error || "Não foi possível carregar as métricas.");
+    setMetricValue("#metricPageView", result.events?.page_view);
+    setMetricValue("#metricWhatsappClick", result.events?.whatsapp_click);
+    setMetricValue("#metricGiftView", result.events?.gift_view);
+    setMetricValue("#metricGiftClick", result.events?.gift_cta_click);
+    const primarySource = result.sources?.[0];
+    $("#metricSource").textContent = primarySource
+      ? `Origem principal: ${primarySource.source} (${primarySource.count})`
+      : "Origem principal: ainda sem dados";
+    const environment = result.environment === "production" ? "produção" : "preview isolado";
+    status.textContent = `${environment} · ${formatDateTime(result.lastUpdated).replace("Última atualização: ", "")}`;
+  } catch (error) {
+    status.textContent = error?.message || "Métricas temporariamente indisponíveis.";
+  }
 };
 
 const setProductSaveFeedback = (productId, message, tone = "") => {
@@ -381,6 +410,7 @@ const loadPanel = async ({ allowCache = true } = {}) => {
     saveCache();
     showApp();
     renderAll();
+    void loadMetrics();
     setSaveState(
       dirty
         ? "Cardápio completo preparado · clique em Salvar agora"
@@ -403,6 +433,7 @@ const loadPanel = async ({ allowCache = true } = {}) => {
     remoteUpdatedAt = cached.updatedAt || null;
     showApp();
     renderAll();
+    void loadMetrics();
     setSaveState("Sem conexão · mostrando cache deste aparelho", "error");
     return true;
   }
@@ -997,6 +1028,7 @@ const renderAll = () => {
 
 $("#saveNowButton").addEventListener("click", syncRemote);
 $("#saveStripButton").addEventListener("click", syncRemote);
+$("#refreshMetricsButton").addEventListener("click", loadMetrics);
 $("#reloadRemoteButton").addEventListener("click", () => loadPanel({ allowCache: false }));
 $("#logoutButton").addEventListener("click", logout);
 $("#deniedLogoutButton").addEventListener("click", logout);

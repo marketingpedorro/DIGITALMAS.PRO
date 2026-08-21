@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#001e10">
   <title>Painel do Dono · Kixiki Lanches</title>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=1.3.0">
+  <link rel="stylesheet" href="styles.css?v=1.4.0">
 </head>
 <body>
   <section id="authGate" class="auth-gate" aria-live="polite">
@@ -98,6 +98,27 @@
           <div class="progress-ring" aria-label="Prioridades concluídas"><strong id="doneCount">0/3</strong><span>concluídas</span></div>
         </div>
         <div id="taskCards" class="task-grid"></div>
+
+        <section class="metrics-card" aria-labelledby="metricsTitle">
+          <div class="metrics-heading">
+            <div>
+              <span class="eyebrow">MEDIÇÃO MVP · C001</span>
+              <h3 id="metricsTitle">O que aconteceu no site</h3>
+              <p>Contagem first-party sem dados pessoais. O preview e a produção usam registros separados.</p>
+            </div>
+            <button id="refreshMetricsButton" class="secondary-button" type="button">Atualizar métricas</button>
+          </div>
+          <div class="metrics-grid">
+            <article><span>CHEGARAM</span><strong id="metricPageView">—</strong><small>visualizações</small></article>
+            <article><span>WHATSAPP</span><strong id="metricWhatsappClick">—</strong><small>cliques</small></article>
+            <article><span>VIRAM O PRESENTE</span><strong id="metricGiftView">—</strong><small>visualizações</small></article>
+            <article><span>ABRIRAM O PRESENTE</span><strong id="metricGiftClick">—</strong><small>cliques</small></article>
+          </div>
+          <div class="metrics-foot">
+            <span id="metricSource">Origem principal: aguardando dados</span>
+            <small id="metricsStatus" role="status" aria-live="polite">Carregando métricas…</small>
+          </div>
+        </section>
       </section>
 
       <section class="view" data-view-panel="operation" aria-labelledby="operationTitle" hidden>
@@ -218,6 +239,6 @@
     </footer>
   </div>
 
-  <script src="app.js?v=1.3.0"></script>
+  <script src="app.js?v=1.4.0"></script>
 </body>
 </html>

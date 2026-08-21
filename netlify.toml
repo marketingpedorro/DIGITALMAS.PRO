@@ -66,3 +66,13 @@
   from = "/api/kixiki-public"
   to = "/.netlify/functions/kixiki-public"
   status = 200
+
+[[redirects]]
+  from = "/api/kixiki-events"
+  to = "/.netlify/functions/kixiki-events"
+  status = 200
+
+[[redirects]]
+  from = "/api/kixiki-metrics"
+  to = "/.netlify/functions/kixiki-metrics"
+  status = 200
