@@ -7,11 +7,14 @@ const read = (path) => readFile(new URL(path, import.meta.url), "utf8");
 test("public header has a secondary accessible owner key on every viewport", async () => {
   const html = await read("../public/kixiki.html");
   const css = await read("../public/brand-v5-themes.css");
+  const runtime = await read("../public/kixiki.min.js");
   assert.match(html, /class="kx-owner-access" href="\/dono\/"/);
   assert.match(html, /aria-label="Acesso do proprietário"/);
   assert.match(html, /title="Acesso do proprietário"/);
   assert.match(html, /class="kx-header-actions"/);
-  assert.match(html, /<script defer src="\/theme-v5\.js"><\/script>/);
+  assert.match(html, /<script src="kixiki\.min\.js"><\/script>/);
+  assert.match(runtime, /kx-theme-toggle/);
+  assert.match(runtime, /kixiki-theme/);
   assert.match(css, /\.kx-owner-access/);
   assert.match(css, /@media \(max-width: 420px\)[\s\S]*\.kx-header-actions/);
 });
