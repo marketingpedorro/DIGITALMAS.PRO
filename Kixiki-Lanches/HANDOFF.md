@@ -6,12 +6,8 @@ status: in_progress
 stage: v1-publica
 current_player: mbappe
 repo: marketingpedorro/DIGITALMAS.PRO
-branch: fix/c001-per-item-save-feedback
-pr: 6
-checkpoint_head: 2a39c84a5bb107d7994cff29fecc141abdaa869a
-preview: https://deploy-preview-6--kixiki.netlify.app/
-production: https://kixiki.digitalmas.pro/
-updated_at: 2026-08-21T18:45:00-03:00
+branch: fix/c001-mobile-cardapio-gift
+updated_at: 2026-08-21T23:25:00-03:00
 ---
 
 # HANDOFF · C001 KIXIKI
