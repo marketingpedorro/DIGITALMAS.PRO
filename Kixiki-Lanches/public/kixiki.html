@@ -266,18 +266,21 @@
       </div>
       
       <!-- DESTAQUE HORÁRIOS DE FUNCIONAMENTO (BRANDING KIXIKI) -->
-      <div style="margin-top: 1.75rem; background: rgba(0, 30, 16, 0.45); border: 1px solid var(--kx-border, rgba(248, 182, 47, 0.25)); border-radius: 16px; padding: 1.15rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <span style="font-size: 1.6rem;">⏰</span>
+      <div class="kx-schedule-banner">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span class="kx-schedule-clock" aria-hidden="true">⏰</span>
           <div>
-            <strong style="font-size: 0.95rem; color: var(--text-main); display: block; font-weight: 800;">Horários de Atendimento</strong>
-            <span style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.4;">
+            <strong style="font-size: 0.95rem; color: var(--text-main); display: block; font-weight: 800; margin-bottom: 2px;">Horários de Atendimento</strong>
+            <span style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.45;">
               🍲 <b>Almoço:</b> 11h às 14h (todos os dias) &nbsp;•&nbsp; 🍔 <b>Noite:</b> 18h às 22h (exceto terça: <i>folga da chapa</i> 😴)
             </span>
           </div>
         </div>
         <div style="display: flex; align-items: center; gap: 8px;">
-          <span class="kx-badge" style="font-size: 0.72rem; padding: 4px 10px; background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 700;">CHAPA QUENTE</span>
+          <span class="kx-pulse-badge">
+            <span class="kx-live-dot" aria-hidden="true"></span>
+            CHAPA QUENTE
+          </span>
         </div>
       </div>
     </section>

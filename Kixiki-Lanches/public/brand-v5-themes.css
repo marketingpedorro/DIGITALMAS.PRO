@@ -1186,6 +1186,107 @@ html[data-kx-theme="night"] body.kx-option-b #sec-cardapio.kx-menu-upgraded .kx-
   .kx-menu-back { transform: none; opacity: 0; pointer-events: none; }
   .kx-menu-card.is-flipped .kx-menu-front { opacity: 0; pointer-events: none; }
   .kx-menu-card.is-flipped .kx-menu-back { opacity: 1; pointer-events: auto; }
+/* ==========================================================================
+   KIXIKI SCHEDULE BANNER (ANIMATED MICRO-INTERACTIONS)
+   ========================================================================== */
+.kx-schedule-banner {
+  margin-top: 1.75rem;
+  background: rgba(0, 30, 16, 0.45);
+  border: 1px solid rgba(248, 182, 47, 0.3);
+  border-radius: 16px;
+  padding: 1.15rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+html[data-kx-theme="day"] .kx-schedule-banner {
+  background: rgba(255, 248, 231, 0.95);
+  border-color: rgba(1, 43, 24, 0.18);
+  box-shadow: 0 4px 20px rgba(1, 43, 24, 0.06);
+}
+
+html[data-kx-theme="night"] .kx-schedule-banner {
+  background: rgba(0, 24, 12, 0.7);
+  border-color: rgba(248, 182, 47, 0.35);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .kx-schedule-banner:hover {
+    transform: translateY(-2px);
+    border-color: #f8b62f;
+    box-shadow: 0 8px 28px rgba(0, 30, 16, 0.25);
+  }
+}
+
+.kx-schedule-clock {
+  font-size: 1.6rem;
+  display: inline-block;
+  transform-origin: center center;
+  animation: kx-clock-wiggle 6s ease-in-out infinite;
+}
+
+@keyframes kx-clock-wiggle {
+  0%, 85%, 100% { transform: rotate(0deg); }
+  88% { transform: rotate(-14deg) scale(1.1); }
+  92% { transform: rotate(12deg) scale(1.1); }
+  96% { transform: rotate(-6deg) scale(1.05); }
+}
+
+.kx-pulse-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.72rem;
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: rgba(52, 211, 153, 0.15);
+  color: #34d399;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid rgba(52, 211, 153, 0.35);
+}
+
+.kx-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  display: inline-block;
+  box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+  animation: kx-live-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes kx-live-pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 7px rgba(52, 211, 153, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kx-schedule-clock,
+  .kx-live-dot {
+    animation: none !important;
+  }
+  .kx-schedule-banner {
+    transition: none !important;
+  }
 }
 
 @media print {
