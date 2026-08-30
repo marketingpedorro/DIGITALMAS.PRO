@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <pattern id="dot-pat-df" width="12" height="12" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#ED1C24" fill-opacity="0.25" />
+    </pattern>
+    <filter id="shadow-df" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="4" dy="4" stdDeviation="0" flood-color="#0B0B0B" />
+    </filter>
+  </defs>
+
+  <rect x="8" y="8" width="384" height="384" fill="#FFFFFF" stroke="#0B0B0B" stroke-width="4" filter="url(#shadow-df)" />
+  <rect x="8" y="8" width="384" height="384" fill="url(#dot-pat-df)" />
+
+  <!-- Dark / Warning Diagonal Hazard Strips -->
+  <polygon points="10,10 60,10 10,60" fill="#ED1C24" />
+  <polygon points="390,390 340,390 390,340" fill="#ED1C24" />
+
+  <!-- Avatar Box -->
+  <g transform="translate(100, 60)">
+    <rect x="0" y="0" width="200" height="200" fill="#0B0B0B" stroke="#0B0B0B" stroke-width="4" filter="url(#shadow-df)" />
+    <!-- Antagonist Glowing Eyes and Dark Silhouette -->
+    <path d="M 50 160 Q 100 130 150 160 L 170 200 L 30 200 Z" fill="#222222" />
+    <!-- Glowing Red / Sharp Eyes -->
+    <polygon points="65,95 95,102 75,108" fill="#ED1C24" />
+    <polygon points="135,95 105,102 125,108" fill="#ED1C24" />
+    <!-- Puppet Strings / Manipulation Lines -->
+    <line x1="30" y1="20" x2="70" y2="70" stroke="#ED1C24" stroke-width="2" stroke-dasharray="4,4" />
+    <line x1="170" y1="20" x2="130" y2="70" stroke="#ED1C24" stroke-width="2" stroke-dasharray="4,4" />
+    <circle cx="100" cy="40" r="14" fill="#ED1C24" />
+    <text x="100" y="46" font-family="'Montserrat', sans-serif" font-weight="900" font-size="16" fill="#FFFFFF" text-anchor="middle">✕</text>
+  </g>
+
+  <!-- Name & Archetype Banner -->
+  <rect x="25" y="295" width="350" height="42" fill="#ED1C24" stroke="#0B0B0B" stroke-width="3" filter="url(#shadow-df)" transform="rotate(-1.5 200 316)" />
+  <text x="200" y="323" font-family="'Montserrat', Impact, sans-serif" font-weight="900" font-size="20" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
+    DARKFELTIN
+  </text>
+  <text x="200" y="360" font-family="'Montserrat', sans-serif" font-weight="700" font-size="12" fill="#0B0B0B" text-anchor="middle">
+    ARQUETIPO: LOS ATAJOS, EL HUMO Y LA MANIPULACIÓN
+  </text>
+  <text x="200" y="378" font-family="'Montserrat', sans-serif" font-weight="600" font-size="10" fill="#ED1C24" text-anchor="middle">
+    [ ASSET CANÓNICO OFICIAL PENDIENTE ]
+  </text>
+</svg>

@@ -1,0 +1,9 @@
+<!DOCTYPE html>" in code:
+                    print("Found step:", data.get("step_index"), len(code))
+                    with open("scratch_index_prev.html", "w") as out:
+                        if args.get("CodeContent"):
+                            out.write(args.get("CodeContent"))
+                        else:
+                            # extract from cat << EOF ... EOF
+                            start = code.find("<!DOCTYPE html>")
+                            end = code.rfind("</html>

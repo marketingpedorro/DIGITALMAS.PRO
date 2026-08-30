@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLASIFICADOR PEDORRO DE IDEAS — Universo Ofeltínesco (Herramienta Interna)</title>
+  <meta name="description" content="Antes de abrir otra carpeta, otra cuenta u otro proyecto: veamos si esta idea tiene casa.">
+  
+  <!-- Tipografías Oficiales: Bangers & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+  
+  <!-- Estilos del Sistema -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <style>
+    .classifier-container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 20px 80px;
+    }
+    .trinchera-card {
+      background: #FFFFFF;
+      border: var(--border-comic-heavy);
+      box-shadow: var(--shadow-comic-lg);
+      padding: 32px;
+      margin-top: 32px;
+    }
+    .form-group {
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-group label {
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--color-tinta);
+    }
+    .form-group .form-hint {
+      font-size: 0.8rem;
+      color: #666666;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      border: var(--border-comic-thick);
+      box-shadow: var(--shadow-comic-sm);
+      background-color: var(--color-papel);
+      outline: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--color-rojo);
+      background-color: #FFFFFF;
+    }
+    .result-box {
+      margin-top: 32px;
+      padding: 24px;
+      background-color: #FFF9E6;
+      border: var(--border-comic-heavy);
+      box-shadow: var(--shadow-comic-md);
+      display: none;
+    }
+    .result-box.is-active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <a href="index.html" class="nav-brand__title">
+          MARKETING PEDORRO<span style="color: var(--color-rojo);">!</span>
+        </a>
+        <span class="nav-brand__badge">HERRAMIENTA DE TRINCHERA (BETA)</span>
+      </div>
+      <a href="index.html" class="btn">← VOLVER AL SITIO</a>
+    </div>
+  </header>
+
+  <main class="classifier-container">
+    
+    <!-- 01. HERO / INTERRUPCIÓN -->
+    <div style="text-align: center; margin-top: 20px;">
+      <span class="badge-stamp" style="background-color: var(--color-rojo); margin-bottom: 12px;">HERRAMIENTA DE TRINCHERA</span>
+      <h1 class="font-display" style="font-size: 2.8rem; line-height: 1.1; margin-bottom: 12px;">
+        ¿OTRA IDEA MÁS? PERFECTO.<br>
+        <span style="color: var(--color-rojo);">NO LA CONSTRUYAS TODAVÍA.</span>
+      </h1>
+      <p class="lead" style="max-width: 60ch; margin: 0 auto; color: #333333;">
+        Antes de abrir otra carpeta, otra cuenta u otro proyecto: veamos si esta idea tiene casa en el <strong>Universo Ofeltínesco</strong>.
+      </p>
+    </div>
+
+    <!-- 02. REGLA DE USO -->
+    <div style="background-color: var(--color-naranja); color: #FFFFFF; border: var(--border-comic-thick); box-shadow: var(--shadow-comic); padding: 16px 24px; text-align: center; margin-top: 28px; font-family: var(--font-body); font-weight: 800; font-size: 1rem; text-transform: uppercase;">
+      ⚡ UNA IDEA SOLO AVANZA SI PUEDE EXPLICAR DÓNDE VIVE, QUÉ PROBLEMA RESUELVE Y QUÉ PASA DESPUÉS.
+    </div>
+
+    <!-- 03. FORMULARIO DE 5 PREGUNTAS -->
+    <div class="trinchera-card">
+      <form id="classifierForm" onsubmit="event.preventDefault(); processIdea();">
+        
+        <div class="form-group">
+          <label for="p1">1. ¿Qué se te ocurrió hacer ahora? (En una frase sin adornos)</label>
+          <span class="form-hint">Evitá describirla con contexto infinito. Sé directo y concreto.</span>
+          <input type="text" id="p1" class="form-input" placeholder="Ej: Cambiar el cartel del local, comprar 500 remeras con logo, o pagar $100 en anuncios..." required>
+        </div>
+
+        <div class="form-group">
+          <label for="p2">2. ¿Qué agujero te tapa en el negocio?</label>
+          <span class="form-hint">¿Te trae clientes que pagan hoy, te baja costos, te ahorra tiempo o es puro entusiasmo de la ducha?</span>
+          <input type="text" id="p2" class="form-input" placeholder="Ej: Liquidar las 40 cajas de stock clavadas en el depósito..." required>
+        </div>
+
+        <div class="form-group">
+          <label for="p3">3. ¿Quién te va a dar la plata y por qué lo necesita hoy?</label>
+          <span class="form-hint">El cliente que entra a tu mostrador, web o WhatsApp con un dolor urgente.</span>
+          <input type="text" id="p3" class="form-input" placeholder="Ej: Comerciantes que no llegan a fin de mes y necesitan vender rápido..." required>
+        </div>
+
+        <div class="form-group">
+          <label for="p4">4. ¿Adónde te lleva esto en la caja diaria?</label>
+          <span class="form-hint">Fuerza una salida comercial clara.</span>
+          <select id="p4" class="form-select" required>
+            <option value="">Seleccioná el destino comercial...</option>
+            <option value="ofelbook">Una guía rápida / OfelBook para tapar un bache hoy ($9)</option>
+            <option value="sistema">Un sistema mensual / comunidad para no estar solo ($29/m)</option>
+            <option value="servicio">Que Ofertas Web me arme la web o automatización llave en mano</option>
+            <option value="canal">Solo ganar atención en redes (YouTube / Instagram / Reels)</option>
+            <option value="interno">Ordenar un proceso interno del local o equipo (SOP / Tablero)</option>
+            <option value="baul">No sé / Es una idea genial pero no me mueve la aguja este mes</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="p5">5. ¿Alguien ya te pidió esto con la billetera en la mano?</label>
+          <select id="p5" class="form-select" required>
+            <option value="urgente">🚨 Clientes reales preguntando por esto hoy (Urgente)</option>
+            <option value="demanda">📈 Ya existe demanda comprobada en el mostrador / web</option>
+            <option value="util">💡 Me parece una idea útil pero todavía nadie puso un peso</option>
+            <option value="exploracion">🔍 Pura exploración / Experimento que se me ocurrió en la ducha</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn--primary" style="width: 100%; padding: 16px; font-size: 1.1rem; margin-top: 12px;">
+          VER DÓNDE VIVE ESTA IDEA →
+        </button>
+      </form>
+
+      <!-- 05. PANTALLA DE RESULTADO -->
+      <div id="resultBox" class="result-box">
+        <span class="badge-stamp" id="resultBadge" style="background-color: var(--color-azul);">DICTAMEN DE TRINCHERA</span>
+        <h3 id="resultHouse" style="font-family: var(--font-display-primary); font-size: 1.8rem; margin: 12px 0 6px; color: var(--color-tinta);"></h3>
+        <p id="resultStatus" style="font-family: var(--font-body); font-weight: 700; font-size: 0.95rem; margin-bottom: 12px;"></p>
+        <div class="comic-bubble" id="resultReason" style="background: #FFFFFF; margin-bottom: 16px;"></div>
+        <p><strong>🎯 Siguiente Paso Único:</strong> <span id="resultAction"></span></p>
+        <p style="margin-top: 8px; font-size: 0.85rem; color: #666666;"><strong>🚫 Bloqueos que aplican:</strong> <span id="resultBlocks"></span></p>
+      </div>
+
+    </div>
+
+    <!-- 04. LAS 7 CASAS POSIBLES -->
+    <div style="margin-top: 48px;">
+      <h3 style="font-family: var(--font-display-primary); font-size: 1.6rem; text-align: center; margin-bottom: 20px;">
+        LAS 7 CASAS DEL ECOSISTEMA Y SUS FRASES DE DESCARTE
+      </h3>
+      <div class="signals-grid">
+        <article class="signal-card">
+          <div class="signal-card__num">01</div>
+          <h4 class="signal-card__title">🧠 Marketing Pedorro</h4>
+          <p class="signal-card__text">Contenido, criterio, educación y atención. <em>«No es un servicio disfrazado.»</em></p>
+        </article>
+        <article class="signal-card">
+          <div class="signal-card__num">02</div>
+          <h4 class="signal-card__title">📘 OfelBook / Guía</h4>
+          <p class="signal-card__text">Microtransformación y diagnóstico. <em>«No es el sistema entero.»</em></p>
+        </article>
+        <article class="signal-card">
+          <div class="signal-card__num">03</div>
+          <h4 class="signal-card__title">♠️ Sistema Sr. Emprendedor</h4>
+          <p class="signal-card__text">Método, práctica, herramientas y comunidad. <em>«No es una bolsa de cosas.»</em></p>
+        </article>
+        <article class="signal-card">
+          <div class="signal-card__num">04</div>
+          <h4 class="signal-card__title">🛠️ Ofertas Web</h4>
+          <p class="signal-card__text">Implementación profesional Done-For-You. <em>«No es contenido gratis.»</em></p>
+        </article>
+        <article class="signal-card">
+          <div class="signal-card__num">05</div>
+          <h4 class="signal-card__title">📡 Canales</h4>
+          <p class="signal-card__text">Distribución de atención. <em>«No es otro negocio independiente.»</em></p>
+        </article>
+        <article class="signal-card">
+          <div class="signal-card__num">06</div>
+          <h4 class="signal-card__title">⚙️ Herramientas Internas</h4>
+          <p class="signal-card__text">Procesos, SOPs y operación. <em>«No se vende sin validación previa.»</em></p>
+        </article>
+      </div>
+      <div style="background: #FFFFFF; border: var(--border-comic-heavy); box-shadow: var(--shadow-comic-md); padding: 20px; text-align: center; margin-top: 20px;">
+        <h4 style="font-family: var(--font-display-accent); font-size: 1.3rem; color: var(--color-rojo);">🗃️ 99. EL BAÚL DE LAS IDEASURAS</h4>
+        <p style="font-size: 0.9rem; color: #555555; margin-top: 6px;">
+          Espera deliberada: <em>«No desaparece: se protege («No ahora»).»</em>
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function processIdea() {
+      const p4 = document.getElementById('p4').value;
+      const p5 = document.getElementById('p5').value;
+      const resultBox = document.getElementById('resultBox');
+      const resultHouse = document.getElementById('resultHouse');
+      const resultStatus = document.getElementById('resultStatus');
+      const resultReason = document.getElementById('resultReason');
+      const resultAction = document.getElementById('resultAction');
+      const resultBlocks = document.getElementById('resultBlocks');
+
+      let house = "";
+      let status = "";
+      let reason = "";
+      let action = "";
+      let blocks = "";
+
+      if (p4 === 'baul' || p5 === 'exploracion') {
+        house = "🗃️ 99 — BAÚL DE LAS IDEASURAS";
+        status = "ESTADO: ⚫ CONGELADA / ESPERA DELIBERADA";
+        reason = "«Esta idea es interesante pero no tiene prioridad inmediata ni una salida comercial validada. Protegerla en el Baúl evita que te robe el foco hoy.»";
+        action = "Guardar en el archivo con fecha, hipótesis y condición de revisión futura.";
+        blocks = "🚫 NO comprar dominios, NO diseñar webs, NO abrir canales de redes.";
+      } else if (p4 === 'ofelbook') {
+        house = "📘 02 — OFELBOOK / GUÍA PEDORRA";
+        status = "ESTADO: 🟠 BORRADOR / FALTA DEFINICIÓN";
+        reason = "«Apunta a una microvictoria concreta de bajo ticket. Debe servir de puente diagnóstico hacia el Sistema.»";
+        action = "Definir el problema de entrada, la promesa y el árbol del Test de Trinchera antes de maquetar el PDF.";
+        blocks = "🚫 NO crear un curso entero de 40 horas; mantenerlo como guía ágil de <48h.";
+      } else if (p4 === 'sistema') {
+        house = "♠️ 03 — SISTEMA DEL SR. EMPRENDEDOR / COMUNIDAD";
+        status = "ESTADO: 🔵 VALIDADO / PRÁCTICA SUCESIVA";
+        reason = "«Requiere acompañamiento, comunidad y práctica continua para que la persona no ejecute sola.»";
+        action = "Integrar como taller mensual o plantilla de trabajo dentro del Club del Foco.";
+        blocks = "🚫 NO vender como producto suelto; pertenece a la membresía de práctica.";
+      } else if (p4 === 'servicio') {
+        house = "🛠️ 04 — OFERTAS WEB (FÁBRICA TÉCNICA)";
+        status = "ESTADO: 🟢 LISTA PARA DIAGNÓSTICO";
+        reason = "«Es una solución técnica Done-For-You (desarrollo web, funnels, SEO, automatizaciones).»";
+        action = "Definir el alcance técnico, el entregable y el precio en la propuesta comercial de Ofertas Web.";
+        blocks = "🚫 NO mezclar con contenido gratuito; esto es implementación profesional.";
+      } else if (p4 === 'canal') {
+        house = "📡 05 — CANALES DE DISTRIBUCIÓN";
+        status = "ESTADO: 🟡 LISTA PARA MAPEAR EN CONTENIDO";
+        reason = "«Es una pieza de atención para alimentar la cañería (YouTube, Reels, Newsletter).»";
+        action = "Escribir el guion o copy con gancho y derivar con CTA a la Guía o al Boletín.";
+        blocks = "🚫 NO tratar a la red social como unidad de negocio independiente.";
+      } else {
+        house = "⚙️ 06 — HERRAMIENTAS INTERNAS";
+        status = "ESTADO: 🟢 LISTA PARA OPERACIÓN";
+        reason = "«Es un proceso operativo que ahorra tiempo al equipo o estandariza la producción.»";
+        action = "Documentar el SOP o prompt en Notion y testearlo internamente.";
+        blocks = "🚫 NO intentar venderlo al público sin antes validar su uso diario.";
+      }
+
+      resultHouse.innerText = house;
+      resultStatus.innerText = status;
+      resultReason.innerHTML = `💬 <strong>Diagnóstico de Tito:</strong> ${reason}`;
+      resultAction.innerText = action;
+      resultBlocks.innerText = blocks;
+
+      resultBox.classList.add('is-active');
+      resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+</body>
+</html>

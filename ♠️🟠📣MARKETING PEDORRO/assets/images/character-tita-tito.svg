@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="100%">
+  <defs>
+    <filter id="shadow-tt" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="4" dy="4" stdDeviation="0" flood-color="#0B0B0B" />
+    </filter>
+  </defs>
+  <rect x="8" y="8" width="384" height="284" fill="#F4F1E9" stroke="#0B0B0B" stroke-width="4" filter="url(#shadow-tt)" />
+
+  <!-- TITA: La Lamparita -->
+  <g transform="translate(40, 40)">
+    <circle cx="60" cy="60" r="45" fill="#FF7900" stroke="#0B0B0B" stroke-width="4" />
+    <!-- Rays -->
+    <line x1="60" y1="5" x2="60" y2="-5" stroke="#ED1C24" stroke-width="4" />
+    <line x1="15" y1="20" x2="5" y2="10" stroke="#ED1C24" stroke-width="4" />
+    <line x1="105" y1="20" x2="115" y2="10" stroke="#ED1C24" stroke-width="4" />
+    <!-- Eyes & Smile -->
+    <circle cx="48" cy="55" r="5" fill="#0B0B0B" />
+    <circle cx="72" cy="55" r="5" fill="#0B0B0B" />
+    <path d="M 50 72 Q 60 85 70 72" fill="none" stroke="#0B0B0B" stroke-width="3" />
+    <text x="60" y="130" font-family="'Montserrat', Impact, sans-serif" font-weight="900" font-size="14" fill="#0B0B0B" text-anchor="middle">
+      💡 TITA
+    </text>
+    <text x="60" y="148" font-family="'Montserrat', sans-serif" font-weight="600" font-size="10" fill="#ED1C24" text-anchor="middle">
+      «¡SE ME OCURRIÓ OTRA!»
+    </text>
+  </g>
+
+  <!-- VS / PLUS SIGN -->
+  <text x="200" y="115" font-family="'Bangers', Impact, sans-serif" font-size="36" fill="#ED1C24" text-anchor="middle">+</text>
+
+  <!-- TITO: El Cerebrito -->
+  <g transform="translate(240, 40)">
+    <rect x="15" y="15" width="90" height="85" rx="25" fill="#129FE6" stroke="#0B0B0B" stroke-width="4" />
+    <circle cx="45" cy="55" r="5" fill="#0B0B0B" />
+    <circle cx="75" cy="55" r="5" fill="#0B0B0B" />
+    <!-- Glasses -->
+    <circle cx="45" cy="55" r="14" fill="none" stroke="#0B0B0B" stroke-width="3" />
+    <circle cx="75" cy="55" r="14" fill="none" stroke="#0B0B0B" stroke-width="3" />
+    <line x1="59" y1="55" x2="61" y2="55" stroke="#0B0B0B" stroke-width="3" />
+    <path d="M 50 78 Q 60 70 70 78" fill="none" stroke="#0B0B0B" stroke-width="3" />
+    <text x="60" y="130" font-family="'Montserrat', Impact, sans-serif" font-weight="900" font-size="14" fill="#0B0B0B" text-anchor="middle">
+      🧠 TITO
+    </text>
+    <text x="60" y="148" font-family="'Montserrat', sans-serif" font-weight="600" font-size="10" fill="#129FE6" text-anchor="middle">
+      «¿Y SI NO FUNCIONA?»
+    </text>
+  </g>
+
+  <!-- Result Banner -->
+  <rect x="25" y="215" width="350" height="48" fill="#ED1C24" stroke="#0B0B0B" stroke-width="3" filter="url(#shadow-tt)" />
+  <text x="200" y="244" font-family="'Montserrat', Impact, sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
+    RESULTADO: SR. EMPRENDEDOR COLAPSADO
+  </text>
+  <text x="200" y="278" font-family="'Montserrat', sans-serif" font-weight="600" font-size="11" fill="#0B0B0B" text-anchor="middle">
+    Creatividad sin freno + Sobreanálisis = Parálisis
+  </text>
+</svg>

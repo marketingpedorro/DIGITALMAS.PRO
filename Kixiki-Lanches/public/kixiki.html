@@ -613,9 +613,26 @@
         </iframe>
       </div>
       
-      <div style="margin-top: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
-        <div id="kixiki-public-operation-summary">🛵 Entrega ou retirada: consulte disponibilidade pelo WhatsApp.</div>
-        <div>⏰ <strong>Horários:</strong> <span id="kixiki-public-hours-summary">Almoço <span id="info-horario-almoco" style="color: #34D399; font-weight: 700;">11h às 14h (todos os dias)</span> • Noite <span id="info-horario-lanches" style="color: #FACC15; font-weight: 700;">18h às 22h</span> • Terça: <span id="info-aviso-folga" style="color: #F87171; font-weight: 700;">Folga da chapa à noite</span></span></div>
+      <div class="kx-map-info-grid" style="margin-top: 1.25rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; border-top: 1px solid var(--border-subtle); padding-top: 1.25rem;">
+        <!-- LOGÍSTICA -->
+        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 1rem 1.15rem; display: flex; align-items: flex-start; gap: 12px;">
+          <div style="width: 100%;">
+            <strong style="font-size: 0.88rem; color: var(--text-main); display: block; font-weight: 800; margin-bottom: 4px;">Entrega & Retirada</strong>
+            <div id="kixiki-public-operation-summary" style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.4;">🛵 Entrega ou retirada: consulte disponibilidade pelo WhatsApp.</div>
+          </div>
+        </div>
+
+        <!-- HORÁRIOS -->
+        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 1rem 1.15rem; display: flex; align-items: flex-start; gap: 12px;">
+          <span style="font-size: 1.4rem; line-height: 1; flex-shrink: 0;" aria-hidden="true">⏰</span>
+          <div>
+            <strong style="font-size: 0.88rem; color: var(--text-main); display: block; font-weight: 800; margin-bottom: 3px;">Horários de Atendimento</strong>
+            <div id="kixiki-public-hours-summary" style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;">
+              <div>🍲 <b>Almoço:</b> <span id="info-horario-almoco" style="color: var(--text-main); font-weight: 700;">11h às 14h (todos os dias)</span></div>
+              <div>🍔 <b>Noite:</b> <span id="info-horario-lanches" style="color: var(--text-main); font-weight: 700;">18h às 22h</span> • <span id="info-aviso-folga" style="color: var(--text-muted); font-style: italic;">Terça: folga da chapa 😴</span></div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

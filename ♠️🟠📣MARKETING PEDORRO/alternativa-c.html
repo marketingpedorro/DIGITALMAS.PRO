@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALT. C / HISTORIA — MARKETING PEDORRO (Storytelling Horizontal)</title>
+  <meta name="description" content="Narrativa interactiva en cinco paneles con gramática de cómic contemporáneo. Una experiencia horizontal para entender la estrategia sin humo.">
+  
+  <!-- Tipografías Oficiales de Branding: Bangers & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+  
+  <!-- Estilos y Tipografía Local -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- JavaScript Vanilla Modular -->
+  <script src="js/app.js" defer></script>
+</head>
+<body style="overflow-y: hidden;">
+
+  <!-- ========================================================================
+       BARRA DE NAVEGACIÓN Y CONTROL DEL CARRIL
+       ======================================================================== -->
+  <header class="story-header" role="banner">
+    <!-- Enlace de salida visible y directo -->
+    <a href="index.html" class="btn story-header__back" aria-label="Volver a la página principal">
+      ← VOLVER A LA HOMEPAGE
+    </a>
+
+    <!-- Cinta de progreso de capítulos -->
+    <div class="story-progress" role="navigation" aria-label="Selector de capítulos">
+      <span class="story-progress__label">CAPÍTULOS:</span>
+      <div class="story-progress__steps" role="group">
+        <button type="button" class="story-step-btn is-active" data-step-index="0" aria-label="Capítulo 1: Inicio" aria-current="step">01</button>
+        <button type="button" class="story-step-btn" data-step-index="1" aria-label="Capítulo 2: Ruido">02</button>
+        <button type="button" class="story-step-btn" data-step-index="2" aria-label="Capítulo 3: Pausa">03</button>
+        <button type="button" class="story-step-btn" data-step-index="3" aria-label="Capítulo 4: Mapa">04</button>
+        <button type="button" class="story-step-btn" data-step-index="4" aria-label="Capítulo 5: Salida">05</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       CONTENEDOR DEL CARRIL HORIZONTAL
+       ======================================================================== -->
+  <main class="story-viewport" id="main-story" role="main">
+    
+    <!-- Botones Anterior y Siguiente para navegación precisa en Desktop -->
+    <button type="button" id="story-prev-btn" class="story-nav-btn story-nav-btn--prev" aria-label="Panel anterior" disabled>
+      ‹
+    </button>
+    <button type="button" id="story-next-btn" class="story-nav-btn story-nav-btn--next" aria-label="Panel siguiente">
+      ›
+    </button>
+
+    <!-- Carril Horizontal Real (scroll-snap-type: x mandatory) con soporte Opción D -->
+    <div class="story-rail at-0" id="story-rail" tabindex="0" role="region" aria-label="Narrativa de cómic en cinco viñetas">
+
+      <!-- ====================================================================
+           CAPÍTULO 1: INICIO
+           ==================================================================== -->
+      <section class="story-panel panel-cap-1 is-active" id="capitulo-1" aria-labelledby="cap1-title" role="group" aria-roledescription="panel" aria-label="1 de 5: Inicio">
+        <div class="panel-inner">
+          <div class="cap1-frame">
+            <div class="cap1-exclamation" aria-hidden="true">!</div>
+            <span class="badge-stamp" style="margin-bottom: 16px;">CAPÍTULO 01 / APERTURA</span>
+            
+            <h1 id="cap1-title" class="font-display" style="font-size: var(--font-h1); margin-bottom: 16px;">
+              TODO EMPIEZA<br>CUANDO FRENÁS.
+            </h1>
+            
+            <p class="lead" style="margin-bottom: 20px; color: #222222;">
+              No necesitás otra táctica salvadora. Necesitás entender por qué estás corriendo antes de seguir acelerando hacia ningún lado.
+            </p>
+
+            <div style="max-width: 480px; margin: 0 auto 20px;">
+              <img 
+                src="assets/images/sr-emprendedor-aurorita.jpg" 
+                alt="Sr. Emprendedor en La Aurorita"
+                style="width: 100%; border: var(--border-comic-thin); max-height: 220px; object-fit: cover;"
+              >
+            </div>
+
+            <button type="button" class="btn btn--primary" data-jump-step="1" aria-label="Avanzar al segundo panel: El Ruido">
+              ABRIR EL PRIMER PANEL →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           CAPÍTULO 2: RUIDO
+           ==================================================================== -->
+      <section class="story-panel panel-cap-2" id="capitulo-2" aria-labelledby="cap2-title" role="group" aria-roledescription="panel" aria-label="2 de 5: Ruido">
+        <div class="panel-inner">
+          <span class="badge-stamp" style="background-color: var(--color-tinta); color: var(--color-papel); margin-bottom: 12px;">
+            CAPÍTULO 02 / LA TRAMPA
+          </span>
+
+          <h2 id="cap2-title" class="font-display" style="font-size: var(--font-h2); color: var(--color-tinta);">
+            CUANDO TODO ES PRIORIDAD,<br>NADA AVANZA.
+          </h2>
+
+          <div style="max-width: 460px; margin: 0 auto;">
+            <img 
+              src="assets/images/ficha-paciente-cero-sr-emprendedor.jpg" 
+              alt="Paciente Cero con estática"
+              style="width: 100%; border: var(--border-comic-thin); max-height: 200px; object-fit: cover;"
+            >
+          </div>
+
+          <!-- Nube de etiquetas de ruido táctico -->
+          <div class="cap2-tags-cloud" aria-label="Etiquetas de ruido y saturación">
+            <span class="cap2-tag" style="--rot: -3deg;">HERRAMIENTAS</span>
+            <span class="cap2-tag" style="--rot: 2deg; background-color: var(--color-tinta); color: var(--color-papel);">HACKS</span>
+            <span class="cap2-tag" style="--rot: -2deg; border-color: var(--color-rojo);">URGENTE</span>
+            <span class="cap2-tag" style="--rot: 4deg;">20 POSTS AL DÍA</span>
+            <span class="cap2-tag" style="--rot: -4deg; background-color: var(--color-papel-calido);">AUTOMATIZÁ YA</span>
+          </div>
+
+          <div class="cap2-stamp" role="note">
+            ACTIVIDAD ≠ AVANCE
+          </div>
+
+          <div style="margin-top: 16px;">
+            <button type="button" class="btn btn--dark" data-jump-step="2" aria-label="Avanzar al tercer panel: La Pausa">
+              FRENAR EL RUIDO →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           CAPÍTULO 3: PAUSA
+           ==================================================================== -->
+      <section class="story-panel panel-cap-3" id="capitulo-3" aria-labelledby="cap3-title" role="group" aria-roledescription="panel" aria-label="3 de 5: Pausa">
+        <div class="panel-inner">
+          <div class="cap3-ribbon">
+            PAUSA — UN MINUTO ANTES DE SEGUIR
+          </div>
+
+          <div class="cap3-question-mark" aria-hidden="true">?</div>
+
+          <h2 id="cap3-title" class="font-display" style="font-size: var(--font-h2); color: var(--color-tinta);">
+            PARÁ. MIRÁ EL MAPA.
+          </h2>
+
+          <div style="max-width: 480px; margin: 0 auto;">
+            <img 
+              src="assets/images/sr-emprendedor-encuentro-ofeltin.jpg" 
+              alt="El encuentro con Ofeltin"
+              style="width: 100%; border: var(--border-comic-thin); max-height: 220px; object-fit: cover;"
+            >
+          </div>
+
+          <div class="cap3-card">
+            UNA COSA CLARA LE GANA A VEINTE MOVIMIENTOS DESCONECTADOS.
+          </div>
+
+          <p class="lead" style="max-width: 55ch; margin-top: 10px;">
+            El silencio estratégico es el activo más escaso y valioso para cualquier negocio que quiera crecer en serio.
+          </p>
+
+          <button type="button" class="btn btn--clarity" data-jump-step="3" aria-label="Avanzar al cuarto panel: El Método">
+            VER EL MÉTODO ESTRATÉGICO →
+          </button>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           CAPÍTULO 4: MAPA
+           ==================================================================== -->
+      <section class="story-panel panel-cap-4" id="capitulo-4" aria-labelledby="cap4-title" role="group" aria-roledescription="panel" aria-label="4 de 5: Mapa">
+        <div class="panel-inner">
+          <span class="badge-stamp" style="background-color: var(--color-papel); color: var(--color-tinta); margin-bottom: 8px;">
+            CAPÍTULO 04 / ESTRUCTURA
+          </span>
+
+          <h2 id="cap4-title" class="font-display cap4-title" style="font-size: var(--font-h2);">
+            CLARIDAD. CRITERIO. EJECUCIÓN.
+          </h2>
+
+          <!-- Tres piezas geométricas que se encastran -->
+          <div class="cap4-pieces">
+            <article class="cap4-piece">
+              <div class="cap4-piece__num">01</div>
+              <h3 class="cap4-piece__title">ACLARAR</h3>
+              <p class="cap4-piece__text">Definir oferta, propuesta diferencial y cliente dispuesto a pagar.</p>
+            </article>
+
+            <article class="cap4-piece">
+              <div class="cap4-piece__num">02</div>
+              <h3 class="cap4-piece__title">VALIDAR</h3>
+              <p class="cap4-piece__text">Eliminar el 90% de las modas y elegir una única palanca comprobada.</p>
+            </article>
+
+            <article class="cap4-piece">
+              <div class="cap4-piece__num">03</div>
+              <h3 class="cap4-piece__title">EJECUTAR</h3>
+              <p class="cap4-piece__text">Construir rutinas de ventas estables y medir impacto comercial diario.</p>
+            </article>
+          </div>
+
+          <div style="margin-top: 16px;">
+            <button type="button" class="btn btn--action" data-jump-step="4" aria-label="Avanzar al último panel: La Salida">
+              IR A LA CONCLUSIÓN FINAL →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           CAPÍTULO 5: SALIDA
+           ==================================================================== -->
+      <section class="story-panel panel-cap-5" id="capitulo-5" aria-labelledby="cap5-title" role="group" aria-roledescription="panel" aria-label="5 de 5: Salida">
+        <div class="panel-inner">
+          <div class="cap5-dismantle-frame">
+            <div class="cap5-badge">
+              FINAL DEL PASE / EL MARCO SE ABRE. VOS SEGUÍS.
+            </div>
+
+            <h2 id="cap5-title" class="font-display" style="font-size: var(--font-h2); color: var(--color-tinta); margin-bottom: 16px;">
+              BASTA DE DAR VUELTAS.<br>HAGAMOS ALGO.
+            </h2>
+
+            <p class="lead" style="color: #222222; margin-bottom: 24px;">
+              Ya tenés el criterio básico. Ahora es momento de aplicar el método a tu propio modelo comercial sin caer en el humo de siempre.
+            </p>
+
+            <div class="cap5-actions">
+              <a href="index.html#manifiesto" class="btn btn--primary" aria-label="Volver a la homepage y revisar el método completo">
+                VOLVER AL MAPA PRINCIPAL
+              </a>
+              <a href="index.html" class="btn" aria-label="Ir a la portada de la revista">
+                IR AL INICIO
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Barra inferior con atajos de navegación por teclado -->
+    <div class="story-footer-bar" aria-hidden="true">
+      <span>Navegar: <kbd>←</kbd> <kbd>→</kbd></span>
+      <span>Extremos: <kbd>Inicio</kbd> <kbd>Fin</kbd></span>
+      <span>Arrastre con mouse o trackpad activo</span>
+    </div>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <pattern id="hatch" width="16" height="16" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="16" stroke="#0B0B0B" stroke-width="2" stroke-opacity="0.15" />
+    </pattern>
+    <filter id="comic-shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="6" dy="6" stdDeviation="0" flood-color="#0B0B0B" flood-opacity="1" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="10" y="10" width="580" height="380" fill="#F4F1E9" stroke="#0B0B0B" stroke-width="4" filter="url(#comic-shadow)" />
+  <rect x="10" y="10" width="580" height="380" fill="url(#hatch)" />
+
+  <!-- Diagonal Warning Strip -->
+  <g transform="rotate(-3 300 200)">
+    <rect x="40" y="150" width="520" height="80" fill="#FF7900" stroke="#0B0B0B" stroke-width="4" filter="url(#comic-shadow)" />
+    <text x="300" y="198" font-family="'Montserrat', Impact, sans-serif" font-weight="900" font-size="20" fill="#0B0B0B" text-anchor="middle" letter-spacing="3">
+      [ ASSET CANÓNICO PENDIENTE ]
+    </text>
+    <text x="300" y="218" font-family="'Montserrat', sans-serif" font-weight="700" font-size="12" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
+      ESPACIO RESERVADO PARA VERSIÓN OFICIAL
+    </text>
+  </g>
+
+  <!-- Corner Brackets -->
+  <path d="M 30 50 L 30 30 L 50 30" fill="none" stroke="#ED1C24" stroke-width="5" />
+  <path d="M 570 50 L 570 30 L 550 30" fill="none" stroke="#ED1C24" stroke-width="5" />
+  <path d="M 30 350 L 30 370 L 50 370" fill="none" stroke="#ED1C24" stroke-width="5" />
+  <path d="M 570 350 L 570 370 L 550 370" fill="none" stroke="#ED1C24" stroke-width="5" />
+
+  <!-- Center Icon Outline -->
+  <circle cx="300" cy="100" r="28" fill="#FFFFFF" stroke="#0B0B0B" stroke-width="3" />
+  <text x="300" y="112" font-family="sans-serif" font-weight="900" font-size="32" fill="#0B0B0B" text-anchor="middle">!</text>
+
+  <!-- Subtitle -->
+  <text x="300" y="280" font-family="'Montserrat', sans-serif" font-weight="600" font-size="14" fill="#0B0B0B" text-anchor="middle">
+    NO SE RECREAN PERSONAJES NI LOGOS NO AUTORIZADOS
+  </text>
+  <text x="300" y="305" font-family="'Montserrat', sans-serif" font-weight="500" font-size="12" fill="#555555" text-anchor="middle">
+    MARKETING PEDORRO — SISTEMA VISUAL EDITORIAL
+  </text>
+</svg>

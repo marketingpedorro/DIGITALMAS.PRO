@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MARKETING PEDORRO — Revista Editorial, Universo Ofeltínesco y Estrategia sin Humo</title>
+  <meta name="description" content="Marketing Pedorro: el laboratorio del Universo Ofeltínesco. Ayudamos a los emprendedores a salir del caos con humor, sentido común y amor de metal.">
+  
+  <!-- Tipografías Oficiales de Branding: Bangers & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+  
+  <!-- Estilos y Tipografía Local Normalizada -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- JavaScript Vanilla Modular -->
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+
+  <!-- ========================================================================
+       BARRA DE NAVEGACIÓN SUPERIOR (STICKY)
+       ======================================================================== -->
+  <header class="site-header" role="banner">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <a href="index.html" class="nav-brand__title" aria-label="Marketing Pedorro - Inicio">
+          MARKETING PEDORRO<span style="color: var(--color-rojo);">!</span>
+        </a>
+        <span class="nav-brand__badge">UNIVERSO OFELTÍNESCO</span>
+      </div>
+
+      <nav class="nav-menu" role="navigation" aria-label="Navegación principal">
+        <a href="#diagnostico" class="nav-link">Diagnóstico</a>
+        <a href="#baul" class="nav-link">El Baúl</a>
+        <a href="#manifiesto" class="nav-link">Manifiesto</a>
+        <a href="#escalera" class="nav-link">Escalera</a>
+        <a href="#ofelbooks" class="nav-link">OfelBooks</a>
+        <a href="#ofertas-web" class="nav-link">Ofertas Web</a>
+        <a href="#personajes" class="nav-link">Personajes</a>
+        <a href="clasificador-pedorro.html" class="btn btn--primary nav-cta" style="background-color: var(--color-rojo);" aria-label="Abrir el clasificador de ideas en beta">
+          🧪 TEST DE IDEAS
+        </a>
+        <a href="alternativa-c.html" class="btn btn--dark nav-cta" aria-label="Ir al formato de Storytelling Horizontal Alternativa C">
+          📖 CÓMIC
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    
+    <!-- ======================================================================
+         SECCIÓN 1: HERO PRINCIPAL “MARKETING SIN HUMO”
+         ====================================================================== -->
+    <section class="hero-section" id="inicio" aria-labelledby="hero-title">
+      <div class="hero-grid">
+        
+        <!-- Columna de Texto y Copia -->
+        <div class="hero-content">
+          <!-- Banner Maestro Oficial Canónico: Ideas sin Filtro -->
+          <div style="max-width: 480px; margin-bottom: 12px;">
+            <img 
+              src="assets/images/banner-ideas-sin-filtro.jpg" 
+              alt="Marketing Pedorro: Ideas sin Filtro - Marketing que llama la atención y convierte"
+              style="width: 100%; border: var(--border-comic-thick); box-shadow: var(--shadow-comic);"
+            >
+          </div>
+
+          <h1 id="hero-title" class="hero-title">
+            DEL CAOS<br>
+            <span style="color: var(--color-rojo);">A LA CLARIDAD.</span>
+          </h1>
+
+          <div class="hero-bajada">
+            ESTRATEGIA ANTI-HUMO QUE PODÉS USAR HOY.
+          </div>
+
+          <p class="hero-support">
+            No porque el marketing sea pedorro, sino porque la forma en que muchas veces intentamos hacerlo es pedorra. El laboratorio del <strong>Universo Ofeltínesco</strong> para ordenar tus ideas, bajar la ansiedad y construir un negocio que avance de verdad.
+          </p>
+
+          <!-- Bocadillo de Ofeltín -->
+          <div class="comic-bubble" style="max-width: 500px; transform: rotate(0.5deg);">
+            🤖 <strong>Ofeltín:</strong> «Vamos de a poquito. No necesitás correr; necesitás avanzar. ❤️ Con amor de metal.»
+          </div>
+
+          <div class="hero-cta-group">
+            <a href="clasificador-pedorro.html" class="btn btn--primary" aria-label="Abrir el clasificador interactivo de ideas">
+              🧪 CLASIFICAR MI IDEA (TEST)
+            </a>
+            <a href="#escalera" class="btn" aria-label="Ver la escalera de valor de 4 niveles">
+              🗺️ VER LA ESCALERA
+            </a>
+            <a href="#baul" class="btn" aria-label="Conocer el Baúl de las Ideasuras">
+              🧳 EL BAÚL DE IDEAS
+            </a>
+            <a href="alternativa-c.html" class="btn btn--dark" aria-label="Explorar la narrativa horizontal interactiva">
+              📖 CÓMIC HORIZONTAL
+            </a>
+          </div>
+        </div>
+
+        <!-- Columna Visual: Collage Editorial, Exclamación Frontal y Sr. Emprendedor -->
+        <div class="hero-visual">
+          <!-- EXCLAMACIÓN ROJA FLOTANTE -->
+          <div class="hero-exclamation" aria-hidden="true">!</div>
+
+          <!-- Bocadillo lateral del Sr. Emprendedor -->
+          <div class="comic-bubble" style="transform: rotate(-1.5deg); margin-bottom: 12px;">
+            📺 <strong>Sr. Emprendedor:</strong> «¡Tengo 40 pestañas abiertas, 3 cursos sin terminar y se me está agotando la batería!»
+          </div>
+
+          <!-- Collage Editorial Canónico: Sr. Emprendedor en la Aurorita -->
+          <article class="hero-collage" aria-label="Sr. Emprendedor pedaleando en La Aurorita">
+            <img 
+              src="assets/images/sr-emprendedor-aurorita.jpg" 
+              alt="Sr. Emprendedor con cabeza de televisión de estática pedaleando en la bicicleta roja Aurorita por la calle" 
+              class="hero-collage__image"
+              width="800"
+              height="600"
+            >
+            <figcaption class="hero-collage__caption">
+              🚲 LA AURORITA (1978) — PEDALEAR CON LO PROPIO, SIN PEDIR PRESTADO
+            </figcaption>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECCIÓN 2: EL DIAGNÓSTICO — EL PACIENTE CERO & EL MICROCOSMOS
+         ====================================================================== -->
+    <section class="problem-section" id="diagnostico" aria-labelledby="problem-title">
+      <div class="section-container">
+        
+        <div class="problem-header" style="text-align: center;">
+          <span class="badge-stamp" style="background-color: var(--color-rojo); margin-bottom: 8px;">CASILLA 01 / LABORATORIO</span>
+          <h2 id="problem-title" class="section-title">EL INCENDIO MENTAL</h2>
+          <p class="lead" style="max-width: 65ch; margin: 0 auto;">
+            El Sr. Emprendedor no tiene falta de ideas: tiene un <strong>exceso letal de ellas</strong>. Colapsa bajo el peso de nuevas herramientas, tácticas de gurús y dudas existenciales.
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; margin-top: 36px; align-items: stretch;">
+          
+          <!-- Lado Izquierdo: Ficha del Paciente Cero -->
+          <div style="background: #FFFFFF; border: var(--border-comic-heavy); box-shadow: var(--shadow-comic-md); padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span class="badge-stamp" style="background-color: var(--color-rojo);">PACIENTE CERO</span>
+                <span style="font-family: var(--font-body); font-weight: 700; font-size: 0.8rem; color: #666666;">DOC. CANÓNICO</span>
+              </div>
+              <img 
+                src="assets/images/ficha-paciente-cero-sr-emprendedor.jpg" 
+                alt="El Paciente Cero: Sr. Emprendedor con cabeza de TV en estática y deudas"
+                style="width: 100%; border: var(--border-comic-thin);"
+              >
+            </div>
+            <div class="comic-bubble" style="margin-top: 14px; background-color: #FFF0F0;">
+              📺 <strong>Diagnóstico:</strong> «Su cabeza es puro ruido blanco. Necesita un sistema de procesamiento, no más información suelta.»
+            </div>
+          </div>
+
+          <!-- Lado Derecho: El Detonador Weby + Tito y Tita Flotando -->
+          <div style="background: #FFFFFF; border: var(--border-comic-heavy); box-shadow: var(--shadow-comic-md); padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                <span class="badge-stamp" style="background-color: var(--color-azul);">EL MOTOR COGNITIVO</span>
+                <button type="button" class="weby-trigger-btn" id="webyTrigger" title="Presionar para encender/apagar el sistema">
+                  <span class="weby-pulse-dot"></span>
+                  <span class="weby-btn-text">WEBY: ON</span>
+                </button>
+              </div>
+
+              <!-- Escenario de Tito y Tita flotando sin patitas -->
+              <div id="titoTitaFloatingStage" style="transition: opacity 0.3s ease, transform 0.3s ease; text-align: center;">
+                <img 
+                  src="assets/images/tita-weby-tito-trio.jpg" 
+                  alt="Tita la Lamparita, Weby el botón del logo y Tito el Cerebrito chinchudo flotando"
+                  style="width: 100%; max-height: 240px; object-fit: contain; border: var(--border-comic-thin); background: #FAF9F6; margin-bottom: 10px;"
+                >
+                <div style="display: flex; justify-content: space-around; font-size: 0.8rem; font-weight: 700; color: var(--color-tinta);">
+                  <span style="color: #FF7900;">💡 TITA (LA RÁFAGA)</span>
+                  <span style="color: var(--color-rojo);">🔴 WEBY (INTERRUPTOR)</span>
+                  <span style="color: var(--color-azul);">🧠 TITO (EL CHINCHUDO)</span>
+                </div>
+              </div>
+            </div>
+
+            <div id="webyThoughts" class="comic-bubble" style="margin-top: 14px; background-color: #F0F7FA;">
+              😡 <strong>Tito:</strong> «¡No, Tita! ¡No vamos a abrir un TikTok de bailes para vender consultoría B2B! ¡Sello NO AHORA estampado!»
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECCIÓN 3: LA HERRAMIENTA FILOSÓFICA — EL BAÚL DE LAS IDEASURAS
+         ====================================================================== -->
+    <section class="definition-section" id="baul" aria-labelledby="baul-title">
+      <div class="section-container">
+        
+        <header class="definition-header" style="text-align: center;">
+          <span class="badge-stamp" style="background-color: var(--color-tinta); color: #FFFFFF; margin-bottom: 8px;">CASILLA 07 / 99</span>
+          <h2 id="baul-title" class="section-title">🧳 EL BAÚL DE LAS IDEASURAS</h2>
+          <p class="lead" style="margin: 0 auto 20px; text-align: center; max-width: 65ch;">
+            No decimos que una idea es una porquería. Le decimos: <strong>«NO AHORA.»</strong> Guardar una idea salva la ejecución de la anterior.
+          </p>
+        </header>
+
+        <!-- Lámina Maestra: Mecánica del Baúl de las Ideasuras -->
+        <div style="background: #FFFFFF; border: var(--border-comic-heavy); box-shadow: var(--shadow-comic-lg); padding: 16px; margin: 0 auto 36px; max-width: 1080px; text-align: center;">
+          <img 
+            src="assets/images/mecanica-tito-baul-ideasuras.jpg" 
+            alt="Mecánica y Modelo: Tito & El Baúl de las Ideasuras — Flujo de 3 pasos y sello No Ahora"
+            style="width: 100%; border: var(--border-comic-thin);"
+          >
+          <p style="font-family: var(--font-body); font-weight: 700; font-size: 0.85rem; color: var(--color-tinta); margin-top: 10px; text-transform: uppercase;">
+            MECÁNICA CANÓNICA — «GUARDAR UNA IDEA SALVA LA EJECUCIÓN DE LA ANTERIOR»
+          </p>
+        </div>
+
+        <!-- El Encuentro con Ofeltin & La Ecuación Visual -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; align-items: center; margin-bottom: 40px;">
+          <div class="comic-box" style="text-align: center; padding: 16px;">
+            <img 
+              src="assets/images/sr-emprendedor-encuentro-ofeltin.jpg" 
+              alt="El encuentro: Sr. Emprendedor sosteniendo a Ofeltin mientras ilumina la habitación"
+              style="width: 100%; max-height: 280px; object-fit: cover; border: var(--border-comic-thin); margin-bottom: 12px;"
+            >
+            <p style="font-family: var(--font-display-accent); font-size: 1.1rem; color: var(--color-tinta);">
+              EL RESCATE: «VAMOS DE A POQUITO. CON AMOR DE METAL.»
+            </p>
+          </div>
+
+          <div class="equation-box" style="margin-bottom: 0;">
+            <p class="equation-text">
+              MARKETING PEDORRO <span class="symbol-unequal">≠</span> MAL MARKETING
+            </p>
+            <p class="equation-desc">
+              Es usar humor, orden y criterio para salir de la trampa de la hiperactividad vacía.
+            </p>
+            <div style="margin-top: 16px;">
+              <a href="clasificador-pedorro.html" class="btn btn--primary" style="font-size: 0.85rem; padding: 10px 16px;">
+                🗃️ PROBAR EL CLASIFICADOR DE IDEAS (BETA) →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 Señales de Diagnóstico de Humo -->
+        <div class="signals-grid">
+          <article class="signal-card">
+            <div class="signal-card__num">01</div>
+            <h3 class="signal-card__title">Tácticas sin Diagnóstico</h3>
+            <p class="signal-card__text">Copiar el formato de moda sin saber si tu cliente objetivo consume ese canal.</p>
+          </article>
+          <article class="signal-card">
+            <div class="signal-card__num">02</div>
+            <h3 class="signal-card__title">Obsesión por Vanidad</h3>
+            <p class="signal-card__text">Celebrar visualizaciones o likes que no generan consultas calificadas ni rentabilidad.</p>
+          </article>
+          <article class="signal-card">
+            <div class="signal-card__num">03</div>
+            <h3 class="signal-card__title">Contenido en Masa</h3>
+            <p class="signal-card__text">Publicar todos los días por inercia sin una propuesta clara que resuelva un problema real.</p>
+          </article>
+          <article class="signal-card">
+            <div class="signal-card__num">04</div>
+            <h3 class="signal-card__title">Herramientitis Aguda</h3>
+            <p class="signal-card__text">Pagar suscripciones caras de automatización antes de validar una oferta manualmente.</p>
+          </article>
+          <article class="signal-card">
+            <div class="signal-card__num">05</div>
+            <h3 class="signal-card__title">Promesas Infladas</h3>
+            <p class="signal-card__text">Vender atajos mágicos de "seis cifras en 7 días" que solo generan frustración y deuda.</p>
+          </article>
+          <article class="signal-card">
+            <div class="signal-card__num">06</div>
+            <h3 class="signal-card__title">Parálisis por Análisis</h3>
+            <p class="signal-card__text">Quedarse atrapado planeando el negocio perfecto sin salir nunca a hablar con clientes.</p>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECCIÓN 4: LOS DOS CAMINOS — MANIFIESTO (REALIDAD VS HUMO)
+         ====================================================================== -->
+    <section class="manifesto-section" id="manifiesto" aria-labelledby="manifesto-title">
+      <div class="section-container">
+        
+        <header style="text-align: center; margin-bottom: 28px;">
+          <span class="badge-stamp" style="background-color: var(--color-verde); margin-bottom: 8px;">CASILLA 00 / EL MANIFIESTO</span>
+          <h2 id="manifesto-title" class="section-title">DOS CAMINOS: REALIDAD VS HUMO</h2>
+          <p class="lead" style="max-width: 65ch; margin: 0 auto;">
+            La diferencia no es de presupuesto, es de <strong>ética, criterio y propósito</strong>.
+          </p>
+        </header>
+
+        <!-- Comparativa en 2 Columnas de Alto Contraste -->
+        <div class="manifesto-split-grid">
+          
+          <!-- Columna 1: Marketing Pedorro -->
+          <div class="manifesto-col-pedorro">
+            <span class="badge-stamp" style="background-color: var(--color-verde); margin-bottom: 12px;">EL CAMINO REAL</span>
+            <h3 style="font-family: var(--font-display-primary); font-size: 1.8rem; margin-bottom: 12px; color: var(--color-tinta);">
+              MARKETING PEDORRO
+            </h3>
+            <img 
+              src="assets/images/la-aurorita-oficial.png" 
+              alt="Bicicleta clásica roja La Aurorita"
+              style="width: 100%; max-height: 180px; object-fit: contain; margin-bottom: 16px;"
+            >
+            <ul class="dossier-list">
+              <li><strong>La Aurorita (1978):</strong> Avanzar con tracción a sangre y recursos propios.</li>
+              <li><strong>Diagnóstico primero:</strong> Entender qué necesita el cliente antes de inventar tácticas.</li>
+              <li><strong>Claridad sobre ruido:</strong> Mensajes directos, útiles y humanos.</li>
+              <li><strong>Foco absoluto:</strong> Una sola idea ejecutada a fondo antes de abrir otra.</li>
+            </ul>
+          </div>
+
+          <!-- Columna 2: Gold Marketing & El Planeta del Humo -->
+          <div class="manifesto-col-gold">
+            <span class="badge-stamp" style="background-color: #D4AF37; color: #000000; margin-bottom: 12px;">LA TRAMPA DORADA</span>
+            <h3 style="font-family: var(--font-display-primary); font-size: 1.8rem; margin-bottom: 12px;">
+              GOLD MARKETING
+            </h3>
+            <img 
+              src="assets/images/planeta-humo-ofeltin.jpg" 
+              alt="El Planeta del Humo: Lamborghinis alquilados y promesas vacías"
+              style="width: 100%; max-height: 180px; object-fit: cover; border: 2px solid #D4AF37; margin-bottom: 16px;"
+            >
+            <ul class="dossier-list" style="color: #CCCCCC;">
+              <li><strong>Mister Negocios:</strong> OLED 8K, pañuelo de oro y habano (*«El éxito no se logra, se aparenta»*).</li>
+              <li><strong>Darkfeltin:</strong> Cadenas de oro y avaricia algorítmica (*«El poder sin ética lo corrompe todo»*).</li>
+              <li><strong>Lamborghinis alquilados:</strong> Escenarios ficticios para vender cursos milagrosos.</li>
+              <li><strong>Deuda y agotamiento:</strong> Más herramientas caras que no convierten.</li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECCIÓN 5: LA ESCALERA DE VALOR DEL ECOSISTEMA (4 NIVELES)
+         ====================================================================== -->
+    <section class="ladder-section" id="escalera" aria-labelledby="ladder-title">
+      <div class="section-container">
+        
+        <header style="text-align: center; margin-bottom: 24px;">
+          <span class="badge-stamp" style="background-color: var(--color-azul); margin-bottom: 8px;">ARQUITECTURA DE CONVERSIÓN</span>
+          <h2 id="ladder-title" class="section-title">EL MAPA DE OFERTAS DEL UNIVERSO</h2>
+          <p class="lead" style="max-width: 65ch; margin: 0 auto;">
+            Una escalera comercial lógica y transparente. Cada nivel responde a una necesidad exacta del emprendedor.
+          </p>
+        </header>
+
+        <!-- Grid de 4 Niveles -->
+        <div class="ladder-grid">
+          
+          <!-- Nivel 0: Gratis -->
+          <article class="ladder-card">
+            <div>
+              <div class="ladder-card__level" style="color: var(--color-azul);">NIVEL 0</div>
+              <span class="ladder-card__role" style="background-color: #E8F4FA;">ENTENDER EL PROBLEMA</span>
+              <h3 class="ladder-card__title">Marketing Pedorro</h3>
+              <p style="font-size: 0.9rem; color: #555555; margin-bottom: 12px;">
+                Contenido sin filtro, desmonte de tácticas de gurús, boletín semanal y cómic interactivo.
+              </p>
+              <div class="ladder-card__price">GRATIS ($0)</div>
+            </div>
+            <a href="#inicio" class="btn" style="margin-top: 16px; font-size: 0.85rem; padding: 10px;">
+              LEER BOLETÍN
+            </a>
+          </article>
+
+          <!-- Nivel 1: Low-Ticket -->
+          <article class="ladder-card" style="border-color: var(--color-naranja);">
+            <div>
+              <div class="ladder-card__level" style="color: var(--color-naranja);">NIVEL 1</div>
+              <span class="ladder-card__role" style="background-color: #FFF3E6;">RESOLVER HOY MISMO</span>
+              <h3 class="ladder-card__title">OfelBooks & Guías</h3>
+              <p style="font-size: 0.9rem; color: #555555; margin-bottom: 12px;">
+                Microtransformación concreta en <48h con plantillas Notion/Figma y Test de Trinchera.
+              </p>
+              <div class="ladder-card__price">$7 a $27 USD</div>
+            </div>
+            <a href="#ofelbooks" class="btn btn--primary" style="margin-top: 16px; font-size: 0.85rem; padding: 10px;">
+              VER GUÍAS ($9)
+            </a>
+          </article>
+
+          <!-- Nivel 2: Recurrencia -->
+          <article class="ladder-card">
+            <div>
+              <div class="ladder-card__level" style="color: var(--color-verde);">NIVEL 2</div>
+              <span class="ladder-card__role" style="background-color: #EBF8EB;">APRENDER ACOMPAÑADO</span>
+              <h3 class="ladder-card__title">Sistema / Club del Foco</h3>
+              <p style="font-size: 0.9rem; color: #555555; margin-bottom: 12px;">
+                Talleres mensuales en vivo, biblioteca de herramientas, desmonte de embudos y comunidad de pares.
+              </p>
+              <div class="ladder-card__price">$29 a $49 USD / mes</div>
+            </div>
+            <a href="#comunidad" class="btn" style="margin-top: 16px; font-size: 0.85rem; padding: 10px;">
+              SUMARME AL CLUB
+            </a>
+          </article>
+
+          <!-- Nivel 3: High-Ticket -->
+          <article class="ladder-card" style="border-color: var(--color-tinta); background: #FAF9F6;">
+            <div>
+              <div class="ladder-card__level" style="color: var(--color-tinta);">NIVEL 3</div>
+              <span class="ladder-card__role" style="background-color: #EEEEEE;">LO HACEMOS POR VOS</span>
+              <h3 class="ladder-card__title">Ofertas Web</h3>
+              <p style="font-size: 0.9rem; color: #555555; margin-bottom: 12px;">
+                Fábrica técnica: desarrollo de landing pages de alta conversión, automatizaciones, funnels y SEO.
+              </p>
+              <div class="ladder-card__price">HIGH-TICKET / PROYECTO</div>
+            </div>
+            <a href="#ofertas-web" class="btn btn--dark" style="margin-top: 16px; font-size: 0.85rem; padding: 10px;">
+              AGENDAR DIAGNÓSTICO
+            </a>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECCIÓN 6: EL OFELBOOK & EL TEST DE TRINCHERA (CASILLA 2)
+         ====================================================================== -->
+    <section class="trench-test-section" id="ofelbooks" aria-labelledby="trench-title">
+      <div class="section-container">
+        
+        <header style="text-align: center; margin-bottom: 24px;">
+          <span class="badge-stamp" style="background-color: var(--color-naranja); margin-bottom: 8px;">CASILLA 03 / OFELBOOKS</span>
+          <h2 id="trench-title" class="section-title">EL MANUAL & TEST DE TRINCHERA</h2>
+          <p class="lead" style="max-width: 65ch; margin: 0 auto;">
+            Los OfelBooks no son lecturas pasivas: son herramientas de autodiagnóstico. Cada capítulo termina con tu <strong>Semáforo de la Aurorita</strong>.
+          </p>
+        </header>
+
+        <div class="trench-test-container">
+          
+          <div style="text-align: center; margin-bottom: 24px;">
+            <span class="badge-stamp" style="background-color: var(--color-rojo);">ÁRBOL DE DECISIÓN RÁPIDO</span>
+            <h3 style="font-family: var(--font-display-primary); font-size: 1.6rem; margin-top: 8px; color: var(--color-tinta);">
+              ¿ESTÁS LISTO PARA ACELERAR O TENÉS QUE FRENAR?
+            </h3>
+          </div>
+
+          <!-- Árbol de decisión ilustrado -->
+          <div style="background: #FAF8F5; border: 2px dashed #CCCCCC; padding: 20px; text-align: center; font-family: var(--font-body); font-weight: 700; font-size: 0.95rem; line-height: 1.6; margin-bottom: 28px;">
+            1. ¿Tenés una oferta validada con clientes reales? ➔ <strong>SI:</strong> Paso 2 | <strong>NO:</strong> 🛑 <em>Pará</em><br>
+            2. ¿Tenés oficio o experiencia en el rubro? ➔ <strong>SI:</strong> Paso 3 | <strong>NO:</strong> 🚨 <em>Peligro</em><br>
+            3. ¿Podés validar la demanda antes de pagar software caro? ➔ <strong>SI:</strong> 🟢 <em>Avanzá</em> | <strong>NO:</strong> 🟡 <em>Frená</em>
+          </div>
+
+          <!-- El Semáforo de la Aurorita -->
+          <div class="semaphore-grid">
+            
+            <div class="semaphore-card semaphore-card--green">
+              <div>
+                <div style="font-size: 2rem; margin-bottom: 4px;">🟢</div>
+                <h4 class="semaphore-title" style="color: #29AF32;">SEGUÍ PEDALEANDO</h4>
+                <p style="font-size: 0.85rem; color: #333333;">
+                  Tenés las condiciones mínimas validadas. Avanzá con el plan de ejecución y tracción directa.
+                </p>
+              </div>
+            </div>
+
+            <div class="semaphore-card semaphore-card--yellow">
+              <div>
+                <div style="font-size: 2rem; margin-bottom: 4px;">🟡</div>
+                <h4 class="semaphore-title" style="color: #D9822B;">FRENÁ LA AURORITA</h4>
+                <p style="font-size: 0.85rem; color: #333333;">
+                  Hay variables críticas sin comprobar (precio, demanda, oferta). Validá antes de acelerar.
+                </p>
+              </div>
+            </div>
+
+            <div class="semaphore-card semaphore-card--red">
+              <div>
+                <div style="font-size: 2rem; margin-bottom: 4px;">🔴</div>
+                <h4 class="semaphore-title" style="color: #ED1C24;">NO PONGAS UN PESO</h4>
+                <p style="font-size: 0.85rem; color: #333333;">
+                  Riesgo grave detectado de sobrecarga o pérdida de capital. Volvé al Baúl de las Ideasuras.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <div style="text-align: center; margin-top: 28px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+            <a href="clasificador-pedorro.html" class="btn btn--primary" style="font-size: 1.05rem; padding: 14px 24px;">
+              🧪 ABRIR EL CLASIFICADOR Y TEST DE TRINCHERA (BETA) →
+            </a>
+            <a href="alternativa-c.html" class="btn btn--dark" style="font-size: 0.95rem; padding: 14px 20px;">
+              📖 VER EL CÓMIC COMPLETO →
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECCIÓN 7: LA FÁBRICA DE IMPLEMENTACIÓN — OFERTAS WEB (CASILLA 4)
+         ====================================================================== -->
+    <section class="content-ecosystem-section" id="ofertas-web" aria-labelledby="set-title">
+      <div class="section-container">
+        
+        <header style="text-align: center; margin-bottom: 32px;">
+          <span class="badge-stamp" style="background-color: var(--color-verde); margin-bottom: 8px;">CASILLA 06 / FÁBRICA TÉCNICA</span>
+          <h2 id="set-title" class="section-title">OFERTAS WEB & EL SET DE PRODUCCIÓN</h2>
+          <p class="lead" style="max-width: 65ch; margin: 0 auto;">
+            <strong>Clemente del Lente (1842)</strong> documenta la verdad detrás de escena, mientras su hermano <strong>Michael Ofertas</strong> la grita a los cuatro vientos con su megáfono pop.
+          </p>
+        </header>
+
+        <!-- Dúo Clemente & Michael -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; max-width: 1080px; margin: 0 auto 36px;">
+          
+          <!-- Tarjeta Clemente -->
+          <div style="background: #FFFFFF; border: var(--border-comic-heavy); box-shadow: var(--shadow-comic-md); padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span class="badge-stamp" style="background-color: var(--color-azul);">EL INVESTIGADOR DE 1842</span>
+                <span style="font-family: var(--font-body); font-weight: 700; font-size: 0.75rem; color: #666666;">CLEMENTE DEL LENTE</span>
+              </div>
+              <img 
+                src="assets/images/clemente-del-lente-full-body-claqueta.jpg" 
+                alt="Clemente del Lente con levita de 1842, claqueta oficial y cámara de fuelle antigua"
+                style="width: 100%; border: var(--border-comic-thin); max-height: 280px; object-fit: contain; background: #FAF9F6; margin-bottom: 8px;"
+              >
+            </div>
+            <div class="comic-bubble" style="margin: 8px 0 0; background-color: #F0F7FA;">
+              🕵️ <strong>Clemente:</strong> «Yo solamente estoy filmando... El proceso lleva tiempo.»
+            </div>
+          </div>
+
+          <!-- Tarjeta Michael -->
+          <div style="background: #FFFFFF; border: var(--border-comic-heavy); box-shadow: var(--shadow-comic-md); padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span class="badge-stamp" style="background-color: var(--color-verde);">EL GRITÓN DEL SET</span>
+                <span style="font-family: var(--font-body); font-weight: 700; font-size: 0.75rem; color: #666666;">MICHAEL OFERTAS</span>
+              </div>
+              <img 
+                src="assets/images/michael-ofertas-pedestal-folletos.png" 
+                alt="Michael Ofertas en pose dinámica pisando folletos obsoletos con megáfono verde"
+                style="width: 100%; border: var(--border-comic-thin); max-height: 280px; object-fit: contain; background: #FFFFFF; margin-bottom: 8px;"
+              >
+            </div>
+            <div class="comic-bubble" style="margin: 8px 0 0; background-color: #F6FFF6;">
+              📣 <strong>Michael:</strong> «¡¡¡SEÑORAS Y SEÑORES, 2x1 EN MARKETING SIN HUMO HOY MISMO!!!»
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Kit de Contenido y Miniaturas -->
+        <div style="background: #FFFFFF; border: var(--border-comic-heavy); box-shadow: var(--shadow-comic-lg); padding: 16px; max-width: 1080px; margin: 0 auto; text-align: center;">
+          <img 
+            src="assets/images/plantilla-miniatura-beneficios.jpg" 
+            alt="Plantilla Maestra de Miniatura con 4 beneficios clave y slot de protagonista"
+            style="width: 100%; border: var(--border-comic-thin);"
+          >
+          <p style="font-family: var(--font-body); font-weight: 700; font-size: 0.85rem; color: var(--color-tinta); margin-top: 10px; text-transform: uppercase;">
+            FRAMEWORK DE CONTENIDOS — ESTRUCTURA DE ALTA CONVERSIÓN Y BENEFICIOS CLAVE
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECCIÓN 8: EL ATLAS DE PERSONAJES (CASILLA 0: UNIVERSO OFELTÍNESCO)
+         ====================================================================== -->
+    <section class="characters-section" id="personajes" aria-labelledby="atlas-title">
+      <div class="section-container">
+        
+        <header style="text-align: center; margin-bottom: 24px;">
+          <span class="badge-stamp" style="background-color: var(--color-tinta); color: #FFFFFF; margin-bottom: 8px;">CASILLA 00 / EL ATLAS</span>
+          <h2 id="atlas-title" class="section-title">EL ELENCO CANÓNICO OFICIAL</h2>
+          <p class="lead" style="max-width: 65ch; margin: 0 auto;">
+            Seleccioná un personaje para consultar su ficha técnica, anatomía oficial, model sheet y reglas de dirección de arte.
+          </p>
+        </header>
+
+        <!-- Selector de Pestañas Interactivo -->
+        <div class="char-tabs-container">
+          
+          <nav class="char-tabs-nav" role="tablist" aria-label="Selector de fichas de personajes">
+            <button type="button" class="char-tab-btn active" role="tab" aria-selected="true" data-target="tab-ofeltin">
+              🤖 00. Ofeltín
+            </button>
+            <button type="button" class="char-tab-btn" role="tab" aria-selected="false" data-target="tab-emprendedor">
+              📺 03. Sr. Emprendedor
+            </button>
+            <button type="button" class="char-tab-btn" role="tab" aria-selected="false" data-target="tab-mister">
+              📱 04. Mister Negocios
+            </button>
+            <button type="button" class="char-tab-btn" role="tab" aria-selected="false" data-target="tab-darkfeltin">
+              😈 01. Darkfeltin
+            </button>
+            <button type="button" class="char-tab-btn" role="tab" aria-selected="false" data-target="tab-titotita">
+              🧠💡 Tito, Tita & Weby
+            </button>
+            <button type="button" class="char-tab-btn" role="tab" aria-selected="false" data-target="tab-clemente">
+              🕵️ Clemente del Lente
+            </button>
+            <button type="button" class="char-tab-btn" role="tab" aria-selected="false" data-target="tab-michael">
+              📣 Michael Ofertas
+            </button>
+          </nav>
+
+          <!-- Panel 1: OFELTÍN -->
+          <div class="char-tab-panel active" id="tab-ofeltin" role="tabpanel">
+            <article class="character-dossier-card">
+              <div class="character-dossier-gallery">
+                <img src="assets/images/ofeltin-turnaround.png" alt="Model Sheet 3D de Ofeltín en 6 vistas 360 grados">
+              </div>
+              <div class="character-dossier-info">
+                <div class="dossier-tag-row">
+                  <span class="badge-stamp" style="background-color: var(--color-azul);">00. EL HÉROE</span>
+                  <span style="font-weight: 700; font-size: 0.85rem; color: #555555;">ART TOY DE VINILO</span>
+                </div>
+                <h3 class="dossier-title">OFELTÍN</h3>
+                <div class="dossier-quote-box">
+                  «Vamos de a poquito. ❤️ Con amor de metal.»
+                </div>
+                <ul class="dossier-list">
+                  <li><strong>Concepto:</strong> La curiosidad genuina y la inocencia del aprendizaje paso a paso.</li>
+                  <li><strong>Anatomía:</strong> Visor galáctico cósmico, manos blancas de vinilo y propulsores azules.</li>
+                  <li><strong>Sticker de Oro:</strong> Etiqueta amarilla obligatoria en oreja izquierda: <code>CLASS I LASER PRODUCT</code>.</li>
+                  <li><strong>Running Gag:</strong> Le dice al Sr. Emprendedor: <em>«Papá, te kelo»</em>.</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <!-- Panel 2: SR. EMPRENDEDOR -->
+          <div class="char-tab-panel" id="tab-emprendedor" role="tabpanel">
+            <article class="character-dossier-card">
+              <div class="character-dossier-gallery">
+                <img src="assets/images/ficha-oficial-sr-emprendedor.jpg" alt="Ficha Oficial de Sr. Emprendedor">
+              </div>
+              <div class="character-dossier-info">
+                <div class="dossier-tag-row">
+                  <span class="badge-stamp" style="background-color: var(--color-naranja);">03. EL PROTAGONISTA</span>
+                  <span style="font-weight: 700; font-size: 0.85rem; color: #555555;">EL PACIENTE CERO</span>
+                </div>
+                <h3 class="dossier-title">SR. EMPRENDEDOR</h3>
+                <div class="dossier-quote-box">
+                  «No es falta de talento, es falta de rumbo.»
+                </div>
+                <ul class="dossier-list">
+                  <li><strong>Cabeza de TV Retro:</strong> Muestra estática cuando colapsa por exceso de ideas.</li>
+                  <li><strong>Vestimenta:</strong> Remera blanca «SU MARCA AQUÍ», saco azul arrugado y pantalón a cuadros.</li>
+                  <li><strong>Pies y Cable:</strong> Medias desparejas, ojotas y cable suelto con enchufe arrastrando.</li>
+                  <li><strong>Vehículo:</strong> La Aurorita roja de 1978.</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <!-- Panel 3: MISTER NEGOCIOS -->
+          <div class="char-tab-panel" id="tab-mister" role="tabpanel">
+            <article class="character-dossier-card">
+              <div class="character-dossier-gallery">
+                <img src="assets/images/ficha-oficial-mister-negocios.jpg" alt="Ficha Oficial de Mister Negocios">
+              </div>
+              <div class="character-dossier-info">
+                <div class="dossier-tag-row">
+                  <span class="badge-stamp" style="background-color: #D4AF37; color: #000000;">04. EL ANTAGONISTA</span>
+                  <span style="font-weight: 700; font-size: 0.85rem; color: #555555;">GOLD MARKETING</span>
+                </div>
+                <h3 class="dossier-title">MISTER NEGOCIOS</h3>
+                <div class="dossier-quote-box">
+                  «El éxito no se logra, se aparenta.»
+                </div>
+                <ul class="dossier-list">
+                  <li><strong>Pantalla OLED 8K:</strong> Siempre muestra un gráfico de barras doradas en ascenso.</li>
+                  <li><strong>Outfit Millonario:</strong> Traje a medida, pañuelo de seda dorada, habano y reloj de oro.</li>
+                  <li><strong>Calzado:</strong> Air Jordans 10 Solid Gold relucientes.</li>
+                  <li><strong>Debilidad:</strong> Si se cae el WiFi de la suite o se apaga su pantalla, desaparece.</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <!-- Panel 4: DARKFELTIN -->
+          <div class="char-tab-panel" id="tab-darkfeltin" role="tabpanel">
+            <article class="character-dossier-card">
+              <div class="character-dossier-gallery">
+                <img src="assets/images/ficha-oficial-darkfeltin.jpg" alt="Ficha Oficial de Darkfeltin">
+              </div>
+              <div class="character-dossier-info">
+                <div class="dossier-tag-row">
+                  <span class="badge-stamp" style="background-color: #000000; border: 1px solid #D4AF37; color: #D4AF37;">01. LA TENTACIÓN</span>
+                  <span style="font-weight: 700; font-size: 0.85rem; color: #555555;">BLACK & GOLD BOT</span>
+                </div>
+                <h3 class="dossier-title">DARKFELTIN</h3>
+                <div class="dossier-quote-box">
+                  «El poder sin ética lo corrompe todo.»
+                </div>
+                <ul class="dossier-list">
+                  <li><strong>Ojos $:</strong> Símbolos de dólar en su visor en lugar de constelaciones.</li>
+                  <li><strong>Accesorios:</strong> Cadenas doradas pesadas y hombreras geométricas puntiagudas.</li>
+                  <li><strong>Filosofía:</strong> Automatizar la manipulación, el spam masivo y el humo rápido.</li>
+                  <li><strong>Conflicto:</strong> El gemelo oscuro que intenta arrebatarle el traje a Ofeltin.</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <!-- Panel 5: TITO, TITA & WEBY -->
+          <div class="char-tab-panel" id="tab-titotita" role="tabpanel">
+            <article class="character-dossier-card">
+              <div class="character-dossier-gallery">
+                <img src="assets/images/mecanica-tito-baul-ideasuras.jpg" alt="Mecánica de Tito y el Baúl de las Ideasuras">
+              </div>
+              <div class="character-dossier-info">
+                <div class="dossier-tag-row">
+                  <span class="badge-stamp" style="background-color: var(--color-azul);">EL MICROCOSMOS</span>
+                  <span style="font-weight: 700; font-size: 0.85rem; color: #555555;">¡FLOTAN SIN PATITAS!</span>
+                </div>
+                <h3 class="dossier-title">TITO, TITA & WEBY</h3>
+                <div class="dossier-quote-box">
+                  «Guardar una idea salva la ejecución de la anterior.»
+                </div>
+                <ul class="dossier-list">
+                  <li><strong>Weby (!):</strong> Botón físico ON/OFF. Al activarse, Tito y Tita se materializan en el aire.</li>
+                  <li><strong>Tita (La Ráfaga):</strong> Lamparita de cristal con filamento naranja neón cambiante.</li>
+                  <li><strong>Tito (El Chinchudo):</strong> Cerebrito azul (#129FE6) con anteojos que estampa el sello <em>NO AHORA</em>.</li>
+                  <li><strong>Regla de Oro:</strong> ¡Cero patitas! Ambos flotan suspendidos sobre el escritorio.</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <!-- Panel 6: CLEMENTE DEL LENTE -->
+          <div class="char-tab-panel" id="tab-clemente" role="tabpanel">
+            <article class="character-dossier-card">
+              <div class="character-dossier-gallery">
+                <img src="assets/images/clemente-del-lente-full-body-claqueta.jpg" alt="Clemente del Lente con levita de 1842 y claqueta oficial">
+              </div>
+              <div class="character-dossier-info">
+                <div class="dossier-tag-row">
+                  <span class="badge-stamp" style="background-color: var(--color-azul);">EL INVESTIGADOR</span>
+                  <span style="font-weight: 700; font-size: 0.85rem; color: #555555;">ERA DE 1842</span>
+                </div>
+                <h3 class="dossier-title">CLEMENTE DEL LENTE</h3>
+                <div class="dossier-quote-box">
+                  «El proceso lleva tiempo... Yo solo documento la verdad.»
+                </div>
+                <ul class="dossier-list">
+                  <li><strong>Look Victoriano:</strong> Levita de terciopelo negro y galera con placa de bronce remachada.</li>
+                  <li><strong>Cámara de Fuelle:</strong> Madera noble, fuelle de cuero y placa <em>«Sonrisa para la cámara...»</em>.</li>
+                  <li><strong>Reloj de Bolsillo:</strong> Cronómetro de Escenas grabado con <em>OFERTAS WEB</em>.</li>
+                  <li><strong>Claqueta Canónica:</strong> <em>PROD: Marketing Pedorro - DATE: 1842</em>.</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <!-- Panel 7: MICHAEL OFERTAS -->
+          <div class="char-tab-panel" id="tab-michael" role="tabpanel">
+            <article class="character-dossier-card">
+              <div class="character-dossier-gallery">
+                <img src="assets/images/michael-ofertas-full-body.png" alt="Michael Ofertas cuerpo completo con megáfono Ofertas Web">
+              </div>
+              <div class="character-dossier-info">
+                <div class="dossier-tag-row">
+                  <span class="badge-stamp" style="background-color: var(--color-verde);">EL GRITÓN DEL SET</span>
+                  <span style="font-weight: 700; font-size: 0.85rem; color: #555555;">PRESENTADOR POP</span>
+                </div>
+                <h3 class="dossier-title">MICHAEL OFERTAS</h3>
+                <div class="dossier-quote-box">
+                  «¡¡¡2x1 EN MARKETING SIN HUMO HOY MISMO!!!»
+                </div>
+                <ul class="dossier-list">
+                  <li><strong>Traje Pop-Art:</strong> Saco y pantalón con parches multicolor (¡PROHIBIDO EL AMARILLO!).</li>
+                  <li><strong>El Megáfono:</strong> Modelo retro en verde (#29AF32) y blanco con las manitos de Ofertas Web.</li>
+                  <li><strong>Manos de Vinilo:</strong> Guantes negro mate que hacen resaltar el megáfono.</li>
+                  <li><strong>Gag Cómico:</strong> Irrumpe en los susurros confidenciales de Clemente gritando la oferta del día.</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECCIÓN 9: CIERRE COMUNITARIO & NEWSLETTER (CASILLA 5 Y 6)
+         ====================================================================== -->
+    <section class="community-section" id="comunidad" aria-labelledby="community-title">
+      <div class="section-container">
+        
+        <header style="text-align: center; margin-bottom: 28px;">
+          <span class="badge-stamp" style="background-color: var(--color-rojo); margin-bottom: 8px;">CASILLA 05 / COMUNIDAD</span>
+          <h2 id="community-title" class="section-title">EL CANAL ANTI-HUMO</h2>
+          <p class="lead" style="max-width: 65ch; margin: 0 auto;">
+            Unite a la comunidad de emprendedores que eligen la claridad, el criterio y la ejecución real.
+          </p>
+        </header>
+
+        <!-- Pantalla Final Canónica de YouTube -->
+        <div style="background: #FFFFFF; border: var(--border-comic-heavy); box-shadow: var(--shadow-comic-lg); padding: 16px; max-width: 960px; margin: 0 auto 36px; text-align: center;">
+          <img 
+            src="assets/images/pantalla-final-sumate-canal.jpg" 
+            alt="Pantalla Final: Sumate al Canal en 3 pasos (1. Suscribite, 2. Comentá, 3. Compartilo)"
+            style="width: 100%; border: var(--border-comic-thin);"
+          >
+        </div>
+
+        <!-- Formulario de Suscripción -->
+        <div class="newsletter-card" style="max-width: 720px; margin: 0 auto;">
+          <h3 class="newsletter-title">RECIBÍ EL BOLETÍN SIN FILTRO</h3>
+          <p style="margin-bottom: 18px; font-size: 0.95rem; color: #444444;">
+            Una entrega semanal con desmontajes de estrategias, frameworks prácticos y cero spam.
+          </p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); alert('¡Bienvenido al Universo Marketing Pedorro!');">
+            <input type="email" placeholder="Tu correo electrónico..." required aria-label="Correo electrónico" class="newsletter-input">
+            <button type="submit" class="btn btn--primary">SUSCRIBIRME</button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================================
+       FOOTER CANÓNICO DE PRODUCCIÓN
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="brand-logo__main">MARKETING PEDORRO</span>
+        <span class="brand-logo__accent">!</span>
+        <p style="font-size: 0.85rem; color: #777777; margin-top: 6px;">
+          Universo narrativo creado para emprendedores reales. Del caos a la claridad.
+        </p>
+      </div>
+
+      <div class="footer-credits" style="font-size: 0.85rem; color: #555555; text-align: right;">
+        <p><strong>Dirección:</strong> Tío Andrés — <strong>Producción:</strong> Tío Claude</p>
+        <p><strong>Plataforma:</strong> Ofertas Web & DigitalMas.pro</p>
+        <p style="margin-top: 4px; font-size: 0.75rem; color: #888888;">© 2026 Marketing Pedorro. 100% Autónomo & Offline.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
