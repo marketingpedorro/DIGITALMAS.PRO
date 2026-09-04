@@ -12,7 +12,17 @@
 <body>
   <section id="authGate" class="auth-gate" aria-live="polite">
     <div class="auth-card">
-      <img src="../assets/kixiki-logo-v0.1.svg" alt="Kixiki Lanches" width="84" height="84">
+      <div class="auth-header-row">
+        <a href="../" class="auth-back-link" title="Voltar para a página principal">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span>Voltar ao site</span>
+        </a>
+        <div class="auth-logo-badge">
+          <img src="../assets/kixiki-logo-v0.1.svg" alt="Kixiki Lanches" width="80" height="80">
+        </div>
+      </div>
       <span class="eyebrow">C001 · ACESSO OPERACIONAL</span>
       <h1 id="authTitle">Painel do Dono</h1>
       <p id="authDescription">Entre para cuidar dos dados reais da Kixiki. A estrutura e a estratégia do site continuam protegidas pela DigitalMas.PRO.</p>
@@ -28,6 +38,7 @@
         </div>
         <button id="loginButton" class="primary-button" type="submit">Entrar com segurança</button>
         <button id="recoveryButton" class="text-button" type="button">Esqueci minha senha</button>
+        <a href="../" class="auth-back-button">← Voltar ao site Kixiki</a>
         <p id="loginMessage" class="form-message" role="alert"></p>
       </form>
 

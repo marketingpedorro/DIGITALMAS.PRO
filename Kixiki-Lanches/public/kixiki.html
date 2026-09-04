@@ -105,9 +105,19 @@
           </div>
       </div>
       
-      <!-- Ações secundárias: acesso do proprietário + seletor DIA/NOITE. -->
+      <!-- Ações secundárias: Kixiki FM + acesso do proprietário + seletor DIA/NOITE. -->
       <div class="kx-header-actions">
-        <a class="kx-owner-access" href="/dono/" aria-label="Acesso do proprietário" title="Acesso do proprietário">
+        <!-- REPRODUCTOR KIXIKI FM DINÁMICO -->
+        <div id="kx-radio-player" class="kx-audio-player" role="region" aria-label="Rádio Kixiki FM">
+          <button type="button" id="kx-audio-play-btn" class="kx-audio-btn" aria-label="Tocar música" title="Tocar jingle do Kixiki">▶</button>
+          <div class="kx-equalizer" aria-hidden="true" title="Kixiki FM">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <button type="button" id="kx-audio-switch-btn" class="kx-audio-track-toggle" title="Trocar entre versão rápida e versão acústica">v1</button>
+          <audio id="kx-audio-element" preload="none"></audio>
+        </div>
+
+        <a class="kx-owner-access" href="/dono/index.html" aria-label="Acesso do proprietário" title="Acesso do proprietário">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="8" cy="15" r="3.5"></circle>
             <path d="M10.6 12.6 20 3.2M16.4 6.8l2.8 2.8M14.2 9l2.2 2.2"></path>
@@ -130,11 +140,18 @@
   <div id="sticky-header-bar" class="sticky-offer-bar">
     <div class="sticky-inner">
       <div style="display: flex; align-items: center; gap: 0.5rem;">
-        <span style="font-weight: 800; font-size: 0.85rem; color: var(--text-main);" id="sticky-offer-title">🍲 Marmitas (R$ 25) • 🍔 Xis Gaúcho (R$ 28)</span>
-        <span class="sticky-price-badge" id="sticky-offer-price" style="background: rgba(16,185,129,0.2); color: #34D399; border: 1px solid var(--primary-emerald); font-weight: 800; font-size: 0.75rem; padding: 2px 8px; border-radius: 6px;">4.7 ★</span>
+        <span id="sticky-offer-title">🍲 Marmitas (R$ 25) • 🍔 Xis Gaúcho (R$ 28)</span>
+        <span class="sticky-price-badge" id="sticky-offer-price">4.7 ★</span>
       </div>
-      <a href="https://wa.me/48988048681?text=Olá!%20Vim%20pela%20barra%20flutuante%20do%20site%20e%20gostaria%20de%20fazer%20um%20pedido%20no%20Kixiki%20Lanches!" target="_blank" class="sticky-cta-btn" id="sticky-offer-btn" style="background: #34D399; color: #000000; font-weight: 800; text-decoration: none; padding: 8px 18px; border-radius: 8px; font-size: 0.82rem; display: inline-flex; align-items: center; gap: 6px;">
-        Pedir no WhatsApp
+      <a href="https://wa.me/48988048681?text=Olá!%20Vim%20pela%20barra%20flutuante%20do%20site%20e%20gostaria%20de%20fazer%20um%20pedido%20no%20Kixiki%20Lanches!" target="_blank" class="sticky-cta-btn" id="sticky-offer-btn">
+        <span class="ze-radar-ring"></span>
+        <span class="ze-radar-ring"></span>
+        <span class="ze-radar-ring"></span>
+        <span class="wa-unread-badge">1</span>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="#ffffff" style="display:block; flex-shrink:0;">
+          <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 16.58c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.32c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.02 4.54-3.68 8.24-8.23 8.24zm4.52-6.17c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.74 2.66 4.21 3.73.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.12-.23-.19-.48-.31z"/>
+        </svg>
+        <span class="sticky-btn-text">Pedir no WhatsApp</span>
       </a>
     </div>
   </div>
@@ -189,21 +206,179 @@
       </div>
 
       <div class="kx-hero-visual" aria-label="Xis Gaúcho do Kixiki">
-        <div class="kx-hero-photo-wrap">
-          <img
-            src="assets/xis-gaucho-768.webp"
-            srcset="assets/xis-gaucho-480.webp 480w, assets/xis-gaucho-768.webp 768w, assets/xis-gaucho-960.webp 960w"
-            sizes="(max-width: 820px) calc(100vw - 48px), 44vw"
-            width="960"
-            height="717"
-            alt="Xis Gaúcho prensado do Kixiki"
-            fetchpriority="high"
-            decoding="async">
+        <div class="kx-hero-photo-stage" style="position: relative;">
+          <div class="kx-hero-photo-wrap">
+            <img
+              src="assets/xis-gaucho-768.webp"
+              srcset="assets/xis-gaucho-480.webp 480w, assets/xis-gaucho-768.webp 768w, assets/xis-gaucho-960.webp 960w"
+              sizes="(max-width: 820px) calc(100vw - 48px), 44vw"
+              width="960"
+              height="717"
+              alt="Xis Gaúcho prensado do Kixiki"
+              fetchpriority="high"
+              decoding="async">
+          </div>
+          <div class="kx-hero-seal" aria-hidden="true">
+            <strong>Feito na hora</strong>
+            <span>em Santo Antônio</span>
+          </div>
         </div>
-        <div class="kx-hero-seal" aria-hidden="true">
-          <strong>Feito na hora</strong>
-          <span>em Santo Antônio</span>
+
+        <!-- CLUSTER FAMILIA DE MASCOTAS KIXIKI (3X GRANDES, ABAJO Y ANIMACIONES INDIVIDUALES) -->
+        <div class="kx-hero-mascots-cluster" aria-hidden="true">
+          
+          <div class="kx-mascot-circle kx-mascot-marmita">
+            <img src="assets/kixiki-marmita-mascot-v1.svg" alt="" width="80" height="80" loading="lazy">
+            <div class="kx-magic-tooltip">
+              <span style="--i:1">M</span><span style="--i:2">A</span><span style="--i:3">R</span><span style="--i:4">M</span><span style="--i:5">I</span><span style="--i:6">T</span><span style="--i:7">A</span><span style="--i:8">S</span>
+            </div>
+            <div class="kx-speech-bubble">Vamos lá! 🍲</div>
+          </div>
+
+          <div class="kx-mascot-circle kx-mascot-burger">
+            <img src="assets/kixiki-burger-mascot-v1.svg" alt="" width="92" height="92" loading="lazy">
+            <div class="kx-magic-tooltip">
+              <span style="--i:1">X</span><span style="--i:2">I</span><span style="--i:3">S</span>
+            </div>
+            <div class="kx-speech-bubble">Baita Xis! 🍔</div>
+          </div>
+
+          <div class="kx-mascot-circle kx-mascot-pastel">
+            <img src="assets/kixiki-pastel-mascot-v1.svg" alt="" width="84" height="84" loading="lazy">
+            <div class="kx-magic-tooltip">
+              <span style="--i:1">P</span><span style="--i:2">A</span><span style="--i:3">S</span><span style="--i:4">T</span><span style="--i:5">É</span><span style="--i:6">I</span><span style="--i:7">S</span>
+            </div>
+            <div class="kx-speech-bubble">Bem crocante! 🥟</div>
+          </div>
+
+          <div class="kx-mascot-circle kx-mascot-porcao">
+            <img src="assets/kixiki-porcao-mascot-v1.svg" alt="" width="86" height="86" loading="lazy">
+            <div class="kx-magic-tooltip">
+              <span style="--i:1">F</span><span style="--i:2">R</span><span style="--i:3">I</span><span style="--i:4">T</span><span style="--i:5">A</span><span style="--i:6">S</span>
+            </div>
+            <div class="kx-speech-bubble">Bora fritar! 🍟</div>
+          </div>
+
         </div>
+
+        <!-- Lógica de Click Universal (Micro-Interacción & Scroll) -->
+        <script>
+          document.querySelectorAll('.kx-mascot-circle').forEach(circle => {
+            circle.addEventListener('click', function(e) {
+              if (this.classList.contains('kx-is-clicked')) return;
+              this.classList.add('kx-is-clicked');
+              
+              // Detectar qué familia es según la clase de la mascota
+              let prefix = '';
+              if (this.classList.contains('kx-mascot-marmita')) prefix = 'marmita-';
+              else if (this.classList.contains('kx-mascot-burger')) prefix = 'xis-';
+              else if (this.classList.contains('kx-mascot-pastel')) prefix = 'pas-';
+              else if (this.classList.contains('kx-mascot-porcao')) prefix = 'por-';
+
+              setTimeout(() => {
+                let target = null;
+                // Buscar la primera tarjeta (card) que coincida con esa categoría
+                if (prefix) target = document.querySelector(`[data-kixiki-product^="${prefix}"]`);
+                // Fallback: si no la encuentra, va al inicio del menú
+                if (!target) target = document.getElementById('sec-cardapio');
+                
+                if(target) {
+                  const offset = target.getBoundingClientRect().top + window.pageYOffset - 110;
+                  window.scrollTo({ top: offset, behavior: 'smooth' });
+                }
+                setTimeout(() => this.classList.remove('kx-is-clicked'), 1000);
+              }, 1000); // 1 segundo de espera de festejo
+            });
+          });
+
+          // Control del Reproductor Kixiki FM (Audio + Ecualizador)
+          (function initKixikiRadio() {
+            const player = document.getElementById('kx-radio-player');
+            const playBtn = document.getElementById('kx-audio-play-btn');
+            const audio = document.getElementById('kx-audio-element');
+            const switchBtn = document.getElementById('kx-audio-switch-btn');
+            if (!player || !playBtn || !audio || !switchBtn) return;
+
+            const tracks = [
+              { name: 'Party Anthem', file: 'assets/music/kixiki-party-anthem.mp3' },
+              { name: 'Fast Jingle', file: 'assets/music/kixiki-fast-jingle.mp3' }
+            ];
+            let currentTrack = 0;
+
+            audio.src = tracks[currentTrack].file;
+
+            function togglePlay(e) {
+              if (e) e.stopPropagation();
+              if (audio.paused) {
+                audio.play().then(() => {
+                  player.classList.add('is-playing');
+                  playBtn.textContent = '❚❚';
+                  playBtn.setAttribute('title', 'Pausar jingle do Kixiki');
+                }).catch(err => {
+                  console.error('Audio play error:', err);
+                });
+              } else {
+                audio.pause();
+                player.classList.remove('is-playing');
+                playBtn.textContent = '▶';
+                playBtn.setAttribute('title', 'Tocar jingle do Kixiki');
+              }
+            }
+
+            function switchTrack(e) {
+              if (e) e.stopPropagation();
+              currentTrack = (currentTrack + 1) % tracks.length;
+              switchBtn.textContent = 'v' + (currentTrack + 1);
+              switchBtn.setAttribute('title', 'Tocando ' + tracks[currentTrack].name + ' (Clique para trocar)');
+              const wasPlaying = !audio.paused;
+              audio.src = tracks[currentTrack].file;
+              if (wasPlaying) {
+                audio.play().catch(() => {});
+              }
+            }
+
+            player.addEventListener('click', togglePlay);
+            switchBtn.addEventListener('click', switchTrack);
+            audio.addEventListener('ended', () => {
+              player.classList.remove('is-playing');
+              playBtn.textContent = '▶';
+            });
+
+            // Autoplay inteligente (con desbloqueo en cualquier interacción)
+            function startAudioPlayback() {
+              if (audio.paused) {
+                audio.play().then(() => {
+                  player.classList.add('is-playing');
+                  playBtn.textContent = '❚❚';
+                  playBtn.setAttribute('title', 'Pausar jingle do Kixiki');
+                }).catch(() => {});
+              }
+            }
+
+            function attemptAutoplay() {
+              audio.play().then(() => {
+                player.classList.add('is-playing');
+                playBtn.textContent = '❚❚';
+                playBtn.setAttribute('title', 'Pausar jingle do Kixiki');
+              }).catch(() => {
+                // Si el navegador bloqueó el autoplay sin interacción, se activa con el primer gesto
+                const events = ['pointerdown', 'mousedown', 'keydown', 'scroll', 'touchstart'];
+                const unlockOnGesture = function() {
+                  startAudioPlayback();
+                  events.forEach(evt => window.removeEventListener(evt, unlockOnGesture, true));
+                };
+                events.forEach(evt => window.addEventListener(evt, unlockOnGesture, { capture: true, once: true }));
+              });
+            }
+
+            // Intentar reproducir apenas cargue
+            if (document.readyState === 'complete') {
+              attemptAutoplay();
+            } else {
+              window.addEventListener('load', attemptAutoplay);
+            }
+          })();
+        </script>
       </div>
     </section>
 
@@ -220,12 +395,11 @@
         <div class="kx-food-card">
           <div class="kx-food-img-wrapper">
             <img
-              src="assets/marmita-caseira-768.webp"
-              srcset="assets/marmita-caseira-480.webp 480w, assets/marmita-caseira-768.webp 768w, assets/marmita-caseira-960.webp 960w"
+              src="assets/marmita-m-real.jpg"
               sizes="(max-width: 820px) calc(100vw - 48px), 42vw"
-              width="960"
-              height="717"
-              alt="Marmita Caseira Executiva Kixiki"
+              width="640"
+              height="640"
+              alt="Marmita Caseira Tradicional Kixiki Lanches"
               loading="lazy"
               decoding="async">
           </div>
@@ -244,12 +418,11 @@
         <div class="kx-food-card">
           <div class="kx-food-img-wrapper">
             <img
-              src="assets/xis-gaucho-768.webp"
-              srcset="assets/xis-gaucho-480.webp 480w, assets/xis-gaucho-768.webp 768w, assets/xis-gaucho-960.webp 960w"
+              src="assets/xis-strogonoff-real.jpg"
               sizes="(max-width: 820px) calc(100vw - 48px), 42vw"
-              width="960"
-              height="717"
-              alt="Xis Gaúcho Tradicional Prensado Kixiki"
+              width="640"
+              height="640"
+              alt="Xis Gaúcho Prensado Kixiki Lanches"
               loading="lazy"
               decoding="async">
           </div>

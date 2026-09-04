@@ -100,6 +100,7 @@ export const createProductWhatsappUrl = (product) => {
 
 const safeProductPhoto = (value) => {
   if (typeof value !== "string" || !value) return "";
+  if (value.startsWith("/assets/") || value.startsWith("assets/")) return value;
   if (value.startsWith("/api/kixiki-product-image?")) return value;
   try {
     const parsed = new URL(value);
@@ -122,13 +123,16 @@ export const buildProductCardMarkup = (product) => {
   if (!id || !name) return "";
   const family = familyForProduct(id);
   const fallback = fallbackForProduct(id);
-  const photo = safeProductPhoto(product.photoUrl);
+  const photo = safeProductPhoto(product.photoUrl) || (product.photoUrl === undefined ? (SAMPLE_DEMO_DATA[id]?.photoUrl || "") : "");
   const imageSrc = photo || fallback;
   const imageAlt = photo ? `${name} do Kixiki Lanches` : `Ilustração do Kixiki para ${name}`;
   const price = Number.isInteger(product.priceCents) ? money(product.priceCents) : "";
   const whatsapp = createProductWhatsappUrl(product);
-  const ingredients = ingredientItems(product.ingredients);
+  const rawIngredients = product.ingredients !== undefined ? product.ingredients : (SAMPLE_DEMO_DATA[id]?.ingredients || "");
+  const ingredients = ingredientItems(rawIngredients);
   const backId = `kx-menu-back-${id}`;
+
+  const isSpecialSticker = Boolean(photo);
 
   return `<article class="kx-menu-card" data-kixiki-product="${escapeHtml(id)}">
     <div class="kx-menu-flip" role="button" tabindex="0" aria-expanded="false" aria-controls="${escapeHtml(backId)}" aria-label="Ver detalhes de ${escapeHtml(name)}">
@@ -137,6 +141,7 @@ export const buildProductCardMarkup = (product) => {
           <div class="kx-menu-photo">
             <img src="${escapeHtml(imageSrc)}" data-kx-fallback="${escapeHtml(fallback)}" data-kx-fallback-alt="${escapeHtml(`Ilustração do Kixiki para ${name}`)}" class="${photo ? "" : "is-fallback"}" width="640" height="480" loading="lazy" decoding="async" alt="${escapeHtml(imageAlt)}">
             <span class="kx-menu-category">${escapeHtml(MENU_CATEGORY[family])}</span>
+            ${photo && isSpecialSticker ? `<div class="kx-mascot-sticker" title="Mascote Kixiki" aria-hidden="true" style="position: absolute; bottom: 12px; right: 12px; width: 54px; height: 54px; background: #012b18; border-radius: 50%; padding: 6px; box-shadow: 0 4px 14px rgba(0, 30, 16, 0.5), inset 0 1px 2px rgba(248, 182, 47, 0.6); border: 2.5px solid #f8b62f; display: flex; align-items: center; justify-content: center; z-index: 2; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);"><img src="${escapeHtml(fallback)}" alt="" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));"></div>` : ""}
           </div>
           <div class="kx-menu-front-copy">
             <h3>${escapeHtml(name)}</h3>
@@ -145,7 +150,10 @@ export const buildProductCardMarkup = (product) => {
           </div>
         </section>
         <section id="${escapeHtml(backId)}" class="kx-menu-face kx-menu-back" aria-hidden="true" aria-label="Detalhes de ${escapeHtml(name)}">
-          <span class="kx-menu-category">${escapeHtml(MENU_CATEGORY[family])}</span>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; border-bottom: 1px dashed rgba(1, 43, 24, 0.15); padding-bottom: 6px;">
+            <span class="kx-menu-category">${escapeHtml(MENU_CATEGORY[family])}</span>
+            <img src="${escapeHtml(fallback)}" alt="Mascote" style="width: 34px; height: 34px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));" loading="lazy" aria-hidden="true">
+          </div>
           <div class="kx-menu-back-copy">
             <h3>${escapeHtml(name)}</h3>
             ${product.description ? `<p>${escapeHtml(product.description)}</p>` : ""}
@@ -171,17 +179,102 @@ const parseStaticPrice = (value) => {
   return Number.isFinite(amount) ? Math.round(amount * 100) : null;
 };
 
+const SAMPLE_DEMO_DATA = {
+  // MARMITAS
+  "marmita-p": {
+    photoUrl: "/assets/marmita-p-real.jpg",
+    ingredients: "Arroz soltinho, feijão caseiro, bife bovino suculento, batatas fritas douradas e purê cremoso",
+  },
+  "marmita-m": {
+    photoUrl: "/assets/marmita-m-real.jpg",
+    ingredients: "Arroz soltinho, feijão caseiro, espaguete ao molho, couve refogada, aipim cozido, bife suculento, farofa crocante",
+  },
+  "marmita-gg": {
+    photoUrl: "/assets/marmita-gg-real.jpg",
+    ingredients: "Bife empanado crocante, espaguete salteado com legumes, tiras de carne, farofa especial e ovo de codorna",
+  },
+
+  // XIS GAÚCHO
+  "xis-salada": {
+    photoUrl: "/assets/xis-salada-real.jpg",
+    ingredients: "Maionese artesanal, hambúrguer, mussarela derretida, alface fresca, tomate, milho, ervilha, ovo na chapa",
+  },
+  "xis-bacon": {
+    photoUrl: "/assets/xis-bacon-real.jpg",
+    ingredients: "Bacon crocante em dobro, hambúrguer, mussarela derretida, maionese, milho, ervilha, tomate, ovo",
+  },
+  "xis-calabresa": {
+    photoUrl: "/assets/xis-calabresa-real.jpg",
+    ingredients: "Calabresa fatiada dourada na chapa, hambúrguer, mussarela, maionese, milho, ervilha, tomate",
+  },
+  "xis-frango": {
+    photoUrl: "/assets/xis-frango-real.jpg",
+    ingredients: "Frango desfiado suculento bem temperado, mussarela derretida, maionese artesanal, milho, ervilha, tomate",
+  },
+  "xis-strogonoff": {
+    photoUrl: "/assets/xis-strogonoff-real.jpg",
+    ingredients: "Strogonoff cremoso caseiro com carne macia, batata palha fininha, mussarela derretida, milho e maionese",
+  },
+  "xis-coracao": {
+    photoUrl: "",
+    ingredients: "Coração de frango grelhado e temperado na chapa, hambúrguer, mussarela derretida, maionese, milho, ervilha, tomate",
+  },
+  "xis-egg": {
+    photoUrl: "",
+    ingredients: "Ovo duplo na chapa, hambúrguer artesanal, mussarela derretida, maionese, milho, ervilha, tomate",
+  },
+  "xis-tudo": {
+    photoUrl: "/assets/xis-tudo-real.jpg",
+    ingredients: "O mais completo: carne salteada, bacon crocante, calabresa, frango desfiado, ovo, mussarela derretida, milho, ervilha",
+  },
+
+  // PASTÉIS CASEIROS
+  "pas-carne": {
+    photoUrl: "",
+    ingredients: "Massa caseira crocante e sequinha recheada com carne moída temperada ou frango desfiado",
+  },
+  "pas-queijo": {
+    photoUrl: "",
+    ingredients: "Massa caseira crocante e sequinha recheada com queijo mussarela derretido e douradinho",
+  },
+  "pas-pizza": {
+    photoUrl: "",
+    ingredients: "Mussarela derretida, presunto fatiado, tomate fresco em cubos e toque de orégano",
+  },
+  "pas-calabresa": {
+    photoUrl: "",
+    ingredients: "Calabresa moída bem temperada acompanhada de muita mussarela derretida",
+  },
+
+  // PORÇÕES & PETISCOS
+  "por-batata": {
+    photoUrl: "/assets/por-batata-real.jpg",
+    ingredients: "Porção generosa de batatas fritas sequinhas, crocantes e douradas com sal na medida certa",
+  },
+  "por-bacon": {
+    photoUrl: "",
+    ingredients: "Batata frita crocante coberta com molho de queijo cremoso e muito bacon crocante",
+  },
+  "por-morro": {
+    photoUrl: "",
+    ingredients: "Morro gigante de batatas fritas crocantes com queijo derretido, bacon em cubos e calabresa",
+  },
+};
+
 const staticMenuProducts = (documentRef) =>
   PRODUCT_SLOTS.flatMap(({ slot, ids }) => {
     const elements = elementsForSlot(documentRef, slot);
     const name = elements.name?.textContent?.trim();
     if (!name) return [];
+    const id = ids[0];
+    const demo = SAMPLE_DEMO_DATA[id] || {};
     return [{
-      id: ids[0],
+      id,
       name,
       priceCents: parseStaticPrice(elements.price?.textContent),
       description: elements.description?.textContent?.trim() || "",
-      ingredients: "",
+      ingredients: demo.ingredients || "",
+      photoUrl: demo.photoUrl || "",
       active: true,
     }];
   });

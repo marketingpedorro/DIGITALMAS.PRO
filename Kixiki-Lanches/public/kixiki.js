@@ -11,7 +11,7 @@
     let lastState = null;
 
     function update() {
-      const isScrolled = window.scrollY > 120;
+      const isScrolled = window.scrollY > 380;
       if (isScrolled !== lastState) {
         bar.classList.toggle("visible", isScrolled);
         lastState = isScrolled;
