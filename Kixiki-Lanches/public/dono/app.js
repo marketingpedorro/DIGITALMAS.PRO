@@ -1176,9 +1176,21 @@ const renderCatalog = () => {
   $$('[data-product-remove]').forEach((button) =>
     button.addEventListener("click", () => {
       const index = Number(button.dataset.productRemove);
-      const itemName = ownerData.catalog[index]?.name || "este item";
-      if (!confirm(`⚠️ ATENÇÃO: Deseja realmente remover “${itemName}” do cardápio?`)) return;
-      if (!confirm(`⚠️ CONFIRMAÇÃO FINAL: Tem certeza absoluta? “${itemName}” será excluído das configurações.`)) return;
+      const item = ownerData.catalog[index];
+      const itemName = item?.name || "este item";
+      if (item?.active) {
+        const wantDeactivate = confirm(
+          `💡 DICA DE SEGURANÇA:\nEm vez de excluir permanentemente “${itemName}”, você prefere apenas DESATIVAR (ocultar) do cardápio público?\n\n• Clique em OK para apenas DESATIVAR (mais seguro e mantém os dados).\n• Clique em Cancelar se deseja EXCLUIR definitivamente.`,
+        );
+        if (wantDeactivate) {
+          item.active = false;
+          renderCatalog();
+          markProductChanged(index);
+          return;
+        }
+      }
+      if (!confirm(`⚠️ ATENÇÃO: Deseja realmente excluir “${itemName}” do cardápio?`)) return;
+      if (!confirm(`⚠️ CONFIRMAÇÃO FINAL: Tem certeza absoluta? Todos os dados de “${itemName}” serão removidos.`)) return;
       ownerData.catalog.splice(index, 1);
       renderCatalog();
       markChanged({ rerenderSummary: false });
