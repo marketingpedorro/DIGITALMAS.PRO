@@ -152,6 +152,21 @@ const PRODUCT_FALLBACKS = Object.freeze({
   item: "/assets/kixiki-logo-v0.1.svg",
 });
 
+const DEFAULT_CATALOG_PHOTOS = Object.freeze({
+  "marmita-p": "/assets/marmita-p-real.jpg",
+  "marmita-m": "/assets/marmita-m-real.jpg",
+  "marmita-gg": "/assets/marmita-gg-real.jpg",
+  "xis-salada": "/assets/xis-salada-real.jpg",
+  "xis-bacon": "/assets/xis-bacon-real.jpg",
+  "xis-calabresa": "/assets/xis-calabresa-real.jpg",
+  "xis-frango": "/assets/xis-frango-real.jpg",
+  "xis-strogonoff": "/assets/xis-strogonoff-real.jpg",
+  "xis-tudo": "/assets/xis-tudo-real.jpg",
+  "por-batata": "/assets/por-batata-real.jpg",
+});
+
+const defaultPhotoForProduct = (productId) => DEFAULT_CATALOG_PHOTOS[productId] || "";
+
 const productFamily = (productId) => {
   const prefix = String(productId || "").split("-")[0];
   return Object.hasOwn(PRODUCT_FALLBACKS, prefix) ? prefix : "item";
@@ -163,10 +178,10 @@ const productPhotoUrl = (item) => {
   if (item?.photoAssetVersion) {
     return `${API.productImage}?product=${encodeURIComponent(item.id)}&v=${encodeURIComponent(item.photoAssetVersion)}`;
   }
-  return item?.photoUrl || "";
+  return item?.photoUrl || defaultPhotoForProduct(item?.id) || "";
 };
 
-const hasProductPhoto = (item) => Boolean(item?.photoAssetVersion || item?.photoUrl);
+const hasProductPhoto = (item) => Boolean(item?.photoAssetVersion || item?.photoUrl || defaultPhotoForProduct(item?.id));
 
 const canvasToBlob = (canvas, type, quality) =>
   new Promise((resolve) => canvas.toBlob(resolve, type, quality));
@@ -1161,7 +1176,9 @@ const renderCatalog = () => {
   $$('[data-product-remove]').forEach((button) =>
     button.addEventListener("click", () => {
       const index = Number(button.dataset.productRemove);
-      if (!confirm(`Remover “${ownerData.catalog[index].name || "este item"}” do painel?`)) return;
+      const itemName = ownerData.catalog[index]?.name || "este item";
+      if (!confirm(`⚠️ ATENÇÃO: Deseja realmente remover “${itemName}” do cardápio?`)) return;
+      if (!confirm(`⚠️ CONFIRMAÇÃO FINAL: Tem certeza absoluta? “${itemName}” será excluído das configurações.`)) return;
       ownerData.catalog.splice(index, 1);
       renderCatalog();
       markChanged({ rerenderSummary: false });
